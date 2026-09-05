@@ -1,36 +1,91 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 🎟️ Tiqora - Events & Sports Match Ticketing Platform
 
-## Getting Started
+Tiqora is an event booking website for football matches, sports showdowns, and live events. Built with **Next.js 16 (App Router & React Server Components)**, **TypeScript**, **Tailwind CSS**, and modern cloud services.
 
-First, run the development server:
+---
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+## ⚡ Tech Stack
+
+| Layer | Technology |
+| :--- | :--- |
+| **Framework** | [Next.js](https://nextjs.org/) (App Router, React Server Components, Node.js runtime) |
+| **Language** | [TypeScript](https://www.typescriptlang.org/) |
+| **Styling** | [Tailwind CSS v4](https://tailwindcss.com/) |
+| **Database & Auth** | [Supabase](https://supabase.com/) (`@supabase/ssr`, `@supabase/supabase-js`) |
+| **Storage** | [Supabase Storage](https://supabase.com/storage) |
+| **Validation** | [Zod](https://zod.dev/) |
+| **UI Alerts** | [Sonner](https://sonner.emilkowal.ski/) |
+| **Emails** | [Resend](https://resend.com/) |
+| **Payments** | [Stripe](https://stripe.com/) (`stripe`, `@stripe/stripe-js`) |
+| **Icons** | [Lucide React](https://lucide.dev/) |
+| **Hosting** | [Vercel](https://vercel.com/) |
+
+---
+
+## 📁 Directory Structure
+
+```
+├── public/
+│   ├── Tiqora logo.png               # Official Tiqora brand logo
+│   └── logo.png                      # Alias brand logo
+├── src/
+│   ├── app/
+│   │   ├── layout.tsx                # Root layout with fonts, Tiqora header, footer, & Sonner Toaster
+│   │   ├── page.tsx                  # Tiqora homepage (React Server Component)
+│   │   └── globals.css               # Tailwind CSS v4 styling & dark theme tokens
+│   ├── components/
+│   │   ├── layout/                   # Tiqora Navbar & Footer
+│   │   └── ui/                       # Button, Badge, Toaster (Sonner wrapper)
+│   ├── lib/
+│   │   ├── supabase/
+│   │   │   ├── client.ts             # Browser Supabase client (using Publishable key)
+│   │   │   ├── server.ts             # Server Supabase client (using cookies & RSC)
+│   │   │   └── middleware.ts         # Supabase Auth session refresh helper
+│   │   ├── stripe.ts                 # Stripe Node SDK instance
+│   │   ├── resend.ts                 # Resend email client instance
+│   │   └── utils.ts                  # Utility functions (cn class merger)
+│   └── middleware.ts                 # Next.js middleware for session refreshing
+├── .env.example                      # Environment variables template
+├── .env.local                        # Local development variables
+├── AGENTS.md                         # Guidelines and rules for AI agents
+├── package.json
+└── tsconfig.json
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+---
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## 🚀 Getting Started
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### 1. Environment Variables
+Fill in your credentials in `.env.local` (copied from `.env.example`):
 
-## Learn More
+```env
+# Application URL
+NEXT_PUBLIC_APP_URL=http://localhost:3000
 
-To learn more about Next.js, take a look at the following resources:
+# Supabase (Publishable & Secret keys)
+NEXT_PUBLIC_SUPABASE_URL=https://your-project.supabase.co
+NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY=your-supabase-publishable-key
+SUPABASE_SECRET_KEY=your-supabase-secret-key
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+# Stripe
+NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY=pk_test_...
+STRIPE_SECRET_KEY=sk_test_...
+STRIPE_WEBHOOK_SECRET=whsec_...
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+# Resend
+RESEND_API_KEY=re_...
+RESEND_FROM_EMAIL=onboarding@resend.dev
+```
 
-## Deploy on Vercel
+### 2. Run Locally
+```bash
+npm run dev
+```
+Open [http://localhost:3000](http://localhost:3000) to view the application.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+### 3. Build for Production
+```bash
+npm run build
+npm run start
+```
