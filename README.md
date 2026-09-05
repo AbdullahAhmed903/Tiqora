@@ -44,7 +44,7 @@ Tiqora is an event booking website for football matches, sports showdowns, and l
 │   │   ├── stripe.ts                 # Stripe Node SDK instance
 │   │   ├── resend.ts                 # Resend email client instance
 │   │   └── utils.ts                  # Utility functions (cn class merger)
-│   └── middleware.ts                 # Next.js middleware for session refreshing
+│   └── proxy.ts                      # Next.js 16 Proxy handler (session refreshing)
 ├── .env.example                      # Environment variables template
 ├── .env.local                        # Local development variables
 ├── AGENTS.md                         # Guidelines and rules for AI agents
