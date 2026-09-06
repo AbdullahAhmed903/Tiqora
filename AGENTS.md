@@ -96,3 +96,14 @@ This document defines architecture, conventions, and operational rules for AI ag
 1. Run `npm run build` to verify there are zero TypeScript compilation or Next.js build errors.
 2. Run `npm run lint` to confirm ESLint checks pass.
 3. Ensure no secrets are committed to `.env` or tracking files (`.env.local` is git-ignored).
+
+---
+
+## 6. Pull Request Review Checklist
+
+Whenever reviewing pull requests or team member submissions, strictly enforce the guidelines in `docs/PR_REVIEW_CHECKLIST.md` and the `/review-pr` skill (`.agents/skills/review-pr/SKILL.md`). Key rules include:
+- PRs must target `dev` (never `main`).
+- `src/components/ui/` primitives are read-only and must not be arbitrarily modified.
+- Strict directory structure: shared types in `src/types/`, validation schemas in `src/lib/validations/`, server actions in `src/app/actions/`.
+- No second animation library (Framer Motion is the sole approved animation engine).
+- Strictly zero force-pushing (`git push --force` or `-f`).
