@@ -3,7 +3,7 @@ import { AuthHeroBanner } from "./hero-banner";
 import { cn } from "@/lib/utils";
 
 interface AuthSplitCardProps {
-  type: "login" | "signup";
+  type: "login" | "signup" | "forgot-password" | "reset-password" | "admin-login";
   children: React.ReactNode;
   className?: string;
 }
