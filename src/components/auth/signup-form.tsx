@@ -1,21 +1,83 @@
 "use client";
 
 import * as React from "react";
+import { useRouter } from "next/navigation";
 import Link from "next/link";
-import { Mail, User } from "lucide-react";
+import { Mail, User, Loader2, CheckCircle2 } from "lucide-react";
+import { toast } from "sonner";
 import { GoogleButton } from "./google-button";
 import { PasswordInput } from "./password-input";
 import { TrustBadges } from "./trust-badges";
 import { Button } from "@/components/ui/button";
+import { signUpAction } from "@/app/actions/auth";
 
 export function SignupForm() {
+  const router = useRouter();
   const [username, setUsername] = React.useState("");
   const [email, setEmail] = React.useState("");
   const [password, setPassword] = React.useState("");
+  const [isLoading, setIsLoading] = React.useState(false);
+  const [emailConfirmationRequired, setEmailConfirmationRequired] = React.useState(false);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    if (!username || !email || !password) return;
+
+    if (password.length < 8) {
+      toast.error("Password must be at least 8 characters long.");
+      return;
+    }
+
+    setIsLoading(true);
+    try {
+      const res = await signUpAction({ username, email, password });
+      if (res.success) {
+        if (res.requiresEmailConfirmation) {
+          setEmailConfirmationRequired(true);
+          toast.success("Account created! Please check your email to verify.");
+        } else {
+          toast.success("Account created successfully!");
+          router.push("/");
+          router.refresh();
+        }
+      } else {
+        toast.error(res.error || "Failed to create account.");
+      }
+    } catch {
+      toast.error("An unexpected error occurred during sign up.");
+    } finally {
+      setIsLoading(false);
+    }
   };
+
+  if (emailConfirmationRequired) {
+    return (
+      <div className="flex flex-col space-y-6 w-full text-zinc-900 dark:text-white py-2">
+        <div className="flex flex-col items-center text-center space-y-3">
+          <div className="w-14 h-14 rounded-full bg-blue-50 dark:bg-blue-950/50 border border-blue-200 dark:border-blue-800 flex items-center justify-center text-[#2563EB] shadow-xs">
+            <CheckCircle2 className="w-7 h-7" />
+          </div>
+          <h1 className="text-2xl font-extrabold tracking-tight text-zinc-900 dark:text-white">
+            Verify your email
+          </h1>
+          <p className="text-xs sm:text-sm text-zinc-500 dark:text-zinc-400 max-w-sm">
+            We sent a verification link to <span className="font-semibold text-zinc-900 dark:text-white">{email}</span>. Click the link in the email to activate your account.
+          </p>
+        </div>
+
+        <div className="pt-2">
+          <Link href="/login">
+            <Button
+              type="button"
+              className="w-full bg-[#2563EB] hover:bg-[#1D4ED8] text-white font-semibold py-3 rounded-xl shadow-xs transition-all cursor-pointer"
+            >
+              Proceed to Sign in
+            </Button>
+          </Link>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="flex flex-col space-y-5 w-full text-zinc-900 dark:text-white">
@@ -102,7 +164,7 @@ export function SignupForm() {
             id="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
-            placeholder="Create a password"
+            placeholder="Min 8 characters"
             required
           />
         </div>
@@ -110,10 +172,18 @@ export function SignupForm() {
         {/* Action Button */}
         <Button
           type="submit"
+          disabled={isLoading}
           size="lg"
-          className="w-full bg-[#2563EB] hover:bg-[#1D4ED8] text-white font-semibold py-3 rounded-xl shadow-xs transition-all mt-2 cursor-pointer"
+          className="w-full bg-[#2563EB] hover:bg-[#1D4ED8] text-white font-semibold py-3 rounded-xl shadow-xs transition-all mt-2 cursor-pointer disabled:opacity-70"
         >
-          Sign up
+          {isLoading ? (
+            <span className="flex items-center justify-center gap-2">
+              <Loader2 className="w-4 h-4 animate-spin" />
+              Creating account...
+            </span>
+          ) : (
+            "Sign up"
+          )}
         </Button>
 
         {/* Already have an account switch link under Sign up button */}

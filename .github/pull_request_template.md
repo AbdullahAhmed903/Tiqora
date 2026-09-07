@@ -21,8 +21,6 @@ Closes #
 - [ ] UI notifications use `sonner` (`toast.success()`, `toast.error()`).
 - [ ] Next.js 16 conventions followed:
   - React Server Components (RSC) by default; interactive components marked `"use client";`.
-  - Auth sessions refreshed in `src/proxy.ts` (no deprecated `middleware.ts`).
-- [ ] Payments use Stripe (`src/lib/stripe.ts`); emails use Resend (`src/lib/resend.ts`).
 - [ ] All forms, route handlers, and server actions validate inputs using **Zod** (`zod`).
 
 ### 3. Project Structure

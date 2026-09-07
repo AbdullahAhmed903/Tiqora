@@ -12,7 +12,7 @@ import {
 import { cn } from "@/lib/utils";
 
 interface AuthHeroBannerProps {
-  type: "login" | "signup";
+  type?: "login" | "signup" | "forgot-password" | "reset-password" | "admin-login";
   className?: string;
 }
 
@@ -44,7 +44,62 @@ const CATEGORIES = [
   },
 ];
 
-export function AuthHeroBanner({ className }: AuthHeroBannerProps) {
+export function AuthHeroBanner({ type = "login", className }: AuthHeroBannerProps) {
+  const getBannerText = () => {
+    switch (type) {
+      case "admin-login":
+        return {
+          pill: "TIQORA ADMIN PORTAL",
+          title: (
+            <>
+              System Control. <br />
+              Total Management. <br />
+              <span className="text-[#2563EB]">Secure Access.</span>
+            </>
+          ),
+          subtitle: "Manage events, organziers, tickets, and bookings securely from one control panel.",
+        };
+      case "forgot-password":
+        return {
+          pill: "ACCOUNT RECOVERY",
+          title: (
+            <>
+              Forgot Password? <br />
+              We&apos;ve Got You <br />
+              <span className="text-[#2563EB]">Covered.</span>
+            </>
+          ),
+          subtitle: "Enter your registered email and we'll send you instructions to reset your password.",
+        };
+      case "reset-password":
+        return {
+          pill: "SECURITY UPDATE",
+          title: (
+            <>
+              Set Your New <br />
+              Password & <br />
+              <span className="text-[#2563EB]">Stay Protected.</span>
+            </>
+          ),
+          subtitle: "Create a strong new password for your Tiqora account to regain access.",
+        };
+      default:
+        return {
+          pill: "ONE TICKET. EVERY EXPERIENCE.",
+          title: (
+            <>
+              More Than <br />
+              Events. <br />
+              <span className="text-[#2563EB]">Real Experiences.</span>
+            </>
+          ),
+          subtitle: "From football matches to concerts, festivals and more — all in one place.",
+        };
+    }
+  };
+
+  const content = getBannerText();
+
   return (
     <div
       className={cn(
@@ -58,7 +113,7 @@ export function AuthHeroBanner({ className }: AuthHeroBannerProps) {
       
       {/* Script Watermark text on background */}
       <span className="absolute right-0 top-1/2 -translate-y-1/2 text-6xl sm:text-7xl lg:text-8xl font-serif italic text-blue-500/10 dark:text-blue-400/5 rotate-[-12deg] tracking-wide pointer-events-none select-none z-0 hidden sm:block">
-        Live the Moment
+        {type === "admin-login" ? "Tiqora Control" : "Live the Moment"}
       </span>
 
       {/* Content Section */}
@@ -67,20 +122,18 @@ export function AuthHeroBanner({ className }: AuthHeroBannerProps) {
         <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-blue-50 dark:bg-blue-950/60 border border-blue-200/80 dark:border-blue-800/60 shadow-xs">
           <Ticket className="w-3.5 h-3.5 text-[#2563EB]" />
           <span className="text-[11px] font-bold uppercase tracking-wider text-[#2563EB]">
-            ONE TICKET. EVERY EXPERIENCE.
+            {content.pill}
           </span>
         </div>
 
         {/* Main Hero Headline */}
         <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-zinc-900 dark:text-white tracking-tight leading-[1.06]">
-          More Than <br />
-          Events. <br />
-          <span className="text-[#2563EB]">Real Experiences.</span>
+          {content.title}
         </h1>
 
         {/* Subtitle */}
         <p className="text-base sm:text-lg text-zinc-600 dark:text-zinc-300 font-medium max-w-md leading-relaxed">
-          From football matches to concerts, festivals and more — all in one place.
+          {content.subtitle}
         </p>
 
         {/* Category Icons Row */}
