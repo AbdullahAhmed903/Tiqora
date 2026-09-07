@@ -41,7 +41,7 @@ export function GoogleButton({
         toast.error(error.message || "Failed to initiate Google sign in.");
         setIsLoading(false);
       }
-    } catch (err) {
+    } catch {
       toast.error("An unexpected error occurred with Google Sign-In.");
       setIsLoading(false);
     }

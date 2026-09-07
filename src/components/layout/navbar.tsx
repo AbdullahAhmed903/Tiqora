@@ -19,12 +19,14 @@ interface NavbarProps {
 export function Navbar({ initialUser = null }: NavbarProps) {
   const router = useRouter();
   const [user, setUser] = React.useState<User | null>(initialUser);
+  const [prevInitialUser, setPrevInitialUser] = React.useState(initialUser);
   const [isSigningOut, setIsSigningOut] = React.useState(false);
 
-  // Sync state if initialUser prop changes on SSR / layout re-renders
-  React.useEffect(() => {
+  // Sync state during render when initialUser prop changes
+  if (initialUser !== prevInitialUser) {
+    setPrevInitialUser(initialUser);
     setUser(initialUser);
-  }, [initialUser]);
+  }
 
   React.useEffect(() => {
     const supabase = createClient();
@@ -53,7 +55,7 @@ export function Navbar({ initialUser = null }: NavbarProps) {
       } else {
         toast.error(res.error || "Failed to sign out. Please try again.");
       }
-    } catch (err) {
+    } catch {
       toast.error("Failed to sign out. Please try again.");
     } finally {
       setIsSigningOut(false);

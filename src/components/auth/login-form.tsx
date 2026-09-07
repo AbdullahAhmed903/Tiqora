@@ -31,7 +31,7 @@ export function LoginForm() {
       } else {
         toast.error(res.error || "Invalid credentials. Please try again.");
       }
-    } catch (err) {
+    } catch {
       toast.error("An unexpected authentication error occurred.");
     } finally {
       setIsLoading(false);

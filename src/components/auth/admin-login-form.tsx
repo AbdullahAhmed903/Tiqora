@@ -29,7 +29,7 @@ export function AdminLoginForm() {
       } else {
         toast.error(res.error || "Invalid admin credentials.");
       }
-    } catch (err) {
+    } catch {
       toast.error("An unexpected authentication error occurred.");
     } finally {
       setIsLoading(false);

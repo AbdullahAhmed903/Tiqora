@@ -55,7 +55,7 @@ export function ResetPasswordForm() {
       } else {
         toast.error(res.error || "Failed to reset password.");
       }
-    } catch (err) {
+    } catch {
       toast.error("An unexpected error occurred. Please try again.");
     } finally {
       setIsLoading(false);

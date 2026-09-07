@@ -25,7 +25,7 @@ export function ForgotPasswordForm() {
       } else {
         toast.error(res.error || "Failed to send reset email.");
       }
-    } catch (err) {
+    } catch {
       toast.error("An unexpected error occurred. Please try again.");
     } finally {
       setIsLoading(false);
