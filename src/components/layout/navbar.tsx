@@ -3,52 +3,56 @@
 import * as React from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { useRouter, usePathname } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { User as UserIcon, LogOut, Loader2 } from "lucide-react";
 import { toast } from "sonner";
 import { type User } from "@supabase/supabase-js";
 import { createClient } from "@/lib/supabase/client";
+import { signOutAction } from "@/app/actions/auth";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { Button } from "@/components/ui/button";
 
-export function Navbar() {
+interface NavbarProps {
+  initialUser?: User | null;
+}
+
+export function Navbar({ initialUser = null }: NavbarProps) {
   const router = useRouter();
-  const pathname = usePathname();
-  const [user, setUser] = React.useState<User | null>(null);
-  const [isLoading, setIsLoading] = React.useState(true);
+  const [user, setUser] = React.useState<User | null>(initialUser);
   const [isSigningOut, setIsSigningOut] = React.useState(false);
+
+  // Sync state if initialUser prop changes on SSR / layout re-renders
+  React.useEffect(() => {
+    setUser(initialUser);
+  }, [initialUser]);
 
   React.useEffect(() => {
     const supabase = createClient();
 
-    // Fetch initial auth user
-    supabase.auth.getUser().then(({ data }) => {
-      setUser(data.user);
-      setIsLoading(false);
-    });
-
-    // Subscribe to realtime auth changes
+    // Subscribe to realtime auth changes (tab sync, login, logout)
     const {
       data: { subscription },
     } = supabase.auth.onAuthStateChange((_event, session) => {
       setUser(session?.user ?? null);
-      setIsLoading(false);
     });
 
     return () => {
       subscription.unsubscribe();
     };
-  }, [pathname]);
+  }, []);
 
   const handleSignOut = async () => {
     setIsSigningOut(true);
     try {
-      const supabase = createClient();
-      await supabase.auth.signOut();
-      toast.success("Signed out successfully");
-      setUser(null);
-      router.push("/login");
-      router.refresh();
+      const res = await signOutAction();
+      if (res.success) {
+        toast.success("Signed out successfully");
+        setUser(null);
+        router.push("/login");
+        router.refresh();
+      } else {
+        toast.error(res.error || "Failed to sign out. Please try again.");
+      }
     } catch (err) {
       toast.error("Failed to sign out. Please try again.");
     } finally {
@@ -91,9 +95,7 @@ export function Navbar() {
         <div className="flex items-center gap-3">
           <ThemeToggle />
 
-          {isLoading ? (
-            <div className="h-9 w-20 bg-zinc-200/60 dark:bg-zinc-800/60 rounded-xl animate-pulse" />
-          ) : user ? (
+          {user ? (
             /* Logged In State: User Badge & Sign Out */
             <div className="flex items-center gap-3">
               <div className="flex items-center gap-2 px-3 py-1.5 rounded-xl border border-zinc-200 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-900 shadow-2xs">
