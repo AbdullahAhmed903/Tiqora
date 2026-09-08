@@ -18,7 +18,7 @@ const HERO_IMAGES = [
   },
   {
     id: "hero-3",
-    src: "/hero/herothree.png",
+    src: "/hero/heroThree.png",
     alt: "Live Moments Last Longer",
   },
 ];
