@@ -75,6 +75,9 @@ Team members must strictly follow the Tiqora directory structure:
 ## 7. Code & Git Hygiene
 
 - [ ] **🚫 Strictly NO `git push --force` or `-f`**: Force-pushing is an automatic blocker.
+- [ ] **No Dead Code or Orphan Files**: 
+  - Verify there are no orphan/dead files (new files that are never imported, routed, or registered).
+  - Check that all touched files have no dead code (unreachable branches, unused exports/functions, commented-out blocks, or unused imports).
 - [ ] Conventional commit format (`feat:`, `fix:`, `chore:`, `docs:`).
 - [ ] No leftover `console.log` statements in production code.
 - [ ] No fake `setTimeout` mocking API calls.
