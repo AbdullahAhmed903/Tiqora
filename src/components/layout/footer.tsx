@@ -29,7 +29,6 @@ export function Footer() {
           fill
           priority
           className="object-cover object-right lg:object-center opacity-95"
-          quality={100}
         />
         {/* Subtle gradient overlay to enhance text contrast if needed */}
         <div className="absolute inset-0 bg-gradient-to-b from-[#050814]/40 via-transparent to-[#050814]/60 pointer-events-none" />
