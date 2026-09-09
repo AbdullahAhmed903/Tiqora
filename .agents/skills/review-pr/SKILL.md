@@ -101,7 +101,10 @@ Catches PII and stale mock content shipped by accident.
 
 ## 7. Code Quality
 
-- [ ] No unused imports or dead code
+- [ ] **Dead Code & Orphan Files Check (CRITICAL)**:
+  - **No orphan / dead files**: Every newly introduced or modified file must be actively imported, routed, or registered in the application. Flag abandoned drafts, duplicate copies, or dangling scratch files that are not referenced anywhere.
+  - **No dead code within files**: No unreachable code branches, abandoned helper functions, unreferenced exports, obsolete type definitions, or blocks of commented-out code.
+  - **No unused imports**: All imports must be actively used; remove any dangling or residual imports.
 - [ ] Proper TypeScript types — `any` must be justified with a comment
 - [ ] No business logic inside UI components — data fetching/mutations belong in Server Components, Server Actions (`src/app/actions/`), or hooks
 - [ ] No `console.log` left in production code
