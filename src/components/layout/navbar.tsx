@@ -270,7 +270,7 @@ export function Navbar({ initialUser = null }: NavbarProps) {
                 >
                   <div className="px-3 py-2 border-b border-zinc-800/80">
                     <p className="text-xs font-bold text-white truncate">{displayName}</p>
-                    <p className="text-[10px] text-zinc-400 truncate">{user?.email || "Userh@tiqora.com"}</p>
+                    <p className="text-[10px] text-zinc-400 truncate">{user?.email || "user@tiqora.com"}</p>
                   </div>
 
                   <Link
