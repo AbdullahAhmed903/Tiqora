@@ -95,13 +95,26 @@ export function Navbar({ initialUser = null }: NavbarProps) {
     "Abdullah Ahmed";
 
   const navItems = [
-    { label: "Home", href: "/", icon: Home },
-    { label: "Events", href: "/events", icon: Compass },
-    { label: "Sports", href: "/events?category=sports", icon: Trophy },
-    { label: "Concerts", href: "/events?category=concerts", icon: Music },
-    { label: "Theater", href: "/events?category=theater", icon: Drama },
-    { label: "Festivals", href: "/events?category=festivals", icon: Calendar },
+    { label: "Home", href: "/", slug: "", icon: Home },
+    { label: "Events", href: "/events", slug: "events", icon: Compass },
+    { label: "Sports", href: "/events/sports", slug: "sports", icon: Trophy },
+    { label: "Concerts", href: "/events/concerts", slug: "concerts", icon: Music },
+    { label: "Theater", href: "/events/theater", slug: "theater", icon: Drama },
+    { label: "Festivals", href: "/events/festivals", slug: "festivals", icon: Calendar },
   ];
+
+  const isItemActive = (item: (typeof navItems)[0]) => {
+    if (item.href === "/") {
+      return pathname === "/";
+    }
+    if (item.slug === "events") {
+      return pathname === "/events";
+    }
+    return (
+      pathname === item.href ||
+      pathname.startsWith(`${item.href}/`)
+    );
+  };
 
   return (
     <header className="sticky top-0 z-50 w-full px-2 sm:px-4 lg:px-6 pt-3 pb-1">
@@ -127,7 +140,7 @@ export function Navbar({ initialUser = null }: NavbarProps) {
         {/* Center: Navigation Links with Icons */}
         <nav className="hidden xl:flex items-center gap-1.5 2xl:gap-3">
           {navItems.map((item) => {
-            const isActive = pathname === item.href;
+            const isActive = isItemActive(item);
             const Icon = item.icon;
             return (
               <Link
@@ -166,21 +179,21 @@ export function Navbar({ initialUser = null }: NavbarProps) {
                 onMouseLeave={() => setIsMoreMenuOpen(false)}
               >
                 <Link
-                  href="/events?category=gaming"
+                  href="/events/gaming"
                   onClick={() => setIsMoreMenuOpen(false)}
                   className="block px-3 py-2 text-xs font-medium text-zinc-300 hover:text-white hover:bg-zinc-900 rounded-xl transition-colors"
                 >
                   Gaming
                 </Link>
                 <Link
-                  href="/events?category=family"
+                  href="/events/family"
                   onClick={() => setIsMoreMenuOpen(false)}
                   className="block px-3 py-2 text-xs font-medium text-zinc-300 hover:text-white hover:bg-zinc-900 rounded-xl transition-colors"
                 >
                   Family
                 </Link>
                 <Link
-                  href="/events?category=business"
+                  href="/events/business"
                   onClick={() => setIsMoreMenuOpen(false)}
                   className="block px-3 py-2 text-xs font-medium text-zinc-300 hover:text-white hover:bg-zinc-900 rounded-xl transition-colors"
                 >
@@ -318,14 +331,19 @@ export function Navbar({ initialUser = null }: NavbarProps) {
           <div className="flex flex-col gap-1 pt-1">
             {navItems.map((item) => {
               const Icon = item.icon;
+              const isActive = isItemActive(item);
               return (
                 <Link
                   key={item.label}
                   href={item.href}
                   onClick={() => setIsMobileMenuOpen(false)}
-                  className="px-3 py-2 text-xs font-semibold text-zinc-200 hover:text-white hover:bg-zinc-900 rounded-xl transition-colors flex items-center gap-2"
+                  className={`px-3 py-2 text-xs font-semibold rounded-xl transition-colors flex items-center gap-2.5 ${
+                    isActive
+                      ? "text-[#3B82F6] bg-blue-950/40 border border-blue-500/20 font-bold"
+                      : "text-zinc-300 hover:text-white hover:bg-zinc-900"
+                  }`}
                 >
-                  <Icon className="w-4 h-4 text-zinc-400" />
+                  <Icon className={`w-4 h-4 ${isActive ? "text-[#3B82F6]" : "text-zinc-400"}`} />
                   <span>{item.label}</span>
                 </Link>
               );

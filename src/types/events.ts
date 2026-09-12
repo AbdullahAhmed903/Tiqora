@@ -57,3 +57,42 @@ export interface HeroSlide {
   description: string;
   image: string;
 }
+
+export interface CategoryEvent {
+  id: string;
+  title: string;
+  category: "sports" | "concerts" | "theater" | "festivals" | "conferences" | "workshops" | "cultural" | "exhibitions" | "other" | string;
+  subcategory: string;
+  subcategoryLabel: string;
+  date: string;
+  time: string;
+  fullDate: string; // ISO date format YYYY-MM-DD for accurate date filtering
+  monthShort?: string; // e.g. "NOV"
+  dayNumber?: string;  // e.g. "20"
+  year?: string;       // e.g. "2025"
+  venue: string;
+  city: string;
+  country: string;
+  minPrice: number;
+  maxPrice: number;
+  priceFormatted: string; // e.g. "$25 - $150"
+  image: string;
+  slug: string;
+  isPopular?: boolean;
+}
+
+export interface CategoryPillItem {
+  id: string;
+  label: string;
+  iconName: string;
+  subcategoryId: string;
+}
+
+export interface FilterState {
+  date: "all" | "today" | "weekend" | "7days" | "30days";
+  location: string;
+  maxPrice: number;
+  subcategory: string;
+  sort: "featured" | "date" | "price-asc" | "price-desc" | "popular";
+}
+

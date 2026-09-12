@@ -1,29 +1,24 @@
 import { Suspense } from "react";
 import { Metadata } from "next";
-import { redirect } from "next/navigation";
 import { EventsExplorer } from "@/components/events/events-explorer";
 
-export const metadata: Metadata = {
-  title: "Events & Sports Explorer | Tiqora",
-  description:
-    "Discover and book verified tickets for premier football matches, basketball leagues, concerts, theater shows, and cultural festivals.",
+type Props = {
+  params: Promise<{ category: string }>;
 };
 
-interface EventsPageProps {
-  searchParams: Promise<{ category?: string; [key: string]: string | undefined }>;
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const { category } = await params;
+  const capitalized =
+    category.charAt(0).toUpperCase() + category.slice(1).toLowerCase();
+
+  return {
+    title: `${capitalized} Events & Tickets | Tiqora`,
+    description: `Explore and book verified tickets for top ${capitalized} events, matches, and performances on Tiqora.`,
+  };
 }
 
-export default async function EventsPage({ searchParams }: EventsPageProps) {
-  const params = await searchParams;
-
-  // If a legacy or query URL like /events?category=sports is visited, redirect to the clean slug page /events/sports
-  if (
-    params.category &&
-    params.category.toLowerCase() !== "all" &&
-    params.category.toLowerCase() !== "events"
-  ) {
-    redirect(`/events/${params.category.toLowerCase()}`);
-  }
+export default async function CategoryPage({ params }: Props) {
+  const { category } = await params;
 
   return (
     <main className="min-h-screen pb-16 bg-[#080B12]">
@@ -47,7 +42,7 @@ export default async function EventsPage({ searchParams }: EventsPageProps) {
           </div>
         }
       >
-        <EventsExplorer initialCategory="all" />
+        <EventsExplorer initialCategory={category} />
       </Suspense>
     </main>
   );
