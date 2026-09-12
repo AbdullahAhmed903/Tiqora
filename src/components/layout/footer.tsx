@@ -145,22 +145,22 @@ export function Footer() {
                   </Link>
                 </li>
                 <li>
-                  <Link href="/events?category=sports" className="hover:text-white transition-colors">
+                  <Link href="/events/sports" className="hover:text-white transition-colors">
                     Sports
                   </Link>
                 </li>
                 <li>
-                  <Link href="/events?category=concerts" className="hover:text-white transition-colors">
+                  <Link href="/events/concerts" className="hover:text-white transition-colors">
                     Concerts
                   </Link>
                 </li>
                 <li>
-                  <Link href="/events?category=theater" className="hover:text-white transition-colors">
+                  <Link href="/events/theater" className="hover:text-white transition-colors">
                     Theater
                   </Link>
                 </li>
                 <li>
-                  <Link href="/events?category=festivals" className="hover:text-white transition-colors">
+                  <Link href="/events/festivals" className="hover:text-white transition-colors">
                     Festivals
                   </Link>
                 </li>
