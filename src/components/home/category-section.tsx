@@ -41,7 +41,7 @@ export function CategorySection() {
         </div>
 
         <Link
-          href="/events"
+          href="/categories"
           className="inline-flex items-center gap-1.5 text-xs font-semibold text-[#2563EB] hover:text-[#1D4ED8] dark:hover:text-blue-400 transition-colors group"
         >
           <span>View All Categories</span>
@@ -49,8 +49,8 @@ export function CategorySection() {
         </Link>
       </div>
 
-      {/* Grid of 8 Category Cards */}
-      <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-8 gap-3.5">
+      {/* Grid of 7 Category Cards */}
+      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-7 gap-3.5">
         {CATEGORIES.map((cat: Category) => {
           const Icon = iconMap[cat.iconName] || Grid;
           return (
