@@ -111,13 +111,6 @@ export const CATEGORIES: Category[] = [
     iconName: "Briefcase",
     href: "/events/business",
   },
-  {
-    id: "more",
-    name: "More",
-    subtitle: "More Events",
-    iconName: "Grid",
-    href: "/events",
-  },
 ];
 
 export const FEATURED_EVENTS: FeaturedEvent[] = [
