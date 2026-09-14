@@ -11,6 +11,7 @@
     <a href="#-key-features">Key Features</a> •
     <a href="#-visual-showcase">Visual Showcase</a> •
     <a href="#-tech-stack">Tech Stack</a> •
+    <a href="./docs/DB_STRUCTURE.md">Database Schema</a> •
     <a href="#-directory-structure">Directory Structure</a> •
     <a href="#-getting-started">Getting Started</a> •
     <a href="#-development-guidelines">Guidelines</a>
@@ -183,6 +184,7 @@ tiqora/
 │   │   └── events.ts                 # Event, match & ticket stub types
 │   └── proxy.ts                      # Next.js 16 Proxy handler (session refresh)
 ├── docs/
+│   ├── DB_STRUCTURE.md               # Database ER diagrams & schema dictionary
 │   └── PR_REVIEW_CHECKLIST.md        # Code review & PR submission standards
 ├── AGENTS.md                         # Engineering rules and conventions
 ├── .env.example                      # Environment variables reference

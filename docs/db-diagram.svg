@@ -1,0 +1,390 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 880" width="100%" height="100%" style="background:#09090b; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;">
+  <defs>
+    <!-- Gradients -->
+    <linearGradient id="blueGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#2563EB" />
+      <stop offset="100%" stop-color="#1D4ED8" />
+    </linearGradient>
+    <linearGradient id="indigoGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#4F46E5" />
+      <stop offset="100%" stop-color="#3730A3" />
+    </linearGradient>
+    <linearGradient id="emeraldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#059669" />
+      <stop offset="100%" stop-color="#047857" />
+    </linearGradient>
+    <linearGradient id="purpleGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#7C3AED" />
+      <stop offset="100%" stop-color="#5B21B6" />
+    </linearGradient>
+    <linearGradient id="amberGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#D97706" />
+      <stop offset="100%" stop-color="#B45309" />
+    </linearGradient>
+    <linearGradient id="slateGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#334155" />
+      <stop offset="100%" stop-color="#1E293B" />
+    </linearGradient>
+    <linearGradient id="diamondGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#27272A" />
+      <stop offset="100%" stop-color="#18181B" />
+    </linearGradient>
+
+    <!-- Drop Shadow Filter -->
+    <filter id="shadow" x="-8%" y="-8%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="8" stdDeviation="6" flood-color="#000000" flood-opacity="0.6"/>
+    </filter>
+  </defs>
+
+  <!-- Title & Header Bar -->
+  <g transform="translate(40, 25)">
+    <text x="0" y="28" fill="#FFFFFF" font-size="24" font-weight="700" letter-spacing="-0.5">Tiqora — Relational Database Architecture &amp; Cardinality Diagram</text>
+    <text x="0" y="50" fill="#A1A1AA" font-size="13">Entity Shapes (Rectangles), Relational Actions (Diamonds), Cardinality (1:1, 1:N), and Participation Modality (Total vs Partial)</text>
+  </g>
+
+  <!-- Legend Bar -->
+  <g transform="translate(40, 85)">
+    <rect width="1200" height="42" rx="8" fill="#18181B" stroke="#27272A" stroke-width="1" />
+    
+    <!-- Legend Items -->
+    <rect x="20" y="14" width="14" height="14" rx="3" fill="#27272A" stroke="#3B82F6" stroke-width="2" />
+    <text x="42" y="26" fill="#D4D4D8" font-size="12" font-weight="600">Table Entity</text>
+
+    <polygon points="150,21 160,13 170,21 160,29" fill="#27272A" stroke="#EC4899" stroke-width="1.5" />
+    <text x="180" y="26" fill="#D4D4D8" font-size="12" font-weight="600">Relationship</text>
+
+    <!-- Double Line (Total Participation) -->
+    <line x1="285" y1="18" x2="335" y2="18" stroke="#3B82F6" stroke-width="2" />
+    <line x1="285" y1="23" x2="335" y2="23" stroke="#3B82F6" stroke-width="2" />
+    <text x="345" y="26" fill="#93C5FD" font-size="12" font-weight="600">Total / Mandatory (1:1)</text>
+
+    <!-- Single / Dashed Line (Partial Participation) -->
+    <line x1="510" y1="21" x2="560" y2="21" stroke="#F59E0B" stroke-width="2" stroke-dasharray="4 3" />
+    <text x="570" y="26" fill="#FCD34D" font-size="12" font-weight="600">Partial / Optional (0..N)</text>
+
+    <text x="735" y="26" fill="#F59E0B" font-size="12" font-weight="700">🔑 PK</text>
+    <text x="770" y="26" fill="#D4D4D8" font-size="12">Primary Key</text>
+
+    <text x="865" y="26" fill="#60A5FA" font-size="12" font-weight="700">🔗 FK</text>
+    <text x="900" y="26" fill="#D4D4D8" font-size="12">Foreign Key</text>
+
+    <text x="990" y="26" fill="#34D399" font-size="12" font-weight="700">⭐ UK</text>
+    <text x="1025" y="26" fill="#D4D4D8" font-size="12">Unique Constraint</text>
+  </g>
+
+  <!-- ========================================================================= -->
+  <!-- CONNECTOR LINES & RELATIONSHIP DIAMONDS -->
+  <!-- ========================================================================= -->
+
+  <!-- RELATION 1: auth.users <== [1:1 EXTENDS Total Participation] ==> public.profiles -->
+  <!-- Double Lines from auth.users (x=270, y=240) to Diamond (x=335) -->
+  <line x1="270" y1="237" x2="335" y2="237" stroke="#3B82F6" stroke-width="2" />
+  <line x1="270" y1="243" x2="335" y2="243" stroke="#3B82F6" stroke-width="2" />
+  <!-- Double Lines from Diamond (x=445) to public.profiles (x=510) -->
+  <line x1="445" y1="237" x2="510" y2="237" stroke="#3B82F6" stroke-width="2" />
+  <line x1="445" y1="243" x2="510" y2="243" stroke="#3B82F6" stroke-width="2" />
+
+  <!-- Diamond 1: EXTENDS -->
+  <polygon points="390,205 445,240 390,275 335,240" fill="url(#diamondGrad)" stroke="#3B82F6" stroke-width="2" filter="url(#shadow)" />
+  <text x="390" y="238" fill="#FFFFFF" font-size="11" font-weight="700" text-anchor="middle">EXTENDS</text>
+  <text x="390" y="252" fill="#93C5FD" font-size="9" font-weight="600" text-anchor="middle">1 : 1 (Total)</text>
+
+  <!-- Cardinality Badges on line -->
+  <rect x="278" y="215" width="48" height="18" rx="4" fill="#1E3A8A" stroke="#3B82F6" stroke-width="1"/>
+  <text x="302" y="228" fill="#FFFFFF" font-size="10" font-weight="700" text-anchor="middle">1 (Total)</text>
+
+  <rect x="455" y="215" width="48" height="18" rx="4" fill="#1E3A8A" stroke="#3B82F6" stroke-width="1"/>
+  <text x="479" y="228" fill="#FFFFFF" font-size="10" font-weight="700" text-anchor="middle">1 (Total)</text>
+
+
+  <!-- RELATION 2: public.profiles --> organizer_permissions [1:N Partial] -->
+  <!-- Line from Profiles bottom-left (x=560, y=500) down to Diamond (x=410, y=580) -->
+  <path d="M 560 500 L 560 580 L 465 580" fill="none" stroke="#A855F7" stroke-width="2" stroke-dasharray="5 3" />
+  <path d="M 355 580 L 260 580 L 260 630" fill="none" stroke="#A855F7" stroke-width="2" />
+
+  <!-- Diamond 2: GRANTS -->
+  <polygon points="410,555 465,580 410,605 355,580" fill="url(#diamondGrad)" stroke="#A855F7" stroke-width="2" filter="url(#shadow)" />
+  <text x="410" y="578" fill="#FFFFFF" font-size="11" font-weight="700" text-anchor="middle">GRANTS</text>
+  <text x="410" y="592" fill="#D8B4FE" font-size="9" font-weight="600" text-anchor="middle">1 : N (Partial)</text>
+
+  <!-- Badges -->
+  <rect x="520" y="515" width="55" height="18" rx="4" fill="#3B0764" stroke="#A855F7" stroke-width="1"/>
+  <text x="547" y="528" fill="#E9D5FF" font-size="9" font-weight="700" text-anchor="middle">1 (0..N)</text>
+
+  <rect x="232" y="605" width="55" height="18" rx="4" fill="#3B0764" stroke="#A855F7" stroke-width="1"/>
+  <text x="259" y="618" fill="#E9D5FF" font-size="9" font-weight="700" text-anchor="middle">N (Total)</text>
+
+
+  <!-- RELATION 3: public.profiles --> admin_audit_logs [1:N Governance] -->
+  <!-- Line from Profiles bottom-mid (x=670, y=500) down to Diamond (x=670, y=560) and into table (x=670, y=630) -->
+  <line x1="670" y1="500" x2="670" y2="535" stroke="#F59E0B" stroke-width="2" stroke-dasharray="5 3" />
+  <line x1="670" y1="585" x2="670" y2="630" stroke="#F59E0B" stroke-width="2" />
+
+  <!-- Diamond 3: AUDITS -->
+  <polygon points="670,535 725,560 670,585 615,560" fill="url(#diamondGrad)" stroke="#F59E0B" stroke-width="2" filter="url(#shadow)" />
+  <text x="670" y="558" fill="#FFFFFF" font-size="11" font-weight="700" text-anchor="middle">AUDITS</text>
+  <text x="670" y="572" fill="#FCD34D" font-size="9" font-weight="600" text-anchor="middle">1 : N (Partial)</text>
+
+  <!-- Badges -->
+  <rect x="680" y="505" width="60" height="18" rx="4" fill="#451A03" stroke="#F59E0B" stroke-width="1"/>
+  <text x="710" y="518" fill="#FDE68A" font-size="9" font-weight="700" text-anchor="middle">1 (Admin)</text>
+
+  <rect x="680" y="595" width="60" height="18" rx="4" fill="#451A03" stroke="#F59E0B" stroke-width="1"/>
+  <text x="710" y="608" fill="#FDE68A" font-size="9" font-weight="700" text-anchor="middle">N (Logs)</text>
+
+
+  <!-- RELATION 4: public.categories --> public.events (PLANNED 1:N) -->
+  <path d="M 1035 440 L 1035 490" fill="none" stroke="#10B981" stroke-width="2" stroke-dasharray="5 3" />
+  <path d="M 1035 540 L 1035 590" fill="none" stroke="#10B981" stroke-width="2" />
+
+  <!-- Diamond 4: CLASSIFIES -->
+  <polygon points="1035,490 1095,515 1035,540 975,515" fill="url(#diamondGrad)" stroke="#10B981" stroke-width="2" filter="url(#shadow)" />
+  <text x="1035" y="512" fill="#FFFFFF" font-size="11" font-weight="700" text-anchor="middle">CLASSIFIES</text>
+  <text x="1035" y="527" fill="#6EE7B7" font-size="9" font-weight="600" text-anchor="middle">1 : N (Partial/Total)</text>
+
+  <!-- Badges -->
+  <rect x="1045" y="450" width="70" height="18" rx="4" fill="#064E3B" stroke="#10B981" stroke-width="1"/>
+  <text x="1080" y="463" fill="#A7F3D0" font-size="9" font-weight="700" text-anchor="middle">1 (0..N Partial)</text>
+
+  <rect x="1045" y="555" width="70" height="18" rx="4" fill="#064E3B" stroke="#10B981" stroke-width="1"/>
+  <text x="1080" y="568" fill="#A7F3D0" font-size="9" font-weight="700" text-anchor="middle">N (1..1 Total)</text>
+
+  <!-- Cross link from profiles to planned events -->
+  <path d="M 790 400 L 890 400 L 890 680 L 920 680" fill="none" stroke="#64748B" stroke-width="1.5" stroke-dasharray="4 4" />
+  <rect x="830" y="388" width="80" height="16" rx="3" fill="#0F172A" stroke="#475569" stroke-width="1"/>
+  <text x="870" y="400" fill="#94A3B8" font-size="8" font-weight="600" text-anchor="middle">1:N Organizes</text>
+
+
+  <!-- ========================================================================= -->
+  <!-- TABLE ENTITY SHAPES (RECTANGLES) -->
+  <!-- ========================================================================= -->
+
+  <!-- 1. TABLE: auth.users -->
+  <g transform="translate(40, 150)" filter="url(#shadow)">
+    <!-- Outer Card -->
+    <rect width="230" height="180" rx="10" fill="#18181B" stroke="#27272A" stroke-width="1.5" />
+    <!-- Header -->
+    <path d="M 0 10 Q 0 0 10 0 L 220 0 Q 230 0 230 10 L 230 40 L 0 40 Z" fill="url(#blueGrad)" />
+    <text x="16" y="26" fill="#FFFFFF" font-size="14" font-weight="700">auth.users</text>
+    <text x="214" y="26" fill="#DBEAFE" font-size="10" font-weight="600" text-anchor="end">Supabase Auth</text>
+    <!-- Columns -->
+    <g transform="translate(16, 62)">
+      <text x="0" y="0" fill="#F59E0B" font-size="12" font-weight="700">🔑 id</text>
+      <text x="198" y="0" fill="#71717A" font-size="11" text-anchor="end">UUID (PK)</text>
+
+      <text x="0" y="26" fill="#34D399" font-size="12" font-weight="600">⭐ email</text>
+      <text x="198" y="26" fill="#71717A" font-size="11" text-anchor="end">VARCHAR (UK)</text>
+
+      <text x="0" y="52" fill="#E4E4E7" font-size="12">encrypted_pw</text>
+      <text x="198" y="52" fill="#71717A" font-size="11" text-anchor="end">TEXT</text>
+
+      <text x="0" y="78" fill="#E4E4E7" font-size="12">created_at</text>
+      <text x="198" y="78" fill="#71717A" font-size="11" text-anchor="end">TIMESTAMPTZ</text>
+    </g>
+  </g>
+
+
+  <!-- 2. TABLE: public.profiles (Users) -->
+  <g transform="translate(510, 150)" filter="url(#shadow)">
+    <!-- Outer Card -->
+    <rect width="280" height="350" rx="10" fill="#18181B" stroke="#3B82F6" stroke-width="2" />
+    <!-- Header -->
+    <path d="M 0 10 Q 0 0 10 0 L 270 0 Q 280 0 280 10 L 280 42 L 0 42 Z" fill="url(#indigoGrad)" />
+    <text x="16" y="27" fill="#FFFFFF" font-size="15" font-weight="700">public.profiles</text>
+    <text x="264" y="27" fill="#E0E7FF" font-size="11" font-weight="600" text-anchor="end">Core Users Table</text>
+    
+    <!-- Columns -->
+    <g transform="translate(16, 64)">
+      <text x="0" y="0" fill="#F59E0B" font-size="12" font-weight="700">🔑 id</text>
+      <text x="248" y="0" fill="#60A5FA" font-size="11" font-weight="600" text-anchor="end">UUID (PK, FK)</text>
+
+      <text x="0" y="24" fill="#34D399" font-size="12" font-weight="600">⭐ username</text>
+      <text x="248" y="24" fill="#71717A" font-size="11" text-anchor="end">TEXT (UK, min 3)</text>
+
+      <text x="0" y="48" fill="#E4E4E7" font-size="12">email</text>
+      <text x="248" y="48" fill="#71717A" font-size="11" text-anchor="end">TEXT</text>
+
+      <text x="0" y="72" fill="#E4E4E7" font-size="12">full_name</text>
+      <text x="248" y="72" fill="#71717A" font-size="11" text-anchor="end">TEXT</text>
+
+      <text x="0" y="96" fill="#E4E4E7" font-size="12">phone_number</text>
+      <text x="248" y="96" fill="#71717A" font-size="11" text-anchor="end">TEXT</text>
+
+      <text x="0" y="120" fill="#E4E4E7" font-size="12">avatar_url</text>
+      <text x="248" y="120" fill="#71717A" font-size="11" text-anchor="end">TEXT</text>
+
+      <text x="0" y="144" fill="#E4E4E7" font-size="12">date_of_birth</text>
+      <text x="248" y="144" fill="#71717A" font-size="11" text-anchor="end">DATE</text>
+
+      <text x="0" y="168" fill="#A78BFA" font-size="12" font-weight="600">role</text>
+      <text x="248" y="168" fill="#71717A" font-size="11" text-anchor="end">user_role ENUM</text>
+
+      <text x="0" y="192" fill="#F472B6" font-size="12" font-weight="600">status</text>
+      <text x="248" y="192" fill="#71717A" font-size="11" text-anchor="end">user_status ENUM</text>
+
+      <text x="0" y="216" fill="#E4E4E7" font-size="12">created_at</text>
+      <text x="248" y="216" fill="#71717A" font-size="11" text-anchor="end">TIMESTAMPTZ</text>
+
+      <text x="0" y="240" fill="#E4E4E7" font-size="12">updated_at</text>
+      <text x="248" y="240" fill="#71717A" font-size="11" text-anchor="end">TIMESTAMPTZ</text>
+
+      <!-- Constraint Note -->
+      <rect x="0" y="254" width="248" height="20" rx="4" fill="#1E1B4B" />
+      <text x="124" y="268" fill="#C7D2FE" font-size="9" font-weight="600" text-anchor="middle">ON DELETE CASCADE with auth.users</text>
+    </g>
+  </g>
+
+
+  <!-- 3. TABLE: public.categories -->
+  <g transform="translate(910, 150)" filter="url(#shadow)">
+    <!-- Outer Card -->
+    <rect width="250" height="290" rx="10" fill="#18181B" stroke="#059669" stroke-width="2" />
+    <!-- Header -->
+    <path d="M 0 10 Q 0 0 10 0 L 240 0 Q 250 0 250 10 L 250 42 L 0 42 Z" fill="url(#emeraldGrad)" />
+    <text x="16" y="27" fill="#FFFFFF" font-size="15" font-weight="700">public.categories</text>
+    <text x="234" y="27" fill="#D1FAE5" font-size="11" font-weight="600" text-anchor="end">Event Taxonomy</text>
+
+    <!-- Columns -->
+    <g transform="translate(16, 64)">
+      <text x="0" y="0" fill="#F59E0B" font-size="12" font-weight="700">🔑 id</text>
+      <text x="218" y="0" fill="#71717A" font-size="11" text-anchor="end">UUID (PK)</text>
+
+      <text x="0" y="25" fill="#E4E4E7" font-size="12" font-weight="600">name</text>
+      <text x="218" y="25" fill="#71717A" font-size="11" text-anchor="end">TEXT (NOT NULL)</text>
+
+      <text x="0" y="50" fill="#34D399" font-size="12" font-weight="600">⭐ slug</text>
+      <text x="218" y="50" fill="#71717A" font-size="11" text-anchor="end">TEXT (UK, NOT NULL)</text>
+
+      <text x="0" y="75" fill="#E4E4E7" font-size="12">pic</text>
+      <text x="218" y="75" fill="#71717A" font-size="11" text-anchor="end">TEXT (Cover URL)</text>
+
+      <text x="0" y="100" fill="#E4E4E7" font-size="12">icon</text>
+      <text x="218" y="100" fill="#71717A" font-size="11" text-anchor="end">TEXT (Lucide / SVG)</text>
+
+      <text x="0" y="125" fill="#E4E4E7" font-size="12">small_description</text>
+      <text x="218" y="125" fill="#71717A" font-size="11" text-anchor="end">TEXT</text>
+
+      <text x="0" y="150" fill="#E4E4E7" font-size="12">created_at</text>
+      <text x="218" y="150" fill="#71717A" font-size="11" text-anchor="end">TIMESTAMPTZ</text>
+
+      <text x="0" y="175" fill="#E4E4E7" font-size="12">updated_at</text>
+      <text x="218" y="175" fill="#71717A" font-size="11" text-anchor="end">TIMESTAMPTZ</text>
+
+      <!-- Note -->
+      <rect x="0" y="192" width="218" height="20" rx="4" fill="#064E3B" />
+      <text x="109" y="206" fill="#A7F3D0" font-size="9" font-weight="600" text-anchor="middle">Parent of Events (1:N)</text>
+    </g>
+  </g>
+
+
+  <!-- 4. TABLE: public.organizer_permissions -->
+  <g transform="translate(140, 630)" filter="url(#shadow)">
+    <!-- Outer Card -->
+    <rect width="250" height="220" rx="10" fill="#18181B" stroke="#27272A" stroke-width="1.5" />
+    <!-- Header -->
+    <path d="M 0 10 Q 0 0 10 0 L 240 0 Q 250 0 250 10 L 250 38 L 0 38 Z" fill="url(#purpleGrad)" />
+    <text x="14" y="24" fill="#FFFFFF" font-size="13" font-weight="700">organizer_permissions</text>
+    <text x="236" y="24" fill="#E9D5FF" font-size="10" font-weight="600" text-anchor="end">Scopes</text>
+
+    <!-- Columns -->
+    <g transform="translate(14, 58)">
+      <text x="0" y="0" fill="#F59E0B" font-size="11" font-weight="700">🔑 id</text>
+      <text x="222" y="0" fill="#71717A" font-size="10" text-anchor="end">UUID (PK)</text>
+
+      <text x="0" y="22" fill="#60A5FA" font-size="11" font-weight="600">🔗 user_id</text>
+      <text x="222" y="22" fill="#93C5FD" font-size="10" text-anchor="end">FK → profiles(id)</text>
+
+      <text x="0" y="44" fill="#E4E4E7" font-size="11">section</text>
+      <text x="222" y="44" fill="#71717A" font-size="10" text-anchor="end">permission_section</text>
+
+      <text x="0" y="66" fill="#E4E4E7" font-size="11">access_level</text>
+      <text x="222" y="66" fill="#71717A" font-size="10" text-anchor="end">access_level ENUM</text>
+
+      <text x="0" y="88" fill="#60A5FA" font-size="11">🔗 granted_by</text>
+      <text x="222" y="88" fill="#71717A" font-size="10" text-anchor="end">FK → profiles(id)</text>
+
+      <text x="0" y="110" fill="#E4E4E7" font-size="11">created_at</text>
+      <text x="222" y="110" fill="#71717A" font-size="10" text-anchor="end">TIMESTAMPTZ</text>
+
+      <!-- Note -->
+      <rect x="0" y="126" width="222" height="18" rx="3" fill="#3B0764" />
+      <text x="111" y="139" fill="#D8B4FE" font-size="9" text-anchor="middle">UNIQUE (user_id, section)</text>
+    </g>
+  </g>
+
+
+  <!-- 5. TABLE: public.admin_audit_logs -->
+  <g transform="translate(550, 630)" filter="url(#shadow)">
+    <!-- Outer Card -->
+    <rect width="250" height="220" rx="10" fill="#18181B" stroke="#27272A" stroke-width="1.5" />
+    <!-- Header -->
+    <path d="M 0 10 Q 0 0 10 0 L 240 0 Q 250 0 250 10 L 250 38 L 0 38 Z" fill="url(#amberGrad)" />
+    <text x="14" y="24" fill="#FFFFFF" font-size="13" font-weight="700">admin_audit_logs</text>
+    <text x="236" y="24" fill="#FEF3C7" font-size="10" font-weight="600" text-anchor="end">Audit Trail</text>
+
+    <!-- Columns -->
+    <g transform="translate(14, 58)">
+      <text x="0" y="0" fill="#F59E0B" font-size="11" font-weight="700">🔑 id</text>
+      <text x="222" y="0" fill="#71717A" font-size="10" text-anchor="end">UUID (PK)</text>
+
+      <text x="0" y="22" fill="#60A5FA" font-size="11" font-weight="600">🔗 admin_id</text>
+      <text x="222" y="22" fill="#93C5FD" font-size="10" text-anchor="end">FK → profiles(id)</text>
+
+      <text x="0" y="44" fill="#60A5FA" font-size="11">🔗 target_user_id</text>
+      <text x="222" y="44" fill="#FDE68A" font-size="10" text-anchor="end">FK (NULLABLE)</text>
+
+      <text x="0" y="66" fill="#E4E4E7" font-size="11">action</text>
+      <text x="222" y="66" fill="#71717A" font-size="10" text-anchor="end">TEXT</text>
+
+      <text x="0" y="88" fill="#E4E4E7" font-size="11">metadata</text>
+      <text x="222" y="88" fill="#71717A" font-size="10" text-anchor="end">JSONB</text>
+
+      <text x="0" y="110" fill="#E4E4E7" font-size="11">created_at</text>
+      <text x="222" y="110" fill="#71717A" font-size="10" text-anchor="end">TIMESTAMPTZ</text>
+
+      <!-- Note -->
+      <rect x="0" y="126" width="222" height="18" rx="3" fill="#451A03" />
+      <text x="111" y="139" fill="#FDE68A" font-size="9" text-anchor="middle">ON DELETE SET NULL on target_user</text>
+    </g>
+  </g>
+
+
+  <!-- 6. TABLE: public.events (PLANNED) -->
+  <g transform="translate(920, 590)" filter="url(#shadow)">
+    <!-- Outer Card -->
+    <rect width="240" height="250" rx="10" fill="#121214" stroke="#475569" stroke-width="1.5" stroke-dasharray="4 3" />
+    <!-- Header -->
+    <path d="M 0 10 Q 0 0 10 0 L 230 0 Q 240 0 240 10 L 240 38 L 0 38 Z" fill="url(#slateGrad)" />
+    <text x="14" y="24" fill="#FFFFFF" font-size="13" font-weight="700">public.events</text>
+    <text x="226" y="24" fill="#94A3B8" font-size="10" font-weight="600" text-anchor="end">[Planned]</text>
+
+    <!-- Columns -->
+    <g transform="translate(14, 58)">
+      <text x="0" y="0" fill="#F59E0B" font-size="11" font-weight="700">🔑 id</text>
+      <text x="212" y="0" fill="#71717A" font-size="10" text-anchor="end">UUID (PK)</text>
+
+      <text x="0" y="22" fill="#60A5FA" font-size="11" font-weight="600">🔗 category_id</text>
+      <text x="212" y="22" fill="#6EE7B7" font-size="10" text-anchor="end">FK → categories</text>
+
+      <text x="0" y="44" fill="#60A5FA" font-size="11" font-weight="600">🔗 organizer_id</text>
+      <text x="212" y="44" fill="#93C5FD" font-size="10" text-anchor="end">FK → profiles</text>
+
+      <text x="0" y="66" fill="#E4E4E7" font-size="11">title</text>
+      <text x="212" y="66" fill="#71717A" font-size="10" text-anchor="end">TEXT</text>
+
+      <text x="0" y="88" fill="#34D399" font-size="11">⭐ slug</text>
+      <text x="212" y="88" fill="#71717A" font-size="10" text-anchor="end">TEXT (UK)</text>
+
+      <text x="0" y="110" fill="#E4E4E7" font-size="11">start_time</text>
+      <text x="212" y="110" fill="#71717A" font-size="10" text-anchor="end">TIMESTAMPTZ</text>
+
+      <text x="0" y="132" fill="#E4E4E7" font-size="11">status</text>
+      <text x="212" y="132" fill="#71717A" font-size="10" text-anchor="end">TEXT</text>
+
+      <!-- Note -->
+      <rect x="0" y="150" width="212" height="18" rx="3" fill="#1E293B" />
+      <text x="106" y="163" fill="#94A3B8" font-size="9" text-anchor="middle">Ready to connect when created</text>
+    </g>
+  </g>
+
+</svg>
