@@ -238,41 +238,50 @@
   <!-- 3. TABLE: public.categories -->
   <g transform="translate(910, 150)" filter="url(#shadow)">
     <!-- Outer Card -->
-    <rect width="250" height="290" rx="10" fill="#18181B" stroke="#059669" stroke-width="2" />
+    <rect width="250" height="330" rx="10" fill="#18181B" stroke="#059669" stroke-width="2" />
     <!-- Header -->
     <path d="M 0 10 Q 0 0 10 0 L 240 0 Q 250 0 250 10 L 250 42 L 0 42 Z" fill="url(#emeraldGrad)" />
     <text x="16" y="27" fill="#FFFFFF" font-size="15" font-weight="700">public.categories</text>
     <text x="234" y="27" fill="#D1FAE5" font-size="11" font-weight="600" text-anchor="end">Event Taxonomy</text>
 
     <!-- Columns -->
-    <g transform="translate(16, 64)">
-      <text x="0" y="0" fill="#F59E0B" font-size="12" font-weight="700">🔑 id</text>
-      <text x="218" y="0" fill="#71717A" font-size="11" text-anchor="end">UUID (PK)</text>
+    <g transform="translate(16, 62)">
+      <text x="0" y="0" fill="#F59E0B" font-size="11" font-weight="700">🔑 id</text>
+      <text x="218" y="0" fill="#71717A" font-size="10" text-anchor="end">UUID (PK)</text>
 
-      <text x="0" y="25" fill="#E4E4E7" font-size="12" font-weight="600">name</text>
-      <text x="218" y="25" fill="#71717A" font-size="11" text-anchor="end">TEXT (NOT NULL)</text>
+      <text x="0" y="20" fill="#E4E4E7" font-size="11" font-weight="600">name</text>
+      <text x="218" y="20" fill="#71717A" font-size="10" text-anchor="end">TEXT (NOT NULL)</text>
 
-      <text x="0" y="50" fill="#34D399" font-size="12" font-weight="600">⭐ slug</text>
-      <text x="218" y="50" fill="#71717A" font-size="11" text-anchor="end">TEXT (UK, NOT NULL)</text>
+      <text x="0" y="40" fill="#34D399" font-size="11" font-weight="600">⭐ slug</text>
+      <text x="218" y="40" fill="#71717A" font-size="10" text-anchor="end">TEXT (UK, NOT NULL)</text>
 
-      <text x="0" y="75" fill="#E4E4E7" font-size="12">pic</text>
-      <text x="218" y="75" fill="#71717A" font-size="11" text-anchor="end">TEXT (Cover URL)</text>
+      <text x="0" y="60" fill="#E4E4E7" font-size="11">pic</text>
+      <text x="218" y="60" fill="#71717A" font-size="10" text-anchor="end">TEXT (Cover URL)</text>
 
-      <text x="0" y="100" fill="#E4E4E7" font-size="12">icon</text>
-      <text x="218" y="100" fill="#71717A" font-size="11" text-anchor="end">TEXT (Lucide / SVG)</text>
+      <text x="0" y="80" fill="#E4E4E7" font-size="11">small_description</text>
+      <text x="218" y="80" fill="#71717A" font-size="10" text-anchor="end">TEXT</text>
 
-      <text x="0" y="125" fill="#E4E4E7" font-size="12">small_description</text>
-      <text x="218" y="125" fill="#71717A" font-size="11" text-anchor="end">TEXT</text>
+      <text x="0" y="100" fill="#E4E4E7" font-size="11">icon</text>
+      <text x="218" y="100" fill="#71717A" font-size="10" text-anchor="end">TEXT (Lucide)</text>
 
-      <text x="0" y="150" fill="#E4E4E7" font-size="12">created_at</text>
-      <text x="218" y="150" fill="#71717A" font-size="11" text-anchor="end">TIMESTAMPTZ</text>
+      <text x="0" y="120" fill="#F59E0B" font-size="11">is_popular</text>
+      <text x="218" y="120" fill="#71717A" font-size="10" text-anchor="end">BOOL (Partial idx)</text>
 
-      <text x="0" y="175" fill="#E4E4E7" font-size="12">updated_at</text>
-      <text x="218" y="175" fill="#71717A" font-size="11" text-anchor="end">TIMESTAMPTZ</text>
+      <text x="0" y="140" fill="#10B981" font-size="11">is_active</text>
+      <text x="218" y="140" fill="#71717A" font-size="10" text-anchor="end">BOOL (Partial idx)</text>
+
+      <text x="0" y="160" fill="#E4E4E7" font-size="11">display_order</text>
+      <text x="218" y="160" fill="#71717A" font-size="10" text-anchor="end">INTEGER</text>
+
+      <text x="0" y="180" fill="#E4E4E7" font-size="11">created_at</text>
+      <text x="218" y="180" fill="#71717A" font-size="10" text-anchor="end">TIMESTAMPTZ</text>
+
+      <text x="0" y="200" fill="#E4E4E7" font-size="11">updated_at</text>
+      <text x="218" y="200" fill="#71717A" font-size="10" text-anchor="end">TIMESTAMPTZ</text>
 
       <!-- Note -->
-      <rect x="0" y="192" width="218" height="20" rx="4" fill="#064E3B" />
-      <text x="109" y="206" fill="#A7F3D0" font-size="9" font-weight="600" text-anchor="middle">Parent of Events (1:N)</text>
+      <rect x="0" y="216" width="218" height="18" rx="3" fill="#064E3B" />
+      <text x="109" y="229" fill="#A7F3D0" font-size="9" font-weight="600" text-anchor="middle">RLS: Admin Write Only (2MB Bucket)</text>
     </g>
   </g>
 

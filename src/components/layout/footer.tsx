@@ -3,11 +3,18 @@
 import * as React from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { ArrowRight } from "lucide-react";
 import { toast } from "sonner";
 
 export function Footer() {
+  const pathname = usePathname();
   const [newsletterEmail, setNewsletterEmail] = React.useState("");
+
+  // Do not render consumer footer in admin dashboard / admin routes
+  if (pathname?.startsWith("/admin")) {
+    return null;
+  }
 
   const handleNewsletterSubmit = (e: React.FormEvent) => {
     e.preventDefault();

@@ -282,15 +282,38 @@ Categorization taxonomy for sporting events, football leagues, concerts, festiva
 | `id` | `UUID` | **PK** | `gen_random_uuid()` | Unique category identifier |
 | `name` | `TEXT` | `NOT NULL` | None | Display name (e.g., `"Football"`, `"Music"`) |
 | `slug` | `TEXT` | **UNIQUE**, `NOT NULL` | None | URL slug (e.g., `"football"`, `"music"`) |
-| `pic` | `TEXT` | None | `NULL` | Banner / card preview image URL |
-| `icon` | `TEXT` | None | `NULL` | Lucide icon name or SVG representation |
+| `pic` | `TEXT` | None | `NULL` | Public image URL in `category-images` bucket |
 | `small_description` | `TEXT` | None | `NULL` | Brief summary displayed on cards & headers |
+| `icon` | `TEXT` | None | `NULL` | Lucide icon identifier (e.g. `Trophy`, `Music`) |
+| `is_popular` | `BOOLEAN` | `NOT NULL` | `false` | Featured flag for homepage & popular categories row |
+| `is_active` | `BOOLEAN` | `NOT NULL` | `true` | Visibility toggle (soft-delete / draft control) |
+| `display_order` | `INTEGER` | `NOT NULL` | `0` | Order priority (1-4 navbar, others in "More") |
 | `created_at` | `TIMESTAMPTZ` | `NOT NULL` | `timezone('utc', now())` | Record creation timestamp |
-| `updated_at` | `TIMESTAMPTZ` | `NOT NULL` | `timezone('utc', now())` | Last update timestamp |
+| `updated_at` | `TIMESTAMPTZ` | `NOT NULL` | `timezone('utc', now())` | Last update timestamp (auto-trigger) |
 
 **Indexes & Constraints**:
-- `categories_slug_idx`: Unique index on `slug` for dynamic route lookup (`/events/[category]`).
-- `categories_name_idx`: B-Tree index on `name` for search filtering.
+- `CONSTRAINT category_name_not_empty`: `CHECK (char_length(trim(name)) > 0)`
+- `CONSTRAINT category_slug_valid`: `CHECK (slug ~ '^[a-z0-9]+(?:-[a-z0-9]+)*$')`
+- `categories_slug_lower_idx`: Unique functional index on `LOWER(slug)` for dynamic routing.
+- `idx_categories_popular_display`: Partial index on `(display_order) WHERE is_popular = true;`
+- `idx_categories_active_display`: Partial index on `(display_order) WHERE is_active = true;`
+- **Trigger**: `trigger_categories_updated_at` executing `public.set_categories_updated_at()` before update.
+- **Row Level Security**:
+  - `SELECT`: Viewable by everyone (`is_active = true OR public.is_admin(auth.uid())`).
+  - `INSERT`, `UPDATE`, `DELETE`: Restricted to administrators (`public.is_admin(auth.uid())`).
+
+---
+
+### 4. `storage.buckets` (`category-images`)
+Public storage bucket for category preview photos and banner visuals.
+
+| Setting | Value | Description |
+| :--- | :--- | :--- |
+| **Bucket ID / Name** | `category-images` | Storage bucket identifier |
+| **Public Access** | `true` | Publicly readable URL access |
+| **File Size Limit** | `2097152` bytes | **2 MB** max image upload size |
+| **Allowed MIME Types** | `image/jpeg`, `image/png`, `image/webp`, `image/svg+xml`, `image/gif`, `image/avif` | Strict raster and vector image formats |
+| **Storage RLS** | Public `SELECT`, Admin-only `INSERT`, `UPDATE`, `DELETE` | Managed via `storage.objects` policies |
 
 ---
 

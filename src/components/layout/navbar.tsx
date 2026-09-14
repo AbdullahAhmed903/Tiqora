@@ -120,6 +120,11 @@ export function Navbar({ initialUser = null }: NavbarProps) {
     );
   };
 
+  // Do not render consumer navbar in admin dashboard / admin routes
+  if (pathname?.startsWith("/admin")) {
+    return null;
+  }
+
   return (
     <header className="sticky top-0 z-50 w-full px-2 sm:px-4 lg:px-6 pt-3 pb-1">
       {/* Floating Capsule Bar */}
