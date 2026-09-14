@@ -63,9 +63,6 @@ export async function processAndConvertToWebP(
 
   const { format, width, height } = metadata;
 
-  console.log(format);
-  
-
   if (!format) {
     throw new Error("Unable to determine image format.");
   }

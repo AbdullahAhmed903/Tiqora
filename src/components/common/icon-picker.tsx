@@ -105,6 +105,7 @@ export function IconPicker({
                   <button
                     type="button"
                     onClick={() => setSearchQuery("")}
+                    aria-label="Clear icon search"
                     className="absolute right-2.5 top-1/2 -translate-y-1/2 text-zinc-400 hover:text-zinc-600"
                   >
                     <X className="w-3.5 h-3.5" />
