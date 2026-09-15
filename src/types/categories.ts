@@ -1,3 +1,17 @@
+export interface CategoryRow {
+  id: string;
+  name: string;
+  slug: string;
+  pic: string | null;
+  small_description: string | null;
+  icon: string | null;
+  is_popular: boolean;
+  is_active: boolean;
+  display_order: number;
+  created_at: string;
+  updated_at: string;
+}
+
 export interface CategoryItem {
   id: string;
   name: string;

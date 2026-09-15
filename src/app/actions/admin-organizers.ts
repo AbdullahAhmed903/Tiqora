@@ -43,14 +43,16 @@ export async function createOrganizerAccount(
       return { success: false, error: "Unauthorized. Please log in." };
     }
 
-    const { data: callerProfile, error: profileError } = await supabase
-      .from("profiles")
-      .select("role")
-      .eq("id", caller.id)
-      .single();
+    if (caller.app_metadata?.role !== "admin") {
+      const { data: callerProfile, error: profileError } = await supabase
+        .from("profiles")
+        .select("role")
+        .eq("id", caller.id)
+        .single();
 
-    if (profileError || callerProfile?.role !== "admin") {
-      return { success: false, error: "Forbidden: Only administrators can create organizers." };
+      if (profileError || callerProfile?.role !== "admin") {
+        return { success: false, error: "Forbidden: Only administrators can create organizers." };
+      }
     }
 
     // 3. Create auth user using Supabase Admin Auth API
@@ -156,14 +158,16 @@ export async function updateOrganizerPermissions(
       return { success: false, error: "Unauthorized." };
     }
 
-    const { data: callerProfile } = await supabase
-      .from("profiles")
-      .select("role")
-      .eq("id", caller.id)
-      .single();
+    if (caller.app_metadata?.role !== "admin") {
+      const { data: callerProfile } = await supabase
+        .from("profiles")
+        .select("role")
+        .eq("id", caller.id)
+        .single();
 
-    if (callerProfile?.role !== "admin") {
-      return { success: false, error: "Forbidden: Only administrators can update permissions." };
+      if (callerProfile?.role !== "admin") {
+        return { success: false, error: "Forbidden: Only administrators can update permissions." };
+      }
     }
 
     const adminClient = createAdminClient();
