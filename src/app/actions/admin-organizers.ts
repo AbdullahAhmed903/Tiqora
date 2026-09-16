@@ -1,7 +1,7 @@
 "use server";
 
-import { createClient } from "@/lib/supabase/server";
 import { createAdminClient } from "@/lib/supabase/admin";
+import { verifyAdminCaller } from "@/lib/admin-guard";
 import {
   createOrganizerSchema,
   updateOrganizerPermissionsSchema,
@@ -33,27 +33,7 @@ export async function createOrganizerAccount(
     const { email, temporary_password, username, full_name, permissions } = validation.data;
 
     // 2. Verify caller's identity and admin role
-    const supabase = await createClient();
-    const {
-      data: { user: caller },
-      error: authError,
-    } = await supabase.auth.getUser();
-
-    if (authError || !caller) {
-      return { success: false, error: "Unauthorized. Please log in." };
-    }
-
-    if (caller.app_metadata?.role !== "admin") {
-      const { data: callerProfile, error: profileError } = await supabase
-        .from("profiles")
-        .select("role")
-        .eq("id", caller.id)
-        .single();
-
-      if (profileError || callerProfile?.role !== "admin") {
-        return { success: false, error: "Forbidden: Only administrators can create organizers." };
-      }
-    }
+    const { user: caller } = await verifyAdminCaller();
 
     // 3. Create auth user using Supabase Admin Auth API
     const adminClient = createAdminClient();
@@ -149,26 +129,7 @@ export async function updateOrganizerPermissions(
     const { organizer_id, permissions } = validation.data;
 
     // 1. Verify caller is an admin
-    const supabase = await createClient();
-    const {
-      data: { user: caller },
-    } = await supabase.auth.getUser();
-
-    if (!caller) {
-      return { success: false, error: "Unauthorized." };
-    }
-
-    if (caller.app_metadata?.role !== "admin") {
-      const { data: callerProfile } = await supabase
-        .from("profiles")
-        .select("role")
-        .eq("id", caller.id)
-        .single();
-
-      if (callerProfile?.role !== "admin") {
-        return { success: false, error: "Forbidden: Only administrators can update permissions." };
-      }
-    }
+    const { user: caller } = await verifyAdminCaller();
 
     const adminClient = createAdminClient();
 

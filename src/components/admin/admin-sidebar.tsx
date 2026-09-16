@@ -7,6 +7,7 @@ import { usePathname } from "next/navigation";
 import {
   LayoutDashboard,
   Layers,
+  FolderTree,
   Calendar,
   Users,
   Shield,
@@ -32,6 +33,12 @@ const NAVIGATION_ITEMS = [
     icon: Layers,
     matchExact: false,
     badge: "Managed",
+  },
+  {
+    name: "Sub-Categories",
+    href: "/admin/subcategories",
+    icon: FolderTree,
+    matchExact: false,
   },
   {
     name: "Events",

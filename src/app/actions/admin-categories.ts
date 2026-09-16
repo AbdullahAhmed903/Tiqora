@@ -1,8 +1,8 @@
 "use server";
 
 import { revalidatePath, revalidateTag } from "next/cache";
-import { createClient } from "@/lib/supabase/server";
 import { createAdminClient } from "@/lib/supabase/admin";
+import { verifyAdminCaller } from "@/lib/admin-guard";
 import {
   createCategorySchema,
   updateCategorySchema,
@@ -17,39 +17,6 @@ import type { CategoryRow } from "@/types/categories";
 export type ServerActionResult<T = unknown> =
   | { success: true; data: T }
   | { success: false; error: string };
-
-/**
- * Helper to verify caller is authenticated and possesses the 'admin' role.
- */
-async function verifyAdminCaller() {
-  const supabase = await createClient();
-  const {
-    data: { user },
-    error: authError,
-  } = await supabase.auth.getUser();
-
-  if (authError || !user) {
-    throw new Error("Unauthorized. Please sign in as an administrator.");
-  }
-
-  // Fast path: Check custom claims in JWT app_metadata (0 DB queries)
-  if (user.app_metadata?.role === "admin") {
-    return { user, supabase };
-  }
-
-  // Fallback: Check profiles table if token has not yet refreshed with claims
-  const { data: profile, error: profileError } = await supabase
-    .from("profiles")
-    .select("role")
-    .eq("id", user.id)
-    .single();
-
-  if (profileError || profile?.role !== "admin") {
-    throw new Error("Forbidden: Administrator privileges required.");
-  }
-
-  return { user, supabase };
-}
 
 /**
  * Revalidates all relevant category paths and tags on-demand.
