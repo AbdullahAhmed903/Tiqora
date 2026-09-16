@@ -152,22 +152,29 @@ export async function getSubcategoriesAction(params: {
 
     // Apply Search Query across subcategory name, slug, or matching parent category names
     if (query) {
-      // Lookup categories whose names match search query
-      const { data: matchedCats } = await supabase
-        .from("categories")
-        .select("id")
-        .ilike("name", `%${query}%`);
+      // Sanitize query to prevent PostgREST .or() syntax breakage from commas or parentheses
+      const sanitizedQuery = query.replace(/[,()]/g, " ").trim();
 
-      const matchedCatIds = (matchedCats || []).map((c) => c.id);
+      if (sanitizedQuery) {
+        // Lookup categories whose names match search query
+        const { data: matchedCats } = await supabase
+          .from("categories")
+          .select("id")
+          .ilike("name", `%${sanitizedQuery}%`);
 
-      if (matchedCatIds.length > 0) {
-        dbQuery = dbQuery.or(
-          `name.ilike.%${query}%,slug.ilike.%${query}%,category_id.in.(${matchedCatIds.join(
-            ","
-          )})`
-        );
-      } else {
-        dbQuery = dbQuery.or(`name.ilike.%${query}%,slug.ilike.%${query}%`);
+        const matchedCatIds = (matchedCats || []).map((c) => c.id);
+
+        if (matchedCatIds.length > 0) {
+          dbQuery = dbQuery.or(
+            `name.ilike.%${sanitizedQuery}%,slug.ilike.%${sanitizedQuery}%,category_id.in.(${matchedCatIds.join(
+              ","
+            )})`
+          );
+        } else {
+          dbQuery = dbQuery.or(
+            `name.ilike.%${sanitizedQuery}%,slug.ilike.%${sanitizedQuery}%`
+          );
+        }
       }
     }
 
