@@ -21,6 +21,15 @@ export const CATEGORY_ICONS_REGISTRY: CategoryIconDefinition[] = [
   { name: "Target", label: "Target / Archery", category: "Sports & Fitness" },
   { name: "CircleDot", label: "Ball / Match", category: "Sports & Fitness" },
   { name: "Compass", label: "Outdoor / Adventure", category: "Sports & Fitness" },
+  { name: "Footprints", label: "Running", category: "Sports & Fitness" },
+  { name: "MoreHorizontal", label: "More", category: "Sports & Fitness" },
+  { name: "Wrench", label: "Repair", category: "Sports & Fitness" },
+  { name: "Drama", label: "Drama", category: "Sports & Fitness" },
+
+
+
+
+
 
   // Music & Entertainment
   { name: "Music", label: "Music Note", category: "Music & Entertainment" },
@@ -29,6 +38,11 @@ export const CATEGORY_ICONS_REGISTRY: CategoryIconDefinition[] = [
   { name: "Radio", label: "Radio / Broadcast", category: "Music & Entertainment" },
   { name: "Speaker", label: "Speaker / Concert", category: "Music & Entertainment" },
   { name: "Volume2", label: "Audio Volume", category: "Music & Entertainment" },
+  { name: "Smile", label: "Smile", category: "Music & Entertainment" },
+  { name: "Globe", label: "Globe", category: "Music & Entertainment" },
+  { name: "Utensils", label: "Utensils", category: "Music & Entertainment" },
+
+
 
   // Arts & Culture
   { name: "Palette", label: "Art / Exhibition", category: "Arts & Culture" },
@@ -36,6 +50,11 @@ export const CATEGORY_ICONS_REGISTRY: CategoryIconDefinition[] = [
   { name: "Film", label: "Cinema / Film", category: "Arts & Culture" },
   { name: "Camera", label: "Photography", category: "Arts & Culture" },
   { name: "BookOpen", label: "Literature / Books", category: "Arts & Culture" },
+  { name: "Image", label: "Image", category: "Arts & Culture" },
+  { name: "Landmark", label: "Landmark", category: "Arts & Culture" },
+
+
+
 
   // Festivals & Nightlife
   { name: "Sparkles", label: "Sparkles / VIP", category: "Festivals & Nightlife" },

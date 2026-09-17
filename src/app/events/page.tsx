@@ -2,6 +2,7 @@ import { Suspense } from "react";
 import { Metadata } from "next";
 import { redirect } from "next/navigation";
 import { EventsExplorer } from "@/components/events/events-explorer";
+import { getCategoryPills } from "@/lib/supabase/queries/categories";
 
 export const metadata: Metadata = {
   title: "Events & Sports Explorer | Tiqora",
@@ -25,6 +26,8 @@ export default async function EventsPage({ searchParams }: EventsPageProps) {
     redirect(`/events/${params.category.toLowerCase()}`);
   }
 
+  const pills = await getCategoryPills("all");
+
   return (
     <main className="min-h-screen pb-16 bg-[#080B12]">
       <Suspense
@@ -47,7 +50,7 @@ export default async function EventsPage({ searchParams }: EventsPageProps) {
           </div>
         }
       >
-        <EventsExplorer initialCategory="all" />
+        <EventsExplorer initialCategory="all" initialPills={pills} />
       </Suspense>
     </main>
   );

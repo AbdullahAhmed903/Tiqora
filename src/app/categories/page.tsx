@@ -1,6 +1,10 @@
 import { Suspense } from "react";
 import { Metadata } from "next";
 import { CategoriesExplorer } from "@/components/categories/categories-explorer";
+import {
+  getExploreCategories,
+  getPopularCategories,
+} from "@/lib/supabase/queries/categories";
 
 export const metadata: Metadata = {
   title: "All Categories | Tiqora",
@@ -8,7 +12,15 @@ export const metadata: Metadata = {
     "Explore and browse all event categories on Tiqora — from thrilling sports matches and concerts to theater, festivals, conferences, and workshops.",
 };
 
-export default function CategoriesPage() {
+// ISR: Revalidate static HTML every 24 hours (or on-demand when admin updates)
+export const revalidate = 86400;
+
+export default async function CategoriesPage() {
+  const [categories, popularCategories] = await Promise.all([
+    getExploreCategories(),
+    getPopularCategories(),
+  ]);
+
   return (
     <main className="min-h-screen pb-16 bg-[#080B12]">
       <Suspense
@@ -26,7 +38,10 @@ export default function CategoriesPage() {
           </div>
         }
       >
-        <CategoriesExplorer />
+        <CategoriesExplorer
+          initialCategories={categories}
+          popularCategories={popularCategories}
+        />
       </Suspense>
     </main>
   );

@@ -35,3 +35,42 @@ export interface PopularCategoryItem {
   iconBg: string;
   href: string;
 }
+
+/** Minimal category payload for Navbar (name, slug, icon only) */
+export interface NavbarCategory {
+  name: string;
+  slug: string;
+  icon: string | null;
+}
+
+/** Minimal category payload for Home Page (name, slug, icon only) */
+export interface HomeCategory {
+  name: string;
+  slug: string;
+  icon: string | null;
+}
+
+/** Category payload for Explore Categories page */
+export interface ExploreCategory {
+  id: string;
+  name: string;
+  slug: string;
+  pic: string | null;
+  icon: string | null;
+  small_description: string | null;
+  is_popular: boolean;
+}
+
+/** Minimal category payload for Popular categories row */
+export interface PopularCategory {
+  name: string;
+  slug: string;
+  icon: string | null;
+}
+
+/** Minimal pill item for categories and subcategories */
+export interface CategoryPill {
+  name: string;
+  slug: string;
+  icon: string | null;
+}

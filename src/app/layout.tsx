@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono, Caveat } from "next/font/google";
 import "./globals.css";
 import { createClient } from "@/lib/supabase/server";
+import { getNavbarCategories } from "@/lib/supabase/queries/categories";
 import { Toaster } from "@/components/ui/toaster";
 import { Navbar } from "@/components/layout/navbar";
 import { Footer } from "@/components/layout/footer";
@@ -38,9 +39,10 @@ export default async function RootLayout({
   children: React.ReactNode;
 }>) {
   const supabase = await createClient();
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
+  const [{ data: { user } }, navbarCategories] = await Promise.all([
+    supabase.auth.getUser(),
+    getNavbarCategories(),
+  ]);
 
   return (
     <html
@@ -49,9 +51,9 @@ export default async function RootLayout({
       className={`${geistSans.variable} ${geistMono.variable} ${caveat.variable} dark h-full antialiased`}
     >
       <body className="min-h-full flex flex-col bg-background text-foreground selection:bg-[#2563EB]/20 selection:text-[#2563EB]">
-        <Navbar initialUser={user} />
+        <Navbar initialUser={user} categories={navbarCategories} />
         <main className="flex-1">{children}</main>
-        <Footer />
+        <Footer categories={navbarCategories} />
         <Toaster />
       </body>
     </html>
