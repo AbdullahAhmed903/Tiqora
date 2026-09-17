@@ -6,6 +6,7 @@ import { SlidersHorizontal, X } from "lucide-react";
 import { toast } from "sonner";
 import { ALL_CATEGORY_EVENTS } from "@/lib/events-data";
 import { FilterState } from "@/types/events";
+import type { CategoryPill } from "@/types/categories";
 import { EventsHeroBanner } from "./events-hero-banner";
 import { CategoryPills } from "./category-pills";
 import { EventsFilterSidebar } from "./events-filter-sidebar";
@@ -13,6 +14,7 @@ import { EventsGrid } from "./events-grid";
 
 interface EventsExplorerProps {
   initialCategory?: string;
+  initialPills?: CategoryPill[];
 }
 
 const ITEMS_PER_PAGE = 9;
@@ -24,7 +26,10 @@ const DEFAULT_FILTERS: Omit<FilterState, "subcategory"> = {
   sort: "featured",
 };
 
-export function EventsExplorer({ initialCategory }: EventsExplorerProps) {
+export function EventsExplorer({
+  initialCategory,
+  initialPills = [],
+}: EventsExplorerProps) {
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
@@ -90,8 +95,21 @@ export function EventsExplorer({ initialCategory }: EventsExplorerProps) {
 
       // 2. Subcategory Filter
       if (activeSubcategory && activeSubcategory !== "all") {
-        const matchesSubcategory = event.subcategory === activeSubcategory;
-        const matchesCategory = event.category === activeSubcategory;
+        const normActive = activeSubcategory.toLowerCase().replace(/[-_]/g, "");
+        const eventSubNorm = (event.subcategory || "")
+          .toLowerCase()
+          .replace(/[-_]/g, "");
+        const eventCatNorm = (event.category || "")
+          .toLowerCase()
+          .replace(/[-_]/g, "");
+
+        const matchesSubcategory =
+          event.subcategory === activeSubcategory ||
+          eventSubNorm === normActive;
+        const matchesCategory =
+          event.category === activeSubcategory ||
+          eventCatNorm === normActive;
+
         if (!matchesSubcategory && !matchesCategory) {
           return false;
         }
@@ -152,6 +170,7 @@ export function EventsExplorer({ initialCategory }: EventsExplorerProps) {
         category={currentCategory}
         activeSubcategory={activeSubcategory}
         onSelectSubcategory={handleSubcategorySelect}
+        pills={initialPills}
       />
 
       {/* Mobile Filter Toggle Trigger */}

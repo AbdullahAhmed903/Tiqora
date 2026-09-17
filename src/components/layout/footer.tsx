@@ -7,7 +7,11 @@ import { usePathname } from "next/navigation";
 import { ArrowRight } from "lucide-react";
 import { toast } from "sonner";
 
-export function Footer() {
+interface FooterProps {
+  categories?: { name: string; slug: string }[];
+}
+
+export function Footer({ categories = [] }: FooterProps) {
   const pathname = usePathname();
   const [newsletterEmail, setNewsletterEmail] = React.useState("");
 
@@ -151,26 +155,41 @@ export function Footer() {
                     Events
                   </Link>
                 </li>
-                <li>
-                  <Link href="/events/sports" className="hover:text-white transition-colors">
-                    Sports
-                  </Link>
-                </li>
-                <li>
-                  <Link href="/events/concerts" className="hover:text-white transition-colors">
-                    Concerts
-                  </Link>
-                </li>
-                <li>
-                  <Link href="/events/theater" className="hover:text-white transition-colors">
-                    Theater
-                  </Link>
-                </li>
-                <li>
-                  <Link href="/events/festivals" className="hover:text-white transition-colors">
-                    Festivals
-                  </Link>
-                </li>
+                {categories.length > 0 ? (
+                  categories.slice(0, 5).map((cat) => (
+                    <li key={cat.slug}>
+                      <Link
+                        href={`/events/${cat.slug}`}
+                        className="hover:text-white transition-colors"
+                      >
+                        {cat.name}
+                      </Link>
+                    </li>
+                  ))
+                ) : (
+                  <>
+                    <li>
+                      <Link href="/events/sports" className="hover:text-white transition-colors">
+                        Sports
+                      </Link>
+                    </li>
+                    <li>
+                      <Link href="/events/concerts" className="hover:text-white transition-colors">
+                        Concerts
+                      </Link>
+                    </li>
+                    <li>
+                      <Link href="/events/theater" className="hover:text-white transition-colors">
+                        Theater
+                      </Link>
+                    </li>
+                    <li>
+                      <Link href="/events/festivals" className="hover:text-white transition-colors">
+                        Festivals
+                      </Link>
+                    </li>
+                  </>
+                )}
               </ul>
             </div>
 

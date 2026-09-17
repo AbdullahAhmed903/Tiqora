@@ -7,10 +7,6 @@ import { usePathname, useRouter } from "next/navigation";
 import {
   Home,
   Compass,
-  Trophy,
-  Music,
-  Drama,
-  Calendar,
   LayoutGrid,
   Search,
   Bell,
@@ -30,12 +26,18 @@ import { createClient } from "@/lib/supabase/client";
 import { signOutAction } from "@/app/actions/auth";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { Button } from "@/components/ui/button";
+import { CategoryIcon } from "@/lib/category-icons";
+import type { NavbarCategory } from "@/types/categories";
 
 interface NavbarProps {
   initialUser?: User | null;
+  categories?: NavbarCategory[];
 }
 
-export function Navbar({ initialUser = null }: NavbarProps) {
+export function Navbar({
+  initialUser = null,
+  categories = [],
+}: NavbarProps) {
   const router = useRouter();
   const pathname = usePathname();
   const [user, setUser] = React.useState<User | null>(initialUser);
@@ -98,25 +100,19 @@ export function Navbar({ initialUser = null }: NavbarProps) {
     user?.email?.split("@")[0] ||
     "Abdullah Ahmed";
 
-  const navItems = [
-    { label: "Home", href: "/", slug: "", icon: Home },
-    { label: "Events", href: "/events", slug: "events", icon: Compass },
-    { label: "Sports", href: "/events/sports", slug: "sports", icon: Trophy },
-    { label: "Concerts", href: "/events/concerts", slug: "concerts", icon: Music },
-    { label: "Theater", href: "/events/theater", slug: "theater", icon: Drama },
-    { label: "Festivals", href: "/events/festivals", slug: "festivals", icon: Calendar },
-  ];
+  const primaryCategories = categories.slice(0, 4);
+  const moreCategories = categories.slice(4);
 
-  const isItemActive = (item: (typeof navItems)[0]) => {
-    if (item.href === "/") {
+  const isItemActive = (href: string, slug?: string) => {
+    if (href === "/") {
       return pathname === "/";
     }
-    if (item.slug === "events") {
+    if (slug === "events" || href === "/events") {
       return pathname === "/events";
     }
     return (
-      pathname === item.href ||
-      pathname.startsWith(`${item.href}/`)
+      pathname === href ||
+      pathname.startsWith(`${href}/`)
     );
   };
 
@@ -148,21 +144,57 @@ export function Navbar({ initialUser = null }: NavbarProps) {
 
         {/* Center: Navigation Links with Icons */}
         <nav className="hidden xl:flex items-center gap-1.5 2xl:gap-3">
-          {navItems.map((item) => {
-            const isActive = isItemActive(item);
-            const Icon = item.icon;
+          {/* Home */}
+          <Link
+            href="/"
+            className={`relative px-2.5 py-1.5 flex items-center gap-1.5 text-xs font-bold transition-all ${
+              isItemActive("/")
+                ? "text-[#3B82F6]"
+                : "text-zinc-400 hover:text-white"
+            }`}
+          >
+            <Home className={`w-3.5 h-3.5 ${isItemActive("/") ? "text-[#3B82F6]" : "text-zinc-400"}`} />
+            <span>Home</span>
+            {isItemActive("/") && (
+              <span className="absolute -bottom-2.5 left-2 right-2 h-0.5 bg-[#3B82F6] shadow-[0_0_8px_#3B82F6] rounded-full" />
+            )}
+          </Link>
+
+          {/* Events */}
+          <Link
+            href="/events"
+            className={`relative px-2.5 py-1.5 flex items-center gap-1.5 text-xs font-bold transition-all ${
+              isItemActive("/events", "events")
+                ? "text-[#3B82F6]"
+                : "text-zinc-400 hover:text-white"
+            }`}
+          >
+            <Compass className={`w-3.5 h-3.5 ${isItemActive("/events", "events") ? "text-[#3B82F6]" : "text-zinc-400"}`} />
+            <span>Events</span>
+            {isItemActive("/events", "events") && (
+              <span className="absolute -bottom-2.5 left-2 right-2 h-0.5 bg-[#3B82F6] shadow-[0_0_8px_#3B82F6] rounded-full" />
+            )}
+          </Link>
+
+          {/* Primary Top Categories from DB */}
+          {primaryCategories.map((cat) => {
+            const href = `/events/${cat.slug}`;
+            const isActive = isItemActive(href, cat.slug);
             return (
               <Link
-                key={item.label}
-                href={item.href}
+                key={cat.slug}
+                href={href}
                 className={`relative px-2.5 py-1.5 flex items-center gap-1.5 text-xs font-bold transition-all ${
                   isActive
                     ? "text-[#3B82F6]"
                     : "text-zinc-400 hover:text-white"
                 }`}
               >
-                <Icon className={`w-3.5 h-3.5 ${isActive ? "text-[#3B82F6]" : "text-zinc-400"}`} />
-                <span>{item.label}</span>
+                <CategoryIcon
+                  name={cat.icon}
+                  className={`w-3.5 h-3.5 ${isActive ? "text-[#3B82F6]" : "text-zinc-400"}`}
+                />
+                <span>{cat.name}</span>
                 {isActive && (
                   <span className="absolute -bottom-2.5 left-2 right-2 h-0.5 bg-[#3B82F6] shadow-[0_0_8px_#3B82F6] rounded-full" />
                 )}
@@ -170,47 +202,39 @@ export function Navbar({ initialUser = null }: NavbarProps) {
             );
           })}
 
-          {/* More Dropdown */}
-          <div className="relative">
-            <button
-              type="button"
-              onClick={() => setIsMoreMenuOpen(!isMoreMenuOpen)}
-              className="px-2.5 py-1.5 flex items-center gap-1.5 text-xs font-bold text-zinc-400 hover:text-white transition-all cursor-pointer"
-            >
-              <LayoutGrid className="w-3.5 h-3.5 text-zinc-400" />
-              <span>More</span>
-              <ChevronDown className="w-3 h-3 ml-0.5 text-zinc-400" />
-            </button>
-
-            {isMoreMenuOpen && (
-              <div
-                className="absolute top-full mt-2 left-0 w-44 rounded-2xl bg-zinc-950 border border-zinc-800 p-2 shadow-2xl z-50 space-y-1"
-                onMouseLeave={() => setIsMoreMenuOpen(false)}
+          {/* More Dropdown (Remaining categories from DB) */}
+          {moreCategories.length > 0 && (
+            <div className="relative">
+              <button
+                type="button"
+                onClick={() => setIsMoreMenuOpen(!isMoreMenuOpen)}
+                className="px-2.5 py-1.5 flex items-center gap-1.5 text-xs font-bold text-zinc-400 hover:text-white transition-all cursor-pointer"
               >
-                <Link
-                  href="/events/gaming"
-                  onClick={() => setIsMoreMenuOpen(false)}
-                  className="block px-3 py-2 text-xs font-medium text-zinc-300 hover:text-white hover:bg-zinc-900 rounded-xl transition-colors"
+                <LayoutGrid className="w-3.5 h-3.5 text-zinc-400" />
+                <span>More</span>
+                <ChevronDown className="w-3 h-3 ml-0.5 text-zinc-400" />
+              </button>
+
+              {isMoreMenuOpen && (
+                <div
+                  className="absolute top-full mt-2 left-0 w-48 rounded-2xl bg-zinc-950 border border-zinc-800 p-2 shadow-2xl z-50 space-y-1"
+                  onMouseLeave={() => setIsMoreMenuOpen(false)}
                 >
-                  Gaming
-                </Link>
-                <Link
-                  href="/events/family"
-                  onClick={() => setIsMoreMenuOpen(false)}
-                  className="block px-3 py-2 text-xs font-medium text-zinc-300 hover:text-white hover:bg-zinc-900 rounded-xl transition-colors"
-                >
-                  Family
-                </Link>
-                <Link
-                  href="/events/business"
-                  onClick={() => setIsMoreMenuOpen(false)}
-                  className="block px-3 py-2 text-xs font-medium text-zinc-300 hover:text-white hover:bg-zinc-900 rounded-xl transition-colors"
-                >
-                  Business
-                </Link>
-              </div>
-            )}
-          </div>
+                  {moreCategories.map((cat) => (
+                    <Link
+                      key={cat.slug}
+                      href={`/events/${cat.slug}`}
+                      onClick={() => setIsMoreMenuOpen(false)}
+                      className="flex items-center gap-2 px-3 py-2 text-xs font-medium text-zinc-300 hover:text-white hover:bg-zinc-900 rounded-xl transition-colors"
+                    >
+                      <CategoryIcon name={cat.icon} className="w-3.5 h-3.5 text-zinc-400" />
+                      <span className="truncate">{cat.name}</span>
+                    </Link>
+                  ))}
+                </div>
+              )}
+            </div>
+          )}
         </nav>
 
         {/* Right Controls: Search, Theme Toggle, Notification Bell, User Capsule */}
@@ -377,13 +401,42 @@ export function Navbar({ initialUser = null }: NavbarProps) {
             />
           </form>
           <div className="flex flex-col gap-1 pt-1">
-            {navItems.map((item) => {
-              const Icon = item.icon;
-              const isActive = isItemActive(item);
+            {/* Home */}
+            <Link
+              href="/"
+              onClick={() => setIsMobileMenuOpen(false)}
+              className={`px-3 py-2 text-xs font-semibold rounded-xl transition-colors flex items-center gap-2.5 ${
+                isItemActive("/")
+                  ? "text-[#3B82F6] bg-blue-950/40 border border-blue-500/20 font-bold"
+                  : "text-zinc-300 hover:text-white hover:bg-zinc-900"
+              }`}
+            >
+              <Home className={`w-4 h-4 ${isItemActive("/") ? "text-[#3B82F6]" : "text-zinc-400"}`} />
+              <span>Home</span>
+            </Link>
+
+            {/* Events */}
+            <Link
+              href="/events"
+              onClick={() => setIsMobileMenuOpen(false)}
+              className={`px-3 py-2 text-xs font-semibold rounded-xl transition-colors flex items-center gap-2.5 ${
+                isItemActive("/events", "events")
+                  ? "text-[#3B82F6] bg-blue-950/40 border border-blue-500/20 font-bold"
+                  : "text-zinc-300 hover:text-white hover:bg-zinc-900"
+              }`}
+            >
+              <Compass className={`w-4 h-4 ${isItemActive("/events", "events") ? "text-[#3B82F6]" : "text-zinc-400"}`} />
+              <span>Events</span>
+            </Link>
+
+            {/* Dynamic Categories from DB */}
+            {categories.map((cat) => {
+              const href = `/events/${cat.slug}`;
+              const isActive = isItemActive(href, cat.slug);
               return (
                 <Link
-                  key={item.label}
-                  href={item.href}
+                  key={cat.slug}
+                  href={href}
                   onClick={() => setIsMobileMenuOpen(false)}
                   className={`px-3 py-2 text-xs font-semibold rounded-xl transition-colors flex items-center gap-2.5 ${
                     isActive
@@ -391,8 +444,11 @@ export function Navbar({ initialUser = null }: NavbarProps) {
                       : "text-zinc-300 hover:text-white hover:bg-zinc-900"
                   }`}
                 >
-                  <Icon className={`w-4 h-4 ${isActive ? "text-[#3B82F6]" : "text-zinc-400"}`} />
-                  <span>{item.label}</span>
+                  <CategoryIcon
+                    name={cat.icon}
+                    className={`w-4 h-4 ${isActive ? "text-[#3B82F6]" : "text-zinc-400"}`}
+                  />
+                  <span>{cat.name}</span>
                 </Link>
               );
             })}

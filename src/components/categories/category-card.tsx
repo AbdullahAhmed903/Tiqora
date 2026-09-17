@@ -1,57 +1,29 @@
-"use client";
-
 import * as React from "react";
 import Image from "next/image";
 import Link from "next/link";
-import {
-  Trophy,
-  Music,
-  Drama,
-  Sparkles,
-  Users,
-  Wrench,
-  Image as ImageIcon,
-  Landmark,
-  Gamepad2,
-  Heart,
-  Briefcase,
-  Star,
-  ArrowRight,
-  LucideIcon,
-} from "lucide-react";
-import { CategoryItem } from "@/types/categories";
+import { ArrowRight } from "lucide-react";
+import { CategoryIcon } from "@/lib/category-icons";
+import type { ExploreCategory } from "@/types/categories";
 
-const ICON_MAP: Record<string, LucideIcon> = {
-  Trophy,
-  Music,
-  Drama,
-  Sparkles,
-  Users,
-  Wrench,
-  Image: ImageIcon,
-  Landmark,
-  Gamepad2,
-  Heart,
-  Briefcase,
-  Star,
-};
+const FALLBACK_CATEGORY_IMAGE =
+  "https://images.unsplash.com/photo-1540575467063-178a50c2df87?q=80&w=800&auto=format&fit=crop";
 
 interface CategoryCardProps {
-  category: CategoryItem;
+  category: ExploreCategory;
 }
 
 export function CategoryCard({ category }: CategoryCardProps) {
-  const Icon = ICON_MAP[category.iconName] || Trophy;
+  const imageSrc = category.pic || FALLBACK_CATEGORY_IMAGE;
 
   return (
     <Link
-      href={category.href}
+      href={`/events/${category.slug}`}
       className="group relative bg-[#0B0F19] hover:bg-[#0E1322] border border-zinc-800/80 hover:border-blue-500/50 rounded-2xl sm:rounded-3xl overflow-hidden transition-all duration-300 hover:shadow-2xl hover:shadow-blue-950/40 flex flex-col cursor-pointer"
     >
       {/* Top Banner Image with Wave & Floating Badge */}
       <div className="relative h-44 sm:h-48 w-full overflow-hidden bg-zinc-900">
         <Image
-          src={category.image}
+          src={imageSrc}
           alt={category.name}
           fill
           className="object-cover transition-transform duration-700 ease-out group-hover:scale-105"
@@ -73,10 +45,8 @@ export function CategoryCard({ category }: CategoryCardProps) {
         </div>
 
         {/* Floating Circular Icon Badge Overlapping Wave */}
-        <div
-          className={`absolute bottom-2 sm:bottom-2.5 left-5 z-20 w-11 h-11 sm:w-12 sm:h-12 rounded-full flex items-center justify-center border-2 border-[#0B0F19] group-hover:border-[#0E1322] text-white transition-all duration-300 group-hover:scale-110 shadow-lg ${category.iconBg}`}
-        >
-          <Icon className="w-5 h-5 sm:w-6 sm:h-6" />
+        <div className="absolute bottom-2 sm:bottom-2.5 left-5 z-20 w-11 h-11 sm:w-12 sm:h-12 rounded-full flex items-center justify-center border-2 border-[#0B0F19] group-hover:border-[#0E1322] text-white transition-all duration-300 group-hover:scale-110 shadow-lg bg-blue-600 shadow-[0_0_16px_rgba(37,99,235,0.45)]">
+          <CategoryIcon name={category.icon} className="w-5 h-5 sm:w-6 sm:h-6" />
         </div>
       </div>
 
@@ -86,12 +56,11 @@ export function CategoryCard({ category }: CategoryCardProps) {
           <h3 className="text-lg sm:text-xl font-bold text-white group-hover:text-blue-400 transition-colors">
             {category.name}
           </h3>
-          <p className="text-xs sm:text-sm font-semibold text-zinc-400 mt-0.5">
-            {category.eventsCount} Events
-          </p>
-          <p className="text-xs sm:text-sm text-zinc-400/90 leading-relaxed mt-2.5 line-clamp-2">
-            {category.description}
-          </p>
+          {category.small_description && (
+            <p className="text-xs sm:text-sm text-zinc-400/90 leading-relaxed mt-2 line-clamp-2">
+              {category.small_description}
+            </p>
+          )}
         </div>
 
         {/* Bottom Action Button */}

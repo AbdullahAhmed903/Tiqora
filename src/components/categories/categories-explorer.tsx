@@ -2,12 +2,20 @@
 
 import * as React from "react";
 import { LayoutGrid, ChevronLeft, ChevronRight, SearchX } from "lucide-react";
-import { ALL_CATEGORIES } from "@/lib/categories-data";
 import { CategoriesHero } from "./categories-hero";
 import { CategoryCard } from "./category-card";
 import { PopularCategoriesRow } from "./popular-categories-row";
+import type { ExploreCategory, PopularCategory } from "@/types/categories";
 
-export function CategoriesExplorer() {
+interface CategoriesExplorerProps {
+  initialCategories?: ExploreCategory[];
+  popularCategories?: PopularCategory[];
+}
+
+export function CategoriesExplorer({
+  initialCategories = [],
+  popularCategories = [],
+}: CategoriesExplorerProps) {
   const [searchQuery, setSearchQuery] = React.useState("");
   const gridContainerRef = React.useRef<HTMLDivElement>(null);
   const [canScrollPrev, setCanScrollPrev] = React.useState(false);
@@ -16,15 +24,17 @@ export function CategoriesExplorer() {
   // Filter categories based on search input
   const filteredCategories = React.useMemo(() => {
     const query = searchQuery.trim().toLowerCase();
-    if (!query) return ALL_CATEGORIES;
+    if (!query) return initialCategories;
 
-    return ALL_CATEGORIES.filter((cat) => {
+    return initialCategories.filter((cat) => {
       const matchName = cat.name.toLowerCase().includes(query);
-      const matchDesc = cat.description.toLowerCase().includes(query);
-      const matchTags = cat.tags?.some((t) => t.toLowerCase().includes(query));
-      return matchName || matchDesc || matchTags;
+      const matchDesc = cat.small_description
+        ? cat.small_description.toLowerCase().includes(query)
+        : false;
+      const matchSlug = cat.slug.toLowerCase().includes(query);
+      return matchName || matchDesc || matchSlug;
     });
-  }, [searchQuery]);
+  }, [searchQuery, initialCategories]);
 
   const checkGridScroll = () => {
     if (!gridContainerRef.current) return;
@@ -135,9 +145,11 @@ export function CategoriesExplorer() {
       </section>
 
       {/* 3. Popular Categories Carousel / Trending Row */}
-      <section className="pt-2">
-        <PopularCategoriesRow />
-      </section>
+      {popularCategories.length > 0 && (
+        <section className="pt-2">
+          <PopularCategoriesRow categories={popularCategories} />
+        </section>
+      )}
     </div>
   );
 }

@@ -2,27 +2,17 @@
 
 import * as React from "react";
 import Link from "next/link";
-import {
-  Flame,
-  ChevronLeft,
-  ChevronRight,
-  ArrowRight,
-  Trophy,
-  Music,
-  Drama,
-  Sparkles,
-  LucideIcon,
-} from "lucide-react";
-import { POPULAR_CATEGORIES } from "@/lib/categories-data";
+import { Flame, ChevronLeft, ChevronRight, ArrowRight } from "lucide-react";
+import { CategoryIcon } from "@/lib/category-icons";
+import type { PopularCategory } from "@/types/categories";
 
-const POPULAR_ICON_MAP: Record<string, LucideIcon> = {
-  Trophy,
-  Music,
-  Drama,
-  Sparkles,
-};
+interface PopularCategoriesRowProps {
+  categories?: PopularCategory[];
+}
 
-export function PopularCategoriesRow() {
+export function PopularCategoriesRow({
+  categories = [],
+}: PopularCategoriesRowProps) {
   const scrollRef = React.useRef<HTMLDivElement>(null);
   const [canScrollLeft, setCanScrollLeft] = React.useState(false);
   const [canScrollRight, setCanScrollRight] = React.useState(true);
@@ -97,39 +87,30 @@ export function PopularCategoriesRow() {
         onScroll={checkScroll}
         className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3.5 sm:gap-4 mt-6 overflow-x-auto no-scrollbar scroll-smooth"
       >
-        {POPULAR_CATEGORIES.map((cat) => {
-          const Icon = POPULAR_ICON_MAP[cat.iconName] || Trophy;
-
-          return (
-            <Link
-              key={cat.id}
-              href={cat.href}
-              className="group flex items-center justify-between px-4 py-3 rounded-full bg-zinc-900/80 hover:bg-zinc-800/90 border border-zinc-800/90 hover:border-zinc-700 transition-all duration-300 shadow-sm cursor-pointer"
-            >
-              {/* Left: Icon & Info */}
-              <div className="flex items-center gap-3 min-w-0">
-                <div
-                  className={`w-9 h-9 rounded-full flex items-center justify-center text-white shrink-0 shadow-md ${cat.iconBg}`}
-                >
-                  <Icon className="w-4 h-4" />
-                </div>
-                <div className="min-w-0">
-                  <span className="block text-sm font-bold text-white group-hover:text-blue-400 transition-colors truncate">
-                    {cat.name}
-                  </span>
-                  <span className="block text-xs text-zinc-400">
-                    {cat.eventsCount} Events
-                  </span>
-                </div>
+        {categories.map((cat) => (
+          <Link
+            key={cat.slug}
+            href={`/events/${cat.slug}`}
+            className="group flex items-center justify-between px-4 py-3 rounded-full bg-zinc-900/80 hover:bg-zinc-800/90 border border-zinc-800/90 hover:border-zinc-700 transition-all duration-300 shadow-sm cursor-pointer"
+          >
+            {/* Left: Icon & Info */}
+            <div className="flex items-center gap-3 min-w-0">
+              <div className="w-9 h-9 rounded-full flex items-center justify-center text-white shrink-0 shadow-md bg-blue-600 shadow-[0_0_12px_rgba(37,99,235,0.4)]">
+                <CategoryIcon name={cat.icon} className="w-4 h-4" />
               </div>
-
-              {/* Right: Arrow */}
-              <div className="w-6 h-6 rounded-full flex items-center justify-center text-zinc-400 group-hover:text-white group-hover:translate-x-1 transition-all shrink-0 ml-2">
-                <ArrowRight className="w-4 h-4" />
+              <div className="min-w-0">
+                <span className="block text-sm font-bold text-white group-hover:text-blue-400 transition-colors truncate">
+                  {cat.name}
+                </span>
               </div>
-            </Link>
-          );
-        })}
+            </div>
+
+            {/* Right: Arrow */}
+            <div className="w-6 h-6 rounded-full flex items-center justify-center text-zinc-400 group-hover:text-white group-hover:translate-x-1 transition-all shrink-0 ml-2">
+              <ArrowRight className="w-4 h-4" />
+            </div>
+          </Link>
+        ))}
       </div>
     </div>
   );
