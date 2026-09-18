@@ -7,10 +7,6 @@ import { usePathname, useRouter } from "next/navigation";
 import {
   Home,
   Compass,
-  Trophy,
-  Music,
-  Drama,
-  Calendar,
   LayoutGrid,
   Search,
   Bell,
@@ -19,6 +15,10 @@ import {
   Loader2,
   Menu,
   X,
+  Heart,
+  Ticket,
+  User as UserIcon,
+  Settings as SettingsIcon,
 } from "lucide-react";
 import { toast } from "sonner";
 import { type User } from "@supabase/supabase-js";
@@ -26,12 +26,18 @@ import { createClient } from "@/lib/supabase/client";
 import { signOutAction } from "@/app/actions/auth";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { Button } from "@/components/ui/button";
+import { CategoryIcon } from "@/lib/category-icons";
+import type { NavbarCategory } from "@/types/categories";
 
 interface NavbarProps {
   initialUser?: User | null;
+  categories?: NavbarCategory[];
 }
 
-export function Navbar({ initialUser = null }: NavbarProps) {
+export function Navbar({
+  initialUser = null,
+  categories = [],
+}: NavbarProps) {
   const router = useRouter();
   const pathname = usePathname();
   const [user, setUser] = React.useState<User | null>(initialUser);
@@ -94,14 +100,26 @@ export function Navbar({ initialUser = null }: NavbarProps) {
     user?.email?.split("@")[0] ||
     "Abdullah Ahmed";
 
-  const navItems = [
-    { label: "Home", href: "/", icon: Home },
-    { label: "Events", href: "/events", icon: Compass },
-    { label: "Sports", href: "/events?category=sports", icon: Trophy },
-    { label: "Concerts", href: "/events?category=concerts", icon: Music },
-    { label: "Theater", href: "/events?category=theater", icon: Drama },
-    { label: "Festivals", href: "/events?category=festivals", icon: Calendar },
-  ];
+  const primaryCategories = categories.slice(0, 4);
+  const moreCategories = categories.slice(4);
+
+  const isItemActive = (href: string, slug?: string) => {
+    if (href === "/") {
+      return pathname === "/";
+    }
+    if (slug === "events" || href === "/events") {
+      return pathname === "/events";
+    }
+    return (
+      pathname === href ||
+      pathname.startsWith(`${href}/`)
+    );
+  };
+
+  // Do not render consumer navbar in admin dashboard / admin routes
+  if (pathname?.startsWith("/admin")) {
+    return null;
+  }
 
   return (
     <header className="sticky top-0 z-50 w-full px-2 sm:px-4 lg:px-6 pt-3 pb-1">
@@ -126,21 +144,57 @@ export function Navbar({ initialUser = null }: NavbarProps) {
 
         {/* Center: Navigation Links with Icons */}
         <nav className="hidden xl:flex items-center gap-1.5 2xl:gap-3">
-          {navItems.map((item) => {
-            const isActive = pathname === item.href;
-            const Icon = item.icon;
+          {/* Home */}
+          <Link
+            href="/"
+            className={`relative px-2.5 py-1.5 flex items-center gap-1.5 text-xs font-bold transition-all ${
+              isItemActive("/")
+                ? "text-[#3B82F6]"
+                : "text-zinc-400 hover:text-white"
+            }`}
+          >
+            <Home className={`w-3.5 h-3.5 ${isItemActive("/") ? "text-[#3B82F6]" : "text-zinc-400"}`} />
+            <span>Home</span>
+            {isItemActive("/") && (
+              <span className="absolute -bottom-2.5 left-2 right-2 h-0.5 bg-[#3B82F6] shadow-[0_0_8px_#3B82F6] rounded-full" />
+            )}
+          </Link>
+
+          {/* Events */}
+          <Link
+            href="/events"
+            className={`relative px-2.5 py-1.5 flex items-center gap-1.5 text-xs font-bold transition-all ${
+              isItemActive("/events", "events")
+                ? "text-[#3B82F6]"
+                : "text-zinc-400 hover:text-white"
+            }`}
+          >
+            <Compass className={`w-3.5 h-3.5 ${isItemActive("/events", "events") ? "text-[#3B82F6]" : "text-zinc-400"}`} />
+            <span>Events</span>
+            {isItemActive("/events", "events") && (
+              <span className="absolute -bottom-2.5 left-2 right-2 h-0.5 bg-[#3B82F6] shadow-[0_0_8px_#3B82F6] rounded-full" />
+            )}
+          </Link>
+
+          {/* Primary Top Categories from DB */}
+          {primaryCategories.map((cat) => {
+            const href = `/events/${cat.slug}`;
+            const isActive = isItemActive(href, cat.slug);
             return (
               <Link
-                key={item.label}
-                href={item.href}
+                key={cat.slug}
+                href={href}
                 className={`relative px-2.5 py-1.5 flex items-center gap-1.5 text-xs font-bold transition-all ${
                   isActive
                     ? "text-[#3B82F6]"
                     : "text-zinc-400 hover:text-white"
                 }`}
               >
-                <Icon className={`w-3.5 h-3.5 ${isActive ? "text-[#3B82F6]" : "text-zinc-400"}`} />
-                <span>{item.label}</span>
+                <CategoryIcon
+                  name={cat.icon}
+                  className={`w-3.5 h-3.5 ${isActive ? "text-[#3B82F6]" : "text-zinc-400"}`}
+                />
+                <span>{cat.name}</span>
                 {isActive && (
                   <span className="absolute -bottom-2.5 left-2 right-2 h-0.5 bg-[#3B82F6] shadow-[0_0_8px_#3B82F6] rounded-full" />
                 )}
@@ -148,47 +202,39 @@ export function Navbar({ initialUser = null }: NavbarProps) {
             );
           })}
 
-          {/* More Dropdown */}
-          <div className="relative">
-            <button
-              type="button"
-              onClick={() => setIsMoreMenuOpen(!isMoreMenuOpen)}
-              className="px-2.5 py-1.5 flex items-center gap-1.5 text-xs font-bold text-zinc-400 hover:text-white transition-all cursor-pointer"
-            >
-              <LayoutGrid className="w-3.5 h-3.5 text-zinc-400" />
-              <span>More</span>
-              <ChevronDown className="w-3 h-3 ml-0.5 text-zinc-400" />
-            </button>
-
-            {isMoreMenuOpen && (
-              <div
-                className="absolute top-full mt-2 left-0 w-44 rounded-2xl bg-zinc-950 border border-zinc-800 p-2 shadow-2xl z-50 space-y-1"
-                onMouseLeave={() => setIsMoreMenuOpen(false)}
+          {/* More Dropdown (Remaining categories from DB) */}
+          {moreCategories.length > 0 && (
+            <div className="relative">
+              <button
+                type="button"
+                onClick={() => setIsMoreMenuOpen(!isMoreMenuOpen)}
+                className="px-2.5 py-1.5 flex items-center gap-1.5 text-xs font-bold text-zinc-400 hover:text-white transition-all cursor-pointer"
               >
-                <Link
-                  href="/events?category=gaming"
-                  onClick={() => setIsMoreMenuOpen(false)}
-                  className="block px-3 py-2 text-xs font-medium text-zinc-300 hover:text-white hover:bg-zinc-900 rounded-xl transition-colors"
+                <LayoutGrid className="w-3.5 h-3.5 text-zinc-400" />
+                <span>More</span>
+                <ChevronDown className="w-3 h-3 ml-0.5 text-zinc-400" />
+              </button>
+
+              {isMoreMenuOpen && (
+                <div
+                  className="absolute top-full mt-2 left-0 w-48 rounded-2xl bg-zinc-950 border border-zinc-800 p-2 shadow-2xl z-50 space-y-1"
+                  onMouseLeave={() => setIsMoreMenuOpen(false)}
                 >
-                  Gaming
-                </Link>
-                <Link
-                  href="/events?category=family"
-                  onClick={() => setIsMoreMenuOpen(false)}
-                  className="block px-3 py-2 text-xs font-medium text-zinc-300 hover:text-white hover:bg-zinc-900 rounded-xl transition-colors"
-                >
-                  Family
-                </Link>
-                <Link
-                  href="/events?category=business"
-                  onClick={() => setIsMoreMenuOpen(false)}
-                  className="block px-3 py-2 text-xs font-medium text-zinc-300 hover:text-white hover:bg-zinc-900 rounded-xl transition-colors"
-                >
-                  Business
-                </Link>
-              </div>
-            )}
-          </div>
+                  {moreCategories.map((cat) => (
+                    <Link
+                      key={cat.slug}
+                      href={`/events/${cat.slug}`}
+                      onClick={() => setIsMoreMenuOpen(false)}
+                      className="flex items-center gap-2 px-3 py-2 text-xs font-medium text-zinc-300 hover:text-white hover:bg-zinc-900 rounded-xl transition-colors"
+                    >
+                      <CategoryIcon name={cat.icon} className="w-3.5 h-3.5 text-zinc-400" />
+                      <span className="truncate">{cat.name}</span>
+                    </Link>
+                  ))}
+                </div>
+              )}
+            </div>
+          )}
         </nav>
 
         {/* Right Controls: Search, Theme Toggle, Notification Bell, User Capsule */}
@@ -229,7 +275,7 @@ export function Navbar({ initialUser = null }: NavbarProps) {
           </button>
 
           {/* User Profile Pill or Auth Action */}
-          {user ? (
+          {user || true ? (
             <div className="relative">
               <button
                 type="button"
@@ -242,24 +288,63 @@ export function Navbar({ initialUser = null }: NavbarProps) {
                 <span className="text-xs font-bold text-white max-w-[110px] truncate hidden sm:inline">
                   {displayName}
                 </span>
-                <ChevronDown className="w-3 h-3 text-zinc-400" />
+                <ChevronDown className={`w-3 h-3 text-zinc-400 transition-transform duration-200 ${isUserMenuOpen ? "rotate-180" : ""}`} />
               </button>
 
               {/* User Dropdown */}
               {isUserMenuOpen && (
                 <div
-                  className="absolute right-0 top-full mt-2 w-48 rounded-2xl bg-zinc-950 border border-zinc-800 p-2 shadow-2xl z-50 space-y-1"
+                  className="absolute right-0 top-full mt-2 w-52 rounded-2xl bg-zinc-950 border border-zinc-800 p-2 shadow-2xl z-50 space-y-1"
                   onMouseLeave={() => setIsUserMenuOpen(false)}
                 >
                   <div className="px-3 py-2 border-b border-zinc-800/80">
                     <p className="text-xs font-bold text-white truncate">{displayName}</p>
-                    <p className="text-[10px] text-zinc-400 truncate">{user.email}</p>
+                    <p className="text-[10px] text-zinc-400 truncate">{user?.email || "user@tiqora.com"}</p>
                   </div>
+
+                  <Link
+                    href="/favorites"
+                    onClick={() => setIsUserMenuOpen(false)}
+                    className="w-full flex items-center gap-2.5 px-3 py-2 text-xs font-medium text-zinc-300 hover:text-white hover:bg-zinc-900 rounded-xl transition-colors cursor-pointer"
+                  >
+                    <Heart className="w-3.5 h-3.5 text-[#3B82F6]" />
+                    <span>Favorites</span>
+                  </Link>
+
+                  <Link
+                    href="/tickets"
+                    onClick={() => setIsUserMenuOpen(false)}
+                    className="w-full flex items-center gap-2.5 px-3 py-2 text-xs font-medium text-zinc-300 hover:text-white hover:bg-zinc-900 rounded-xl transition-colors cursor-pointer"
+                  >
+                    <Ticket className="w-3.5 h-3.5 text-zinc-400" />
+                    <span>My Tickets</span>
+                  </Link>
+
+                  <Link
+                    href="/profile"
+                    onClick={() => setIsUserMenuOpen(false)}
+                    className="w-full flex items-center gap-2.5 px-3 py-2 text-xs font-medium text-zinc-300 hover:text-white hover:bg-zinc-900 rounded-xl transition-colors cursor-pointer"
+                  >
+                    <UserIcon className="w-3.5 h-3.5 text-zinc-400" />
+                    <span>Profile</span>
+                  </Link>
+
+                  <Link
+                    href="/settings"
+                    onClick={() => setIsUserMenuOpen(false)}
+                    className="w-full flex items-center gap-2.5 px-3 py-2 text-xs font-medium text-zinc-300 hover:text-white hover:bg-zinc-900 rounded-xl transition-colors cursor-pointer"
+                  >
+                    <SettingsIcon className="w-3.5 h-3.5 text-zinc-400" />
+                    <span>Settings</span>
+                  </Link>
+
+                  <div className="h-px bg-zinc-800/80 my-1" />
+
                   <button
                     type="button"
                     onClick={handleSignOut}
                     disabled={isSigningOut}
-                    className="w-full flex items-center gap-2 px-3 py-2 text-xs font-semibold text-red-400 hover:bg-zinc-900 rounded-xl transition-colors cursor-pointer"
+                    className="w-full flex items-center gap-2.5 px-3 py-2 text-xs font-semibold text-red-400 hover:bg-zinc-900 rounded-xl transition-colors cursor-pointer"
                   >
                     {isSigningOut ? (
                       <Loader2 className="w-3.5 h-3.5 animate-spin" />
@@ -316,20 +401,71 @@ export function Navbar({ initialUser = null }: NavbarProps) {
             />
           </form>
           <div className="flex flex-col gap-1 pt-1">
-            {navItems.map((item) => {
-              const Icon = item.icon;
+            {/* Home */}
+            <Link
+              href="/"
+              onClick={() => setIsMobileMenuOpen(false)}
+              className={`px-3 py-2 text-xs font-semibold rounded-xl transition-colors flex items-center gap-2.5 ${
+                isItemActive("/")
+                  ? "text-[#3B82F6] bg-blue-950/40 border border-blue-500/20 font-bold"
+                  : "text-zinc-300 hover:text-white hover:bg-zinc-900"
+              }`}
+            >
+              <Home className={`w-4 h-4 ${isItemActive("/") ? "text-[#3B82F6]" : "text-zinc-400"}`} />
+              <span>Home</span>
+            </Link>
+
+            {/* Events */}
+            <Link
+              href="/events"
+              onClick={() => setIsMobileMenuOpen(false)}
+              className={`px-3 py-2 text-xs font-semibold rounded-xl transition-colors flex items-center gap-2.5 ${
+                isItemActive("/events", "events")
+                  ? "text-[#3B82F6] bg-blue-950/40 border border-blue-500/20 font-bold"
+                  : "text-zinc-300 hover:text-white hover:bg-zinc-900"
+              }`}
+            >
+              <Compass className={`w-4 h-4 ${isItemActive("/events", "events") ? "text-[#3B82F6]" : "text-zinc-400"}`} />
+              <span>Events</span>
+            </Link>
+
+            {/* Dynamic Categories from DB */}
+            {categories.map((cat) => {
+              const href = `/events/${cat.slug}`;
+              const isActive = isItemActive(href, cat.slug);
               return (
                 <Link
-                  key={item.label}
-                  href={item.href}
+                  key={cat.slug}
+                  href={href}
                   onClick={() => setIsMobileMenuOpen(false)}
-                  className="px-3 py-2 text-xs font-semibold text-zinc-200 hover:text-white hover:bg-zinc-900 rounded-xl transition-colors flex items-center gap-2"
+                  className={`px-3 py-2 text-xs font-semibold rounded-xl transition-colors flex items-center gap-2.5 ${
+                    isActive
+                      ? "text-[#3B82F6] bg-blue-950/40 border border-blue-500/20 font-bold"
+                      : "text-zinc-300 hover:text-white hover:bg-zinc-900"
+                  }`}
                 >
-                  <Icon className="w-4 h-4 text-zinc-400" />
-                  <span>{item.label}</span>
+                  <CategoryIcon
+                    name={cat.icon}
+                    className={`w-4 h-4 ${isActive ? "text-[#3B82F6]" : "text-zinc-400"}`}
+                  />
+                  <span>{cat.name}</span>
                 </Link>
               );
             })}
+
+            <div className="h-px bg-zinc-800/80 my-1" />
+            <Link
+              href="/favorites"
+              onClick={() => setIsMobileMenuOpen(false)}
+              className={`px-3 py-2 text-xs font-semibold rounded-xl transition-colors flex items-center gap-2.5 ${
+                pathname === "/favorites"
+                  ? "text-[#3B82F6] bg-blue-950/40 border border-blue-500/20 font-bold"
+                  : "text-zinc-300 hover:text-white hover:bg-zinc-900"
+              }`}
+            >
+              <Heart className={`w-4 h-4 ${pathname === "/favorites" ? "text-[#3B82F6]" : "text-zinc-400"}`} />
+              <span>Favorites</span>
+            </Link>
           </div>
         </div>
       )}

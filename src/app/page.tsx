@@ -5,8 +5,14 @@ import { FootballMatchesSection } from "@/components/home/football-matches-secti
 import { RecentlyAddedSection } from "@/components/home/recently-added-section";
 import { BannerCtaSection } from "@/components/home/banner-cta-section";
 import { AppPromoSection } from "@/components/home/app-promo-section";
+import { getHomeCategories } from "@/lib/supabase/queries/categories";
 
-export default function HomePage() {
+// ISR: Revalidate page every 24 hours (or on-demand when admin updates)
+export const revalidate = 86400;
+
+export default async function HomePage() {
+  const categories = await getHomeCategories();
+
   return (
     <div className="w-full py-4 sm:py-6 space-y-12 sm:space-y-16">
       {/* 1. Hero Carousel Section - Full Width with small margin left & right */}
@@ -17,7 +23,7 @@ export default function HomePage() {
       {/* Main Content Sections */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12 sm:space-y-16">
         {/* 2. Explore by Category */}
-        <CategorySection />
+        <CategorySection categories={categories} />
 
         {/* 3. Featured Hot Events Near You */}
         <FeaturedEventsSection />
