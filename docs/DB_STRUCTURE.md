@@ -18,8 +18,10 @@ This document serves as the official, living schema reference and relational dia
    - [auth.users (Supabase Managed)](#1-authusers-supabase-auth)
    - [public.profiles (User Accounts)](#2-publicprofiles-user-accounts)
    - [public.categories (Event Categories)](#3-publiccategories-event-categories)
-   - [public.organizer_permissions](#4-publicorganizer_permissions)
-   - [public.admin_audit_logs](#5-publicadmin_audit_logs)
+   - [public.subcategories (Sub-categories)](#4-publicsubcategories-sub-categories)
+   - [storage.buckets (category-images)](#5-storagebuckets-category-images)
+   - [public.organizer_permissions](#6-publicorganizer_permissions)
+   - [public.admin_audit_logs](#7-publicadmin_audit_logs)
 7. [Custom Enums & Types](#-custom-enums--types)
 8. [Planned Schema Roadmap](#-planned-schema-roadmap-upcoming-tables)
 9. [Update Procedure](#-how-to-update-this-document)
@@ -59,7 +61,8 @@ flowchart LR
     subgraph CatalogLayer ["🎪 Event Catalog"]
         direction TB
         C["<b>public.categories</b><br/>PK: id<br/>name, slug, pic, icon,<br/>small_description"]
-        E["<b>public.events</b><br/><i>(Planned Table)</i><br/>PK: id<br/>FK: category_id &rarr; categories.id<br/>FK: organizer_id &rarr; profiles.id"]
+        SC["<b>public.subcategories</b><br/>PK: id<br/>FK: category_id &rarr; categories.id<br/>name, slug, icon, is_published"]
+        E["<b>public.events</b><br/><i>(Planned Table)</i><br/>PK: id<br/>FK: category_id &rarr; categories.id<br/>FK: subcategory_id &rarr; subcategories.id<br/>FK: organizer_id &rarr; profiles.id"]
     end
 
     %% Active Relations with Detailed Labels
@@ -71,18 +74,24 @@ flowchart LR
 
     P -.->|"<b>0..1 : N</b><br/><b>Partial Participation (Optional)</b><br/>User may be targeted in 0..N logs<br/>FK: target_user_id | SET NULL"| AL
 
-    %% Planned Relation to Category
+    %% Subcategory Relation
+    C -.->|"<b>1 : N</b><br/><b>Partial on Category, Total on Subcategory</b><br/>Category has 0..N subcategories<br/>FK: category_id | CASCADE"| SC
+
+    %% Planned Relation to Category & Subcategory
     C -.->|"<b>1 : N</b><br/><b>Partial on Category, Total on Event</b><br/>Category has 0..N events<br/>Event must have 1 category"| E
+    SC -.->|"<b>0..1 : N</b><br/><b>Partial Participation (Optional)</b><br/>Subcategory has 0..N events"| E
     P -.->|"<b>1 : N</b><br/><b>Partial Participation (Optional)</b><br/>Organizer organizes 0..N events"| E
 
     %% Styling
     classDef core fill:#1d4ed8,stroke:#60a5fa,stroke-width:2px,color:#ffffff;
     classDef secondary fill:#047857,stroke:#34d399,stroke-width:2px,color:#ffffff;
+    classDef subcatalog fill:#0d9488,stroke:#2dd4bf,stroke-width:2px,color:#ffffff;
     classDef auxiliary fill:#27272a,stroke:#71717a,stroke-width:1.5px,color:#f4f4f5;
     classDef planned fill:#18181b,stroke:#a1a1aa,stroke-dasharray: 4 4,stroke-width:1.5px,color:#d4d4d8;
 
     class AU,P core;
     class C secondary;
+    class SC subcatalog;
     class OP,AL auxiliary;
     class E planned;
 ```
@@ -114,7 +123,15 @@ In relational database modeling, relationships have two primary dimensions: **Ca
   - An audit log does not always target an account (e.g. system configuration change where `target_user_id IS NULL`).
   - If a targeted user profile is ever deleted, the audit log remains for compliance with `target_user_id` set to `NULL` (`ON DELETE SET NULL`).
 
-### 4. `1 : N` Category to Events (Planned Structure)
+### 4. `1 : N` Category to Subcategories (Active Structure)
+* **Entities**: `public.categories` &rarr; `public.subcategories`
+* **Rule**:
+  - **Parent (`categories`) is Partial / Optional**: A parent category can exist without any subcategories (`0..N`).
+  - **Child (`subcategories`) is Total / Mandatory**: Every subcategory **must** belong to an existing parent category (`category_id UUID NOT NULL REFERENCES categories(id) ON DELETE CASCADE`).
+  - **Cascading Deletion**: Deleting a parent category automatically deletes all associated subcategories (`ON DELETE CASCADE`).
+  - **Scoped Slugs**: Slugs are unique per parent category via `CONSTRAINT subcategories_category_slug_unique UNIQUE (category_id, slug)`.
+
+### 5. `1 : N` Category to Events (Planned Structure)
 * **Entities**: `public.categories` &rarr; `public.events`
 * **Rule**:
   - **Category is Partial / Optional**: A new category (e.g. "Theatre") can be created before any events are scheduled (`0` events initially).
@@ -131,7 +148,9 @@ In relational database modeling, relationships have two primary dimensions: **Ca
 | `public.profiles` | `public.organizer_permissions` | **1 : N** | **Partial** (0..N) | **Partial** (0..1) | `organizer_permissions.granted_by` &rarr; `profiles.id` | `SET NULL` | Admin who granted permission. Retained if admin is removed. |
 | `public.profiles` | `public.admin_audit_logs` | **1 : N** | **Partial** (0..N) | **Total** (1..1) | `admin_audit_logs.admin_id` &rarr; `profiles.id` | `CASCADE` | Administrator responsible for performing the logged action. |
 | `public.profiles` | `public.admin_audit_logs` | **1 : N** | **Partial** (0..N) | **Partial** (0..1) | `admin_audit_logs.target_user_id` &rarr; `profiles.id` | `SET NULL` | User affected by admin action; nullable for general actions. |
+| `public.categories` | `public.subcategories` | **1 : N** | **Partial** (0..N) | **Total** (1..1) | `subcategories.category_id` &rarr; `categories.id` | `CASCADE` | Subdivides parent category into niche genres or leagues (e.g. Football &rarr; Premier League). Cascades on parent deletion. |
 | `public.categories` | `public.events` *(Planned)* | **1 : N** | **Partial** (0..N) | **Total** (1..1) | `events.category_id` &rarr; `categories.id` | `RESTRICT` | Category has 0 or more events. An event must have 1 category. |
+| `public.subcategories` | `public.events` *(Planned)* | **1 : N** | **Partial** (0..N) | **Partial** (0..1) | `events.subcategory_id` &rarr; `subcategories.id` | `SET NULL` | Optional subcategory assignment for fine-grained filtering. |
 
 ---
 
@@ -150,6 +169,7 @@ erDiagram
     PROFILES ||--o{ ORGANIZER_PERMISSIONS : "1:N (0..N permissions)"
     PROFILES ||--o{ ADMIN_AUDIT_LOGS : "1:N (Admin performs 0..N logs)"
     PROFILES |o--o{ ADMIN_AUDIT_LOGS : "0..1:N (Targeted in 0..N logs)"
+    CATEGORIES ||--o{ SUBCATEGORIES : "1:N (0..N subcategories)"
 
     AUTH_USERS {
         uuid id PK "Supabase internal user ID"
@@ -178,6 +198,18 @@ erDiagram
         text pic "Cover/Hero image URL"
         text icon "Lucide icon identifier or SVG path"
         text small_description "Brief summary of category"
+        timestamptz created_at "Creation timestamp"
+        timestamptz updated_at "Last update timestamp"
+    }
+
+    SUBCATEGORIES {
+        uuid id PK "Primary key (gen_random_uuid())"
+        uuid category_id FK "References public.categories(id) ON DELETE CASCADE"
+        text name "Subcategory display name (e.g. Premier League)"
+        text slug "URL-friendly slug (scoped unique per category)"
+        text icon "Lucide icon identifier (default 'Tag')"
+        boolean is_published "Visibility toggle (draft / published)"
+        integer display_order "Ordering priority within parent"
         timestamptz created_at "Creation timestamp"
         timestamptz updated_at "Last update timestamp"
     }
@@ -216,7 +248,10 @@ graph TD
 
     subgraph Catalog ["🎪 Event Catalog Layer"]
         C["public.categories"]
+        SC["public.subcategories"]
+        C -->|1:N Cascading| SC
         E["public.events (Planned)"] -.->|1:N Partial on Category| C
+        E -.->|0..1:N Partial on Subcategory| SC
         E -.->|1:N Organized by| P
     end
 
@@ -229,7 +264,7 @@ graph TD
     classDef active fill:#2563EB,stroke:#1D4ED8,stroke-width:2px,color:#fff;
     classDef planned fill:#18181B,stroke:#3F3F46,stroke-width:2px,stroke-dasharray: 5 5,color:#A1A1AA;
     
-    class AU,P,OP,AL,C active;
+    class AU,P,OP,AL,C,SC active;
     class E,T,B planned;
 ```
 
@@ -302,9 +337,36 @@ Categorization taxonomy for sporting events, football leagues, concerts, festiva
   - `SELECT`: Viewable by everyone (`is_active = true OR public.is_admin(auth.uid())`).
   - `INSERT`, `UPDATE`, `DELETE`: Restricted to administrators (`public.is_admin(auth.uid())`).
 
+### 4. `public.subcategories` (Sub-categories)
+Granular categorization taxonomy that sub-divides parent categories into niche disciplines, leagues, and genres (e.g., Football &rarr; Premier League, La Liga, Champions League; Music &rarr; Rock, Jazz).
+
+| Column | Type | Constraints | Default | Description |
+| :--- | :--- | :--- | :--- | :--- |
+| `id` | `UUID` | **PK** | `gen_random_uuid()` | Unique subcategory identifier |
+| `category_id` | `UUID` | **FK** &rarr; `categories(id)` | None | Parent category ID (`ON DELETE CASCADE`) |
+| `name` | `TEXT` | `NOT NULL` | None | Subcategory display name (e.g. `"Premier League"`) |
+| `slug` | `TEXT` | `NOT NULL` | None | Scoped URL slug (unique per parent category) |
+| `icon` | `TEXT` | None | `'Tag'` | Lucide icon identifier (e.g. `Trophy`, `Tag`) |
+| `is_published` | `BOOLEAN` | `NOT NULL` | `true` | Visibility toggle (published / draft) |
+| `display_order` | `INTEGER` | `NOT NULL` | `0` | Sequence priority within parent category |
+| `created_at` | `TIMESTAMPTZ` | `NOT NULL` | `timezone('utc', now())` | Record creation timestamp |
+| `updated_at` | `TIMESTAMPTZ` | `NOT NULL` | `timezone('utc', now())` | Last update timestamp (auto-trigger) |
+
+**Indexes & Constraints**:
+- `CONSTRAINT subcategory_name_not_empty`: `CHECK (char_length(trim(name)) > 0)`
+- `CONSTRAINT subcategory_slug_valid`: `CHECK (slug ~ '^[a-z0-9]+(?:-[a-z0-9]+)*$')`
+- `CONSTRAINT subcategories_category_slug_unique`: `UNIQUE (category_id, slug)`
+- `idx_subcategories_category_id`: B-tree index on `(category_id)` for high-speed foreign key joins.
+- `idx_subcategories_published`: Partial index on `(category_id) WHERE is_published = true;` for live catalog filtering.
+- `idx_subcategories_slug`: Functional index on `(category_id, LOWER(slug))` for case-insensitive URL routing.
+- **Trigger**: `trigger_subcategories_updated_at` executing `public.set_subcategories_updated_at()` before update.
+- **Row Level Security**:
+  - `SELECT`: Viewable by everyone if published or by admins (`is_published = true OR public.is_admin(auth.uid())`).
+  - `INSERT`, `UPDATE`, `DELETE`: Restricted to administrators (`public.is_admin(auth.uid())`).
+
 ---
 
-### 4. `storage.buckets` (`category-images`)
+### 5. `storage.buckets` (`category-images`)
 Public storage bucket for category preview photos and banner visuals.
 
 | Setting | Value | Description |
@@ -317,7 +379,7 @@ Public storage bucket for category preview photos and banner visuals.
 
 ---
 
-### 4. `public.organizer_permissions`
+### 6. `public.organizer_permissions`
 Granular permission matrix for organizers to manage distinct sub-domains.
 
 | Column | Type | Constraints | Default | Description |
@@ -334,7 +396,7 @@ Granular permission matrix for organizers to manage distinct sub-domains.
 
 ---
 
-### 5. `public.admin_audit_logs`
+### 7. `public.admin_audit_logs`
 Immutable audit trail for compliance, role escalations, and moderation actions.
 
 | Column | Type | Constraints | Default | Description |
@@ -387,6 +449,7 @@ When new features are built and configured in the Supabase Console, this documen
 ```mermaid
 erDiagram
     CATEGORIES ||--o{ EVENTS : "1:N (Partial on Category, Mandatory on Event)"
+    SUBCATEGORIES ||--o{ EVENTS : "0..1:N (Optional subcategory assignment)"
     PROFILES ||--o{ EVENTS : "1:N (Organizer creates 0..N events)"
     EVENTS ||--|{ TICKETS : "1:N (Event has 1..N ticket tiers)"
     VENUES ||--o{ EVENTS : "1:N (Venue hosts 0..N events)"
@@ -399,6 +462,7 @@ erDiagram
     EVENTS {
         uuid id PK
         uuid category_id FK "NOT NULL -> categories.id"
+        uuid subcategory_id FK "NULLABLE -> subcategories.id"
         uuid organizer_id FK "NOT NULL -> profiles.id"
         uuid venue_id FK "NULLABLE -> venues.id"
         text title

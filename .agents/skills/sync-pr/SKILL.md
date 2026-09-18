@@ -24,7 +24,7 @@ Before doing anything, confirm the release PR is merged — not just open or clo
 
 ```bash
 gh pr view <RELEASE_PR_NUMBER> \
-  --repo tensorik-tech/tensorik-webapp \
+  --repo AbdullahAhmed903/Tiqora \
   --json state,mergedAt,title
 ```
 
@@ -35,7 +35,7 @@ If no release PR number is provided, find the most recently merged PR into main:
 
 ```bash
 gh pr list \
-  --repo tensorik-tech/tensorik-webapp \
+  --repo AbdullahAhmed903/Tiqora \
   --base main --state merged --limit 5 \
   --json number,title,mergedAt
 ```
@@ -119,7 +119,7 @@ cat > /tmp/sync-body.md << 'EOF'
 EOF
 
 gh pr create \
-  --repo tensorik-tech/tensorik-webapp \
+  --repo AbdullahAhmed903/Tiqora \
   --base dev \
   --head main \
   --draft \
