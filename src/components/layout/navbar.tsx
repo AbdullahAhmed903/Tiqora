@@ -98,7 +98,7 @@ export function Navbar({
     user?.user_metadata?.full_name ||
     user?.user_metadata?.username ||
     user?.email?.split("@")[0] ||
-    "Abdullah Ahmed";
+    "User";
 
   const primaryCategories = categories.slice(0, 4);
   const moreCategories = categories.slice(4);
@@ -275,15 +275,25 @@ export function Navbar({
           </button>
 
           {/* User Profile Pill or Auth Action */}
-          {user || true ? (
+          {user ? (
             <div className="relative">
               <button
                 type="button"
                 onClick={() => setIsUserMenuOpen(!isUserMenuOpen)}
                 className="flex items-center gap-2 pl-1.5 pr-3 py-1 rounded-full bg-zinc-900 border border-zinc-800 hover:border-zinc-700 transition-colors cursor-pointer"
               >
-                <div className="w-7 h-7 rounded-full bg-[#2563EB] text-white text-xs font-black flex items-center justify-center shadow-xs">
-                  {displayName.charAt(0).toUpperCase()}
+                <div className="w-7 h-7 rounded-full bg-[#2563EB] text-white text-xs font-black flex items-center justify-center shadow-xs overflow-hidden">
+                  {user?.user_metadata?.avatar_url ? (
+                    <Image
+                      src={user.user_metadata.avatar_url}
+                      alt={displayName}
+                      width={28}
+                      height={28}
+                      className="w-full h-full object-cover"
+                    />
+                  ) : (
+                    displayName.charAt(0).toUpperCase()
+                  )}
                 </div>
                 <span className="text-xs font-bold text-white max-w-[110px] truncate hidden sm:inline">
                   {displayName}
@@ -297,9 +307,24 @@ export function Navbar({
                   className="absolute right-0 top-full mt-2 w-52 rounded-2xl bg-zinc-950 border border-zinc-800 p-2 shadow-2xl z-50 space-y-1"
                   onMouseLeave={() => setIsUserMenuOpen(false)}
                 >
-                  <div className="px-3 py-2 border-b border-zinc-800/80">
-                    <p className="text-xs font-bold text-white truncate">{displayName}</p>
-                    <p className="text-[10px] text-zinc-400 truncate">{user?.email || "user@tiqora.com"}</p>
+                  <div className="px-3 py-2 border-b border-zinc-800/80 flex items-center gap-2.5">
+                    <div className="w-8 h-8 rounded-full bg-[#2563EB] text-white text-xs font-black flex items-center justify-center flex-shrink-0 overflow-hidden">
+                      {user?.user_metadata?.avatar_url ? (
+                        <Image
+                          src={user.user_metadata.avatar_url}
+                          alt={displayName}
+                          width={32}
+                          height={32}
+                          className="w-full h-full object-cover"
+                        />
+                      ) : (
+                        displayName.charAt(0).toUpperCase()
+                      )}
+                    </div>
+                    <div className="min-w-0 flex-1">
+                      <p className="text-xs font-bold text-white truncate">{displayName}</p>
+                      <p className="text-[10px] text-zinc-400 truncate">{user?.email || "user@tiqora.com"}</p>
+                    </div>
                   </div>
 
                   <Link
@@ -466,6 +491,85 @@ export function Navbar({
               <Heart className={`w-4 h-4 ${pathname === "/favorites" ? "text-[#3B82F6]" : "text-zinc-400"}`} />
               <span>Favorites</span>
             </Link>
+
+            {user ? (
+              <>
+                <Link
+                  href="/tickets"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                  className={`px-3 py-2 text-xs font-semibold rounded-xl transition-colors flex items-center gap-2.5 ${
+                    pathname === "/tickets"
+                      ? "text-[#3B82F6] bg-blue-950/40 border border-blue-500/20 font-bold"
+                      : "text-zinc-300 hover:text-white hover:bg-zinc-900"
+                  }`}
+                >
+                  <Ticket className="w-4 h-4 text-zinc-400" />
+                  <span>My Tickets</span>
+                </Link>
+                <Link
+                  href="/profile"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                  className={`px-3 py-2 text-xs font-semibold rounded-xl transition-colors flex items-center gap-2.5 ${
+                    pathname === "/profile"
+                      ? "text-[#3B82F6] bg-blue-950/40 border border-blue-500/20 font-bold"
+                      : "text-zinc-300 hover:text-white hover:bg-zinc-900"
+                  }`}
+                >
+                  <UserIcon className="w-4 h-4 text-zinc-400" />
+                  <span>Profile</span>
+                </Link>
+                <Link
+                  href="/settings"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                  className={`px-3 py-2 text-xs font-semibold rounded-xl transition-colors flex items-center gap-2.5 ${
+                    pathname === "/settings"
+                      ? "text-[#3B82F6] bg-blue-950/40 border border-blue-500/20 font-bold"
+                      : "text-zinc-300 hover:text-white hover:bg-zinc-900"
+                  }`}
+                >
+                  <SettingsIcon className="w-4 h-4 text-zinc-400" />
+                  <span>Settings</span>
+                </Link>
+                <div className="h-px bg-zinc-800/80 my-1" />
+                <button
+                  type="button"
+                  onClick={() => {
+                    setIsMobileMenuOpen(false);
+                    handleSignOut();
+                  }}
+                  disabled={isSigningOut}
+                  className="w-full flex items-center gap-2.5 px-3 py-2 text-xs font-semibold text-red-400 hover:bg-zinc-900 rounded-xl transition-colors cursor-pointer text-left"
+                >
+                  {isSigningOut ? (
+                    <Loader2 className="w-4 h-4 animate-spin" />
+                  ) : (
+                    <LogOut className="w-4 h-4" />
+                  )}
+                  <span>Sign out</span>
+                </button>
+              </>
+            ) : (
+              <div className="pt-2 flex flex-col gap-2">
+                <Link
+                  href="/login"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                  className="w-full py-2 text-center text-xs font-bold text-zinc-300 hover:text-white bg-zinc-900 border border-zinc-800 rounded-xl transition-colors"
+                >
+                  Sign in
+                </Link>
+                <Link
+                  href="/signup"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                >
+                  <Button
+                    size="sm"
+                    className="w-full bg-[#2563EB] hover:bg-[#1D4ED8] text-white font-bold text-xs py-2 rounded-xl shadow-md transition-all cursor-pointer h-8"
+                  >
+                    Sign up
+                  </Button>
+                </Link>
+              </div>
+            )}
           </div>
         </div>
       )}

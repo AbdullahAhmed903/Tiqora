@@ -81,3 +81,86 @@ body {
     transform: translateX(100%);
   }
 }
+
+/* Custom Sonner Toast Shapes & Accents */
+[data-sonner-toast][data-type="error"],
+.sonner-toast-error {
+  position: relative !important;
+  background: linear-gradient(135deg, rgba(46, 7, 14, 0.97) 0%, rgba(26, 5, 10, 0.98) 50%, rgba(14, 2, 5, 0.99) 100%) !important;
+  border: 1px solid rgba(239, 68, 68, 0.5) !important;
+  border-left: 6px solid #ef4444 !important;
+  /* Distinct sculpted asymmetric shape */
+  border-radius: 1.25rem 0.5rem 1.25rem 0.5rem !important;
+  box-shadow: none !important;
+  color: #fee2e2 !important;
+}
+
+/* Red badge wrapper for the error icon (no fuzzy halo shadow) */
+[data-sonner-toast][data-type="error"] [data-icon],
+.sonner-toast-error [data-icon] {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  background: rgba(239, 68, 68, 0.2) !important;
+  border: 1px solid rgba(239, 68, 68, 0.5) !important;
+  border-radius: 0.65rem !important;
+  padding: 0.3rem !important;
+  color: #f87171 !important;
+  box-shadow: none !important;
+  filter: none !important;
+}
+
+[data-sonner-toast][data-type="error"] [data-title],
+.sonner-toast-error [data-title] {
+  color: #ffffff !important;
+  font-weight: 700 !important;
+  letter-spacing: -0.01em !important;
+}
+
+[data-sonner-toast][data-type="error"] [data-description],
+.sonner-toast-error [data-description] {
+  color: #fca5a5 !important;
+  font-size: 0.8125rem !important;
+  line-height: 1.35 !important;
+}
+
+/* Ensure Sonner close button is always visible, crisp, and located top-right */
+[data-sonner-toast] [data-close-button] {
+  position: absolute !important;
+  top: 10px !important;
+  right: 10px !important;
+  left: auto !important;
+  bottom: auto !important;
+  transform: none !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  width: 22px !important;
+  height: 22px !important;
+  border-radius: 6px !important;
+  background: rgba(255, 255, 255, 0.12) !important;
+  border: 1px solid rgba(255, 255, 255, 0.25) !important;
+  color: #ffffff !important;
+  cursor: pointer !important;
+  z-index: 30 !important;
+  transition: all 0.15s ease-in-out !important;
+}
+
+[data-sonner-toast] [data-close-button]:hover {
+  background: #ef4444 !important;
+  border-color: #ef4444 !important;
+  color: #ffffff !important;
+}
+
+[data-sonner-toast] [data-close-button] svg {
+  width: 13px !important;
+  height: 13px !important;
+  stroke: currentColor !important;
+  stroke-width: 2.2 !important;
+  display: block !important;
+}
+
+
+

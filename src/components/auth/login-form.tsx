@@ -1,9 +1,9 @@
 "use client";
 
 import * as React from "react";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import Link from "next/link";
-import { Mail, Loader2 } from "lucide-react";
+import { Mail, Loader2, AlertCircle } from "lucide-react";
 import { toast } from "sonner";
 import { GoogleButton } from "./google-button";
 import { PasswordInput } from "./password-input";
@@ -13,6 +13,8 @@ import { loginAction } from "@/app/actions/auth";
 
 export function LoginForm() {
   const router = useRouter();
+  const searchParams = useSearchParams();
+  const errorParam = searchParams.get("error");
   const [identifier, setIdentifier] = React.useState("");
   const [password, setPassword] = React.useState("");
   const [isLoading, setIsLoading] = React.useState(false);
@@ -49,6 +51,14 @@ export function LoginForm() {
           Sign in to continue to Tiqora
         </p>
       </div>
+
+      {/* Account Suspended Alert Banner */}
+      {errorParam === "account_suspended" && (
+        <div className="p-3.5 rounded-xl bg-red-500/10 border border-red-500/25 text-red-400 text-xs font-semibold flex items-center gap-2.5 shadow-sm">
+          <AlertCircle className="w-4 h-4 flex-shrink-0 text-red-400" />
+          <span>Your account has been suspended. Please contact support.</span>
+        </div>
+      )}
 
       {/* Social Google Login */}
       <GoogleButton label="Continue with Google" />
