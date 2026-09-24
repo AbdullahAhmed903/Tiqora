@@ -96,10 +96,6 @@ export function UserSidebar({ favoritesCount }: UserSidebarProps) {
           );
         })}
       </nav>
-
-     
-
-        
     </div>
   );
 }

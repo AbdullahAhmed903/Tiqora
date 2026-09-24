@@ -71,6 +71,7 @@ export default async function ProfilePage() {
     year: "numeric",
   });
 
+  // TODO: Replace favoritesCount with dynamic query from user_favorites once database persistence is active
   const stats: ProfileStats = {
     favoritesCount: 13,
     ticketsCount: 0,

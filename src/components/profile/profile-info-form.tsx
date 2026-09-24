@@ -16,7 +16,7 @@ import { toast } from "sonner";
 import { updateProfileAction } from "@/app/actions/profile";
 import type { Profile } from "@/types/auth";
 import { Button } from "@/components/ui/button";
-import { CustomCalendar } from "@/components/ui/custom-calendar";
+import { CustomCalendar } from "@/components/profile/custom-calendar";
 
 interface ProfileInfoFormProps {
   profile: Profile;
