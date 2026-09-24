@@ -1,3 +1,4 @@
+import { Suspense } from "react";
 import type { Metadata } from "next";
 import { AuthSplitCard } from "@/components/auth/auth-split-card";
 import { LoginForm } from "@/components/auth/login-form";
@@ -11,7 +12,9 @@ export const metadata: Metadata = {
 export default function LoginPage() {
   return (
     <AuthSplitCard type="login">
-      <LoginForm />
+      <Suspense fallback={<div className="h-64 animate-pulse rounded-2xl bg-zinc-900/40" />}>
+        <LoginForm />
+      </Suspense>
     </AuthSplitCard>
   );
 }

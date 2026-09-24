@@ -1,8 +1,8 @@
 import { z } from "zod";
 
 // Regular expressions
-const USERNAME_REGEX = /^[a-zA-Z0-9_]+$/;
-const PHONE_REGEX = /^\+?[1-9]\d{1,14}$/; // E.164 international format
+export const USERNAME_REGEX = /^[a-zA-Z0-9_]+$/;
+export const PHONE_REGEX = /^\+?[1-9]\d{1,14}$/; // E.164 international format
 
 // ------------------------------------------------------------------------------
 // Shared Validation Tokens
@@ -10,6 +10,17 @@ const PHONE_REGEX = /^\+?[1-9]\d{1,14}$/; // E.164 international format
 export const passwordSchema = z
   .string()
   .min(8, "Password must be at least 8 characters long");
+
+export const phoneSchema = z
+  .string()
+  .trim()
+  .regex(PHONE_REGEX, "Please enter a valid international phone number (e.g. +1234567890)");
+
+export const fullNameSchema = z
+  .string()
+  .trim()
+  .min(2, "Full name must be at least 2 characters")
+  .max(30, "Full name cannot exceed 30 characters");
 
 // ------------------------------------------------------------------------------
 // Sign Up (Email & Password)
@@ -36,30 +47,6 @@ export const loginSchema = z.object({
 });
 
 export type LoginInput = z.infer<typeof loginSchema>;
-
-// ------------------------------------------------------------------------------
-// User Profile Update
-// User fills in phone number, full name, and date of birth later in their profile.
-// ------------------------------------------------------------------------------
-export const updateProfileSchema = z.object({
-  full_name: z.string().min(2, "Full name must be at least 2 characters").max(80).optional().nullable(),
-  phone_number: z
-    .string()
-    .regex(PHONE_REGEX, "Please enter a valid phone number (e.g. +1234567890)")
-    .optional()
-    .nullable()
-    .or(z.literal("")),
-  date_of_birth: z
-    .string()
-    .refine((val) => !val || !isNaN(Date.parse(val)), {
-      message: "Please provide a valid date in YYYY-MM-DD format",
-    })
-    .optional()
-    .nullable(),
-  avatar_url: z.string().url("Invalid avatar URL").optional().nullable(),
-});
-
-export type UpdateProfileInput = z.infer<typeof updateProfileSchema>;
 
 // ------------------------------------------------------------------------------
 // Admin Creating Organizer Account
@@ -90,7 +77,7 @@ export const createOrganizerSchema = z.object({
     .min(3, "Username must be at least 3 characters long")
     .max(30, "Username must be at most 30 characters long")
     .regex(USERNAME_REGEX, "Username can only contain letters, numbers, and underscores"),
-  full_name: z.string().min(2, "Full name must be at least 2 characters").optional(),
+  full_name: fullNameSchema.optional(),
   permissions: z.array(sectionPermissionAssignmentSchema).default([]),
 });
 

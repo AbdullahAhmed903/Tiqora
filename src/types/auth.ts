@@ -47,3 +47,12 @@ export interface AdminAuditLog {
   metadata: Record<string, unknown>;
   created_at: string;
 }
+
+export type AuthProvider = "email" | "google" | "oauth";
+
+export interface ProfileStats {
+  favoritesCount: number;
+  ticketsCount: number;
+  memberSinceFormatted: string;
+}
+
