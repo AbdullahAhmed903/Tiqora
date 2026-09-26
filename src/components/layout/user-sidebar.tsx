@@ -7,15 +7,20 @@ import {
   Compass,
   Heart,
   Ticket,
+  Bell,
   User,
   Settings,
 } from "lucide-react";
 
 export interface UserSidebarProps {
   favoritesCount?: number;
+  notificationsCount?: number;
 }
 
-export function UserSidebar({ favoritesCount }: UserSidebarProps) {
+export function UserSidebar({
+  favoritesCount,
+  notificationsCount,
+}: UserSidebarProps) {
   const pathname = usePathname();
 
   const navItems = [
@@ -39,6 +44,18 @@ export function UserSidebar({ favoritesCount }: UserSidebarProps) {
       icon: Ticket,
       isActive: pathname === "/tickets",
       badge: null,
+    },
+    {
+      label: "Notifications",
+      href: "/notifications",
+      icon: Bell,
+      isActive: pathname === "/notifications",
+      badge:
+        typeof notificationsCount === "number"
+          ? notificationsCount > 0
+            ? notificationsCount
+            : null
+          : 3,
     },
     {
       label: "Profile",
