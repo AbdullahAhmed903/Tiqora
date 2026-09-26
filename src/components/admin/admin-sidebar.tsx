@@ -14,6 +14,7 @@ import {
   ChevronRight,
   Menu,
   X,
+  Mail,
 } from "lucide-react";
 
 interface AdminSidebarProps {
@@ -50,6 +51,12 @@ const NAVIGATION_ITEMS = [
     name: "Organizers",
     href: "/admin/organizers",
     icon: Users,
+    matchExact: false,
+  },
+  {
+    name: "Newsletter",
+    href: "/admin/newsletter",
+    icon: Mail,
     matchExact: false,
   },
 ];

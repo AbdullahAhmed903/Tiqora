@@ -22,6 +22,7 @@ This document serves as the official, living schema reference and relational dia
    - [storage.buckets (category-images)](#5-storagebuckets-category-images)
    - [public.organizer_permissions](#6-publicorganizer_permissions)
    - [public.admin_audit_logs](#7-publicadmin_audit_logs)
+   - [public.newsletter_subscribers](#8-publicnewsletter_subscribers)
 7. [Custom Enums & Types](#-custom-enums--types)
 8. [Planned Schema Roadmap](#-planned-schema-roadmap-upcoming-tables)
 9. [Update Procedure](#-how-to-update-this-document)
@@ -65,6 +66,11 @@ flowchart LR
         E["<b>public.events</b><br/><i>(Planned Table)</i><br/>PK: id<br/>FK: category_id &rarr; categories.id<br/>FK: subcategory_id &rarr; subcategories.id<br/>FK: organizer_id &rarr; profiles.id"]
     end
 
+    subgraph AudienceLayer ["📢 Audience & Marketing"]
+        direction TB
+        NS["<b>public.newsletter_subscribers</b><br/>PK: id<br/>email (UK), status, source,<br/>subscribed_at, unsubscribed_at"]
+    end
+
     %% Active Relations with Detailed Labels
     AU ===|"<b>1 : 1</b><br/><b>Total Participation (Mandatory)</b><br/>Both entities must exist<br/>ON DELETE CASCADE"| P
 
@@ -92,7 +98,7 @@ flowchart LR
     class AU,P core;
     class C secondary;
     class SC subcatalog;
-    class OP,AL auxiliary;
+    class OP,AL,NS auxiliary;
     class E planned;
 ```
 </details>
@@ -407,6 +413,33 @@ Immutable audit trail for compliance, role escalations, and moderation actions.
 | `action` | `TEXT` | `NOT NULL` | None | Audit action key (e.g. `USER_SUSPENDED`) |
 | `metadata` | `JSONB` | `NOT NULL` | `'{}'` | Snapshot of parameters and payload |
 | `created_at` | `TIMESTAMPTZ` | `NOT NULL` | `now()` | Event occurrence timestamp |
+
+---
+
+### 8. `public.newsletter_subscribers`
+Audience newsletter subscriptions for match updates, ticket drops, and platform promotions.
+
+| Column | Type | Constraints | Default | Description |
+| :--- | :--- | :--- | :--- | :--- |
+| `id` | `UUID` | **PK** | `gen_random_uuid()` | Unique subscription identifier |
+| `email` | `TEXT` | `NOT NULL`, **UK** | None | Subscriber email address (case-insensitive unique via `lower(trim(email))`) |
+| `status` | `TEXT` | `NOT NULL`, `CHECK (status IN ('active', 'unsubscribed'))` | `'active'` | Subscription status |
+| `source` | `TEXT` | `NOT NULL` | `'footer'` | Acquisition channel / form location |
+| `ip_hash` | `TEXT` | `NULLABLE` | `NULL` | Optional anonymized IP hash for abuse mitigation |
+| `subscribed_at` | `TIMESTAMPTZ` | `NOT NULL` | `now()` | Timestamp of subscription or reactivation |
+| `unsubscribed_at` | `TIMESTAMPTZ` | `NULLABLE` | `NULL` | Timestamp of unsubscription |
+| `updated_at` | `TIMESTAMPTZ` | `NOT NULL` | `now()` | Timestamp of last modification |
+
+**Unique Constraint & Indexes**:
+- `idx_newsletter_subscribers_email_unique`: Unique index on `LOWER(TRIM(email))`.
+- `idx_newsletter_subscribers_status`: B-tree index on `status`.
+- `idx_newsletter_subscribers_subscribed_at`: Index on `subscribed_at DESC` for chronological campaign exports.
+
+**Row Level Security (RLS)**:
+- `SELECT`: Only administrators (`public.is_admin(auth.uid())`).
+- `INSERT`: Open to anyone (`WITH CHECK (true)`).
+- `UPDATE`: Only administrators (`public.is_admin(auth.uid())`).
+- `DELETE`: Only administrators (`public.is_admin(auth.uid())`).
 
 ---
 

@@ -4,8 +4,9 @@ import * as React from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, Loader2 } from "lucide-react";
 import { toast } from "sonner";
+import { subscribeNewsletterAction } from "@/app/actions/newsletter";
 
 interface FooterProps {
   categories?: { name: string; slug: string }[];
@@ -14,20 +15,43 @@ interface FooterProps {
 export function Footer({ categories = [] }: FooterProps) {
   const pathname = usePathname();
   const [newsletterEmail, setNewsletterEmail] = React.useState("");
+  const [isSubmitting, setIsSubmitting] = React.useState(false);
+  const [honeypot, setHoneypot] = React.useState("");
 
   // Do not render consumer footer in admin dashboard / admin routes
   if (pathname?.startsWith("/admin")) {
     return null;
   }
 
-  const handleNewsletterSubmit = (e: React.FormEvent) => {
+  const handleNewsletterSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!newsletterEmail.trim() || !newsletterEmail.includes("@")) {
-      toast.error("Please enter a valid email address");
+    if (!newsletterEmail.trim()) {
+      toast.error("Please enter your email address");
       return;
     }
-    toast.success("Thank you for subscribing to Tiqora newsletter!");
-    setNewsletterEmail("");
+
+    setIsSubmitting(true);
+    try {
+      const res = await subscribeNewsletterAction({
+        email: newsletterEmail,
+        website: honeypot,
+      });
+
+      if (res.success) {
+        if (res.code === "ALREADY_SUBSCRIBED") {
+          toast.info(res.message);
+        } else {
+          toast.success(res.message);
+        }
+        setNewsletterEmail("");
+      } else {
+        toast.error(res.message);
+      }
+    } catch {
+      toast.error("Failed to process subscription. Please try again later.");
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -275,22 +299,40 @@ export function Footer({ categories = [] }: FooterProps) {
             </p>
 
             {/* Input Form with pill and circular arrow button */}
-            <form onSubmit={handleNewsletterSubmit} className="flex items-center gap-3 pt-1 max-w-sm">
+            <form onSubmit={handleNewsletterSubmit} className="flex items-center gap-3 pt-1 max-w-sm relative">
+              {/* Invisible honeypot field for anti-bot trap */}
+              <input
+                type="text"
+                name="website"
+                value={honeypot}
+                onChange={(e) => setHoneypot(e.target.value)}
+                tabIndex={-1}
+                autoComplete="off"
+                className="opacity-0 absolute -z-10 w-0 h-0 pointer-events-none select-none"
+                aria-hidden="true"
+              />
+
               <div className="relative flex-1">
                 <input
                   type="email"
                   value={newsletterEmail}
                   onChange={(e) => setNewsletterEmail(e.target.value)}
                   placeholder="Enter your email"
-                  className="w-full bg-[#070D1B]/90 backdrop-blur-md border border-white/15 rounded-full px-5 py-3 text-sm text-white placeholder:text-slate-500 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-all shadow-inner"
+                  disabled={isSubmitting}
+                  className="w-full bg-[#070D1B]/90 backdrop-blur-md border border-white/15 rounded-full px-5 py-3 text-sm text-white placeholder:text-slate-500 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-all shadow-inner disabled:opacity-60"
                 />
               </div>
               <button
                 type="submit"
+                disabled={isSubmitting}
                 aria-label="Subscribe to newsletter"
-                className="w-11 h-11 rounded-full bg-[#2563EB] hover:bg-[#1D4ED8] active:scale-95 text-white flex items-center justify-center shrink-0 shadow-lg shadow-blue-600/30 transition-all cursor-pointer group"
+                className="w-11 h-11 rounded-full bg-[#2563EB] hover:bg-[#1D4ED8] active:scale-95 text-white flex items-center justify-center shrink-0 shadow-lg shadow-blue-600/30 transition-all cursor-pointer group disabled:opacity-60 disabled:cursor-not-allowed"
               >
-                <ArrowRight className="w-5 h-5 transition-transform group-hover:translate-x-0.5" />
+                {isSubmitting ? (
+                  <Loader2 className="w-5 h-5 animate-spin" />
+                ) : (
+                  <ArrowRight className="w-5 h-5 transition-transform group-hover:translate-x-0.5" />
+                )}
               </button>
             </form>
           </div>
