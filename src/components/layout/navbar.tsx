@@ -264,15 +264,18 @@ export function Navbar({
           />
 
           {/* Notification Bell with Blue Indicator Dot */}
-          <button
-            type="button"
+          <Link
+            href="/notifications"
             aria-label="Notifications"
-            onClick={() => toast.info("No new notifications")}
-            className="w-9 h-9 rounded-full bg-zinc-900 border border-zinc-800 text-zinc-300 hover:text-white hover:border-zinc-700 flex items-center justify-center relative transition-colors cursor-pointer"
+            className={`w-9 h-9 rounded-full bg-zinc-900 border text-zinc-300 hover:text-white flex items-center justify-center relative transition-colors cursor-pointer ${
+              pathname === "/notifications"
+                ? "border-[#2563EB] text-white bg-blue-950/40"
+                : "border-zinc-800 hover:border-zinc-700"
+            }`}
           >
             <Bell className="w-4 h-4" />
             <span className="absolute top-2 right-2 w-2 h-2 rounded-full bg-[#2563EB] shadow-[0_0_6px_#2563EB]" />
-          </button>
+          </Link>
 
           {/* User Profile Pill or Auth Action */}
           {user ? (
@@ -334,6 +337,15 @@ export function Navbar({
                   >
                     <Heart className="w-3.5 h-3.5 text-[#3B82F6]" />
                     <span>Favorites</span>
+                  </Link>
+
+                  <Link
+                    href="/notifications"
+                    onClick={() => setIsUserMenuOpen(false)}
+                    className="w-full flex items-center gap-2.5 px-3 py-2 text-xs font-medium text-zinc-300 hover:text-white hover:bg-zinc-900 rounded-xl transition-colors cursor-pointer"
+                  >
+                    <Bell className="w-3.5 h-3.5 text-[#3B82F6]" />
+                    <span>Notifications</span>
                   </Link>
 
                   <Link
@@ -494,6 +506,18 @@ export function Navbar({
 
             {user ? (
               <>
+                <Link
+                  href="/notifications"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                  className={`px-3 py-2 text-xs font-semibold rounded-xl transition-colors flex items-center gap-2.5 ${
+                    pathname === "/notifications"
+                      ? "text-[#3B82F6] bg-blue-950/40 border border-blue-500/20 font-bold"
+                      : "text-zinc-300 hover:text-white hover:bg-zinc-900"
+                  }`}
+                >
+                  <Bell className="w-4 h-4 text-zinc-400" />
+                  <span>Notifications</span>
+                </Link>
                 <Link
                   href="/tickets"
                   onClick={() => setIsMobileMenuOpen(false)}
