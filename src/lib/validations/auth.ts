@@ -1,39 +1,41 @@
 import { z } from "zod";
+import {
+  USERNAME_REGEX,
+  PHONE_REGEX,
+  STRICT_EMAIL_REGEX,
+  passwordSchema,
+  phoneSchema,
+  optionalPhoneSchema,
+  fullNameSchema,
+  optionalFullNameSchema,
+  usernameSchema,
+  emailSchema,
+  strictEmailSchema,
+} from "./shared";
 
-// Regular expressions
-export const USERNAME_REGEX = /^[a-zA-Z0-9_]+$/;
-export const PHONE_REGEX = /^\+?[1-9]\d{1,14}$/; // E.164 international format
-
-// ------------------------------------------------------------------------------
-// Shared Validation Tokens
-// ------------------------------------------------------------------------------
-export const passwordSchema = z
-  .string()
-  .min(8, "Password must be at least 8 characters long");
-
-export const phoneSchema = z
-  .string()
-  .trim()
-  .regex(PHONE_REGEX, "Please enter a valid international phone number (e.g. +1234567890)");
-
-export const fullNameSchema = z
-  .string()
-  .trim()
-  .min(2, "Full name must be at least 2 characters")
-  .max(80, "Full name cannot exceed 80 characters");
+// Re-export shared tokens for seamless backward compatibility
+export {
+  USERNAME_REGEX,
+  PHONE_REGEX,
+  STRICT_EMAIL_REGEX,
+  passwordSchema,
+  phoneSchema,
+  optionalPhoneSchema,
+  fullNameSchema,
+  optionalFullNameSchema,
+  usernameSchema,
+  emailSchema,
+  strictEmailSchema,
+};
 
 // ------------------------------------------------------------------------------
 // Sign Up (Email & Password)
 // Only email, password, and username are required at initial signup.
 // ------------------------------------------------------------------------------
 export const signUpWithEmailSchema = z.object({
-  email: z.string().email("Please enter a valid email address"),
+  email: emailSchema,
   password: passwordSchema,
-  username: z
-    .string()
-    .min(3, "Username must be at least 3 characters long")
-    .max(30, "Username must be at most 30 characters long")
-    .regex(USERNAME_REGEX, "Username can only contain letters, numbers, and underscores"),
+  username: usernameSchema,
 });
 
 export type SignUpWithEmailInput = z.infer<typeof signUpWithEmailSchema>;
@@ -70,13 +72,9 @@ export const sectionPermissionAssignmentSchema = z.object({
 });
 
 export const createOrganizerSchema = z.object({
-  email: z.string().email("Please provide a valid organizer email"),
+  email: emailSchema,
   temporary_password: passwordSchema,
-  username: z
-    .string()
-    .min(3, "Username must be at least 3 characters long")
-    .max(30, "Username must be at most 30 characters long")
-    .regex(USERNAME_REGEX, "Username can only contain letters, numbers, and underscores"),
+  username: usernameSchema,
   full_name: fullNameSchema.optional(),
   permissions: z.array(sectionPermissionAssignmentSchema).default([]),
 });
@@ -97,7 +95,7 @@ export type UpdateOrganizerPermissionsInput = z.infer<typeof updateOrganizerPerm
 // Forgot Password (Email only)
 // ------------------------------------------------------------------------------
 export const forgotPasswordSchema = z.object({
-  email: z.string().email("Please enter a valid email address"),
+  email: emailSchema,
 });
 
 export type ForgotPasswordInput = z.infer<typeof forgotPasswordSchema>;
@@ -121,9 +119,8 @@ export type ResetPasswordInput = z.infer<typeof resetPasswordSchema>;
 // Admin Login (Email & Password only)
 // ------------------------------------------------------------------------------
 export const adminLoginSchema = z.object({
-  email: z.string().email("Please enter a valid admin email address"),
+  email: emailSchema,
   password: z.string().min(1, "Password is required"),
 });
 
 export type AdminLoginInput = z.infer<typeof adminLoginSchema>;
-
