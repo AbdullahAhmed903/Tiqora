@@ -1,12 +1,16 @@
 import { z } from "zod";
-import { fullNameSchema, passwordSchema, phoneSchema } from "./auth";
+import {
+  optionalFullNameSchema,
+  passwordSchema,
+  optionalPhoneSchema,
+} from "./shared";
 
 // ------------------------------------------------------------------------------
 // Profile Information Update Schema
 // ------------------------------------------------------------------------------
 export const updateProfileSchema = z.object({
-  full_name: fullNameSchema.optional().nullable().or(z.literal("")),
-  phone_number: phoneSchema.optional().nullable().or(z.literal("")),
+  full_name: optionalFullNameSchema,
+  phone_number: optionalPhoneSchema,
   date_of_birth: z
     .string()
     .trim()
