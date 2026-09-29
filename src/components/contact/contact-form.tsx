@@ -26,6 +26,7 @@ import { Button } from "@/components/ui/button";
 import { FileAttachmentZone } from "@/components/common/file-attachment-zone";
 import { CONTACT_DEPARTMENTS, COUNTRY_CODES } from "@/lib/contact-data";
 import { contactFormSchema } from "@/lib/validations/contact";
+import { submitContactInquiryAction } from "@/app/actions/contact";
 import { ContactDepartment } from "@/types/contact";
 
 export function ContactForm() {
@@ -38,6 +39,7 @@ export function ContactForm() {
   const [subject, setSubject] = React.useState("");
   const [message, setMessage] = React.useState("");
   const [attachment, setAttachment] = React.useState<File | null>(null);
+  const [honeypot, setHoneypot] = React.useState("");
 
   // UI state
   const [errors, setErrors] = React.useState<Record<string, string>>({});
@@ -137,21 +139,34 @@ export function ContactForm() {
 
     setIsSubmitting(true);
 
-    // Simulate network submission for UI demonstration
     try {
-      await new Promise((resolve) => setTimeout(resolve, 1400));
+      const formData = new FormData();
+      formData.append("fullName", fullName);
+      formData.append("email", email);
+      formData.append("phone", phone);
+      formData.append("countryCode", countryCode);
+      formData.append("department", department);
+      if (subject.trim()) {
+        formData.append("subject", subject.trim());
+      }
+      formData.append("message", message);
+      if (attachment) {
+        formData.append("attachment", attachment);
+      }
+      formData.append("website", honeypot);
 
-      const refCode = `TIQ-${Math.floor(100000 + Math.random() * 900000)}`;
-      setSubmittedRef(refCode);
-      setIsSubmitted(true);
+      const res = await submitContactInquiryAction(formData);
 
-      toast.success(
-        `Your inquiry has been received! Our support team will get back to you shortly.`,
-        {
-          description: `Reference Number: ${refCode}`,
+      if (res.success && res.ticketNumber) {
+        setSubmittedRef(res.ticketNumber);
+        setIsSubmitted(true);
+        toast.success(res.message, {
+          description: `Reference Number: ${res.ticketNumber}`,
           duration: 6000,
-        }
-      );
+        });
+      } else {
+        toast.error(res.message || "Failed to submit inquiry. Please try again.");
+      }
     } catch {
       toast.error("Failed to send message. Please try again or call our hotline.");
     } finally {
@@ -170,6 +185,7 @@ export function ContactForm() {
     setErrors({});
     setIsSubmitted(false);
     setSubmittedRef("");
+    setHoneypot("");
   };
 
   const selectedDepartmentObj = CONTACT_DEPARTMENTS.find((d) => d.id === department);
@@ -265,7 +281,19 @@ export function ContactForm() {
           </motion.div>
         ) : (
           /* ================= MAIN INTERACTIVE FORM ================= */
-          <form key="contact-form" onSubmit={handleSubmit} className="space-y-6">
+          <form key="contact-form" onSubmit={handleSubmit} className="space-y-6 relative">
+            {/* Invisible honeypot field for anti-bot trap */}
+            <input
+              type="text"
+              name="website"
+              value={honeypot}
+              onChange={(e) => setHoneypot(e.target.value)}
+              tabIndex={-1}
+              autoComplete="off"
+              className="opacity-0 absolute -z-10 w-0 h-0 pointer-events-none select-none"
+              aria-hidden="true"
+            />
+
             <div>
               <h3 className="text-xl sm:text-2xl font-black text-white tracking-tight">
                 Send Us a Message

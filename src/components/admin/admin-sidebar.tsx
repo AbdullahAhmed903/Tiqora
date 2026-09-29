@@ -15,6 +15,7 @@ import {
   Menu,
   X,
   Mail,
+  MessageSquare,
 } from "lucide-react";
 
 interface AdminSidebarProps {
@@ -57,6 +58,12 @@ const NAVIGATION_ITEMS = [
     name: "Newsletter",
     href: "/admin/newsletter",
     icon: Mail,
+    matchExact: false,
+  },
+  {
+    name: "Contact Inquiries",
+    href: "/admin/contacts",
+    icon: MessageSquare,
     matchExact: false,
   },
 ];
