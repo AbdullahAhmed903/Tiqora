@@ -22,18 +22,18 @@ export default function NotFound() {
       {/* Top Navigation Bar */}
       <header className="relative z-20 w-full max-w-7xl mx-auto px-6 sm:px-10 lg:px-12 pt-6 sm:pt-8 flex items-center justify-between">
         {/* Official Tiqora Brand Logo */}
-        <Link href="/" className="inline-flex items-center gap-2.5 group flex-shrink-0">
-          <div className="relative h-9 w-9 rounded-xl overflow-hidden flex items-center justify-center">
+        <Link href="/" className="inline-flex items-center gap-3 group flex-shrink-0">
+          <div className="relative h-11 w-11 flex items-center justify-center">
             <Image
-              src="/logo.png"
+              src="/new-logo.png"
               alt="Tiqora Logo"
-              width={36}
-              height={36}
-              className="object-contain"
+              width={44}
+              height={44}
+              className="object-contain transition-transform group-hover:scale-105"
               priority
             />
           </div>
-          <span className="font-black text-xl sm:text-2xl tracking-tight text-white group-hover:text-[#2563EB] transition-colors">
+          <span className="font-black text-xl sm:text-2xl tracking-tight text-white group-hover:text-blue-500 transition-colors">
             Tiqora
           </span>
         </Link>
@@ -115,7 +115,7 @@ export default function NotFound() {
       {/* Footer copyright element */}
       <footer className="relative z-20 w-full max-w-7xl mx-auto px-6 sm:px-10 lg:px-12 pb-6 sm:pb-8 flex items-center justify-between text-xs text-slate-500">
         <p>© {new Date().getFullYear()} Tiqora. All rights reserved.</p>
-        <p className="hidden sm:block">Need help? <Link href="/help" className="text-blue-400 hover:underline">Contact Support</Link></p>
+        <p className="hidden sm:block">Need help? <Link href="/contact" className="text-blue-400 hover:underline">Contact Support</Link></p>
       </footer>
     </div>
   );

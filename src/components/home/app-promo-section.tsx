@@ -70,10 +70,10 @@ export function AppPromoSection() {
             <div className="relative w-full h-full rounded-[26px] bg-zinc-900 overflow-hidden flex flex-col items-center justify-center text-center p-4 space-y-3">
               <div className="w-12 h-12 rounded-2xl bg-[#2563EB]/20 border border-[#2563EB]/40 flex items-center justify-center">
                 <Image
-                  src="/logo.png"
+                  src="/new-logo.png"
                   alt="Tiqora Logo"
-                  width={32}
-                  height={32}
+                  width={38}
+                  height={38}
                   className="object-contain"
                 />
               </div>

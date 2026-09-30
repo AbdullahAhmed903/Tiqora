@@ -23,6 +23,8 @@ This document serves as the official, living schema reference and relational dia
    - [public.organizer_permissions](#6-publicorganizer_permissions)
    - [public.admin_audit_logs](#7-publicadmin_audit_logs)
    - [public.newsletter_subscribers](#8-publicnewsletter_subscribers)
+   - [public.contact_submissions (Support & Inquiries)](#9-publiccontact_submissions)
+   - [storage.buckets (contact-attachments)](#10-storagebuckets-contact-attachments)
 7. [Custom Enums & Types](#-custom-enums--types)
 8. [Planned Schema Roadmap](#-planned-schema-roadmap-upcoming-tables)
 9. [Update Procedure](#-how-to-update-this-document)
@@ -71,6 +73,13 @@ flowchart LR
         NS["<b>public.newsletter_subscribers</b><br/>PK: id<br/>email (UK), status, source,<br/>subscribed_at, unsubscribed_at"]
     end
 
+    subgraph SupportLayer ["🎧 Support & Inquiries"]
+        direction TB
+        CS["<b>public.contact_submissions</b><br/>PK: id<br/>ticket_number (UK), full_name, email,<br/>department, status, attachment_url"]
+        SCA["<b>storage: contact-attachments</b><br/>Private bucket (2MB max)<br/>Signed URLs (1 hr expiration)"]
+        CS -.->|"<b>Stores files in</b><br/>Cascade purge on delete"| SCA
+    end
+
     %% Active Relations with Detailed Labels
     AU ===|"<b>1 : 1</b><br/><b>Total Participation (Mandatory)</b><br/>Both entities must exist<br/>ON DELETE CASCADE"| P
 
@@ -93,12 +102,14 @@ flowchart LR
     classDef secondary fill:#047857,stroke:#34d399,stroke-width:2px,color:#ffffff;
     classDef subcatalog fill:#0d9488,stroke:#2dd4bf,stroke-width:2px,color:#ffffff;
     classDef auxiliary fill:#27272a,stroke:#71717a,stroke-width:1.5px,color:#f4f4f5;
+    classDef support fill:#881337,stroke:#f43f5e,stroke-width:1.5px,color:#ffffff;
     classDef planned fill:#18181b,stroke:#a1a1aa,stroke-dasharray: 4 4,stroke-width:1.5px,color:#d4d4d8;
 
     class AU,P core;
     class C secondary;
     class SC subcatalog;
     class OP,AL,NS auxiliary;
+    class CS,SCA support;
     class E planned;
 ```
 </details>
@@ -157,6 +168,7 @@ In relational database modeling, relationships have two primary dimensions: **Ca
 | `public.categories` | `public.subcategories` | **1 : N** | **Partial** (0..N) | **Total** (1..1) | `subcategories.category_id` &rarr; `categories.id` | `CASCADE` | Subdivides parent category into niche genres or leagues (e.g. Football &rarr; Premier League). Cascades on parent deletion. |
 | `public.categories` | `public.events` *(Planned)* | **1 : N** | **Partial** (0..N) | **Total** (1..1) | `events.category_id` &rarr; `categories.id` | `RESTRICT` | Category has 0 or more events. An event must have 1 category. |
 | `public.subcategories` | `public.events` *(Planned)* | **1 : N** | **Partial** (0..N) | **Partial** (0..1) | `events.subcategory_id` &rarr; `subcategories.id` | `SET NULL` | Optional subcategory assignment for fine-grained filtering. |
+| `public.contact_submissions` | `storage.buckets (contact-attachments)` | **1 : 0..1** | **Partial** (0..1) | **Partial** (0..1) | `attachment_path` &rarr; `storage.objects(name)` | `CASCADE` | Support inquiries may upload 1 optional proof file (<=2MB). Deleting an inquiry cascades deletion to purge file from storage. |
 
 ---
 
@@ -176,6 +188,7 @@ erDiagram
     PROFILES ||--o{ ADMIN_AUDIT_LOGS : "1:N (Admin performs 0..N logs)"
     PROFILES |o--o{ ADMIN_AUDIT_LOGS : "0..1:N (Targeted in 0..N logs)"
     CATEGORIES ||--o{ SUBCATEGORIES : "1:N (0..N subcategories)"
+    CONTACT_SUBMISSIONS |o--o| STORAGE_OBJECTS : "1:0..1 (Optional file proof)"
 
     AUTH_USERS {
         uuid id PK "Supabase internal user ID"
@@ -238,6 +251,28 @@ erDiagram
         jsonb metadata "Event payload & change details"
         timestamptz created_at "Audit timestamp"
     }
+
+    CONTACT_SUBMISSIONS {
+        uuid id PK "Primary key (gen_random_uuid())"
+        text ticket_number UK "Unique ticket reference (TIQ-######)"
+        text full_name "Sender full legal name (min 2 chars)"
+        text email "Sender email (min 5 chars, lowercase idx)"
+        text phone "Sender phone number with country code"
+        text department "tickets | payments | stadium | organizers | technical | general"
+        text status "new | pending | resolved (default 'new')"
+        text subject "Inquiry subject line (Nullable)"
+        text message "Inquiry body (min 10 chars)"
+        text attachment_url "1-hour signed URL for private bucket"
+        text attachment_path "Storage path under contact-attachments bucket"
+        text attachment_name "Original client filename"
+        bigint attachment_size_bytes "Attachment file size in bytes (20MB/30d quota)"
+        text attachment_mime_type "File MIME type (JPEG, PNG, WebP, GIF, PDF)"
+        text ip_address "Client IP for dual-tier rate limiting"
+        text admin_notes "Internal staff notes (Admin only)"
+        timestamptz resolved_at "Resolution timestamp (set when status='resolved')"
+        timestamptz created_at "Creation timestamp"
+        timestamptz updated_at "Auto-updated via trigger"
+    }
 ```
 
 ---
@@ -267,10 +302,18 @@ graph TD
         B -.->|M:N Reserves via Items| T
     end
 
+    subgraph Support ["🎧 Support & Inquiries Layer"]
+        CS["public.contact_submissions"]
+        SCA["storage.buckets (contact-attachments)"]
+        CS -.->|Stores attachments in| SCA
+    end
+
     classDef active fill:#2563EB,stroke:#1D4ED8,stroke-width:2px,color:#fff;
+    classDef support fill:#881337,stroke:#f43f5e,stroke-width:2px,color:#fff;
     classDef planned fill:#18181B,stroke:#3F3F46,stroke-width:2px,stroke-dasharray: 5 5,color:#A1A1AA;
     
     class AU,P,OP,AL,C,SC active;
+    class CS,SCA support;
     class E,T,B planned;
 ```
 
@@ -443,6 +486,64 @@ Audience newsletter subscriptions for match updates, ticket drops, and platform 
 
 ---
 
+### 9. `public.contact_submissions`
+Customer care and support inquiries desk. Tracks incoming messages, issue categories, anti-bot metadata, resolution workflows, and optional file attachments.
+
+| Column | Type | Constraints | Default | Description |
+| :--- | :--- | :--- | :--- | :--- |
+| `id` | `UUID` | **PK** | `gen_random_uuid()` | Unique inquiry identifier |
+| `ticket_number` | `TEXT` | `NOT NULL`, **UK** | None | Human-readable ticket reference code (e.g. `TIQ-783921`) |
+| `full_name` | `TEXT` | `NOT NULL`, `CHECK (char_length(trim(full_name)) >= 2)` | None | Sender full legal or contact name |
+| `email` | `TEXT` | `NOT NULL`, `CHECK (char_length(trim(email)) >= 5)` | None | Sender contact email (indexed lowercase) |
+| `phone` | `TEXT` | `NOT NULL`, `CHECK (char_length(trim(phone)) >= 6)` | None | Sender phone number with international country code |
+| `department` | `TEXT` | `NOT NULL`, `CHECK (department IN ('tickets', 'payments', 'stadium', 'organizers', 'technical', 'general'))` | None | Triage department assignment |
+| `status` | `TEXT` | `NOT NULL`, `CHECK (status IN ('new', 'pending', 'resolved'))` | `'new'` | Ticket workflow triage status |
+| `subject` | `TEXT` | `NULLABLE` | `NULL` | Optional inquiry topic / subject line |
+| `message` | `TEXT` | `NOT NULL`, `CHECK (char_length(trim(message)) >= 10)` | None | Detailed inquiry body (max 1000 characters) |
+| `attachment_url` | `TEXT` | `NULLABLE` | `NULL` | Temporary signed URL for file access (1-hour expiration) |
+| `attachment_path` | `TEXT` | `NULLABLE` | `NULL` | Private file key within `contact-attachments` storage bucket |
+| `attachment_name` | `TEXT` | `NULLABLE` | `NULL` | Original uploaded client filename |
+| `attachment_size_bytes` | `BIGINT` | `NULLABLE` | `NULL` | File size in bytes for quota tracking (20MB 30-day cap) |
+| `attachment_mime_type` | `TEXT` | `NULLABLE` | `NULL` | File MIME format (JPEG, PNG, WebP, GIF, PDF) |
+| `ip_address` | `TEXT` | `NULLABLE` | `NULL` | Client IP address for dual-tier rate limiting |
+| `admin_notes` | `TEXT` | `NULLABLE` | `NULL` | Confidential internal notes recorded by administrators |
+| `resolved_at` | `TIMESTAMPTZ` | `NULLABLE` | `NULL` | Timestamp when ticket status was transitioned to `'resolved'` |
+| `created_at` | `TIMESTAMPTZ` | `NOT NULL` | `timezone('utc', now())` | Record submission timestamp |
+| `updated_at` | `TIMESTAMPTZ` | `NOT NULL` | `timezone('utc', now())` | Auto-updated via trigger |
+
+**Unique Constraints & Indexes**:
+- `idx_contact_ticket_number`: Unique index on `ticket_number` for instant lookup via search and URL.
+- `idx_contact_email_lower`: B-tree index on `LOWER(TRIM(email))` for user history and submission frequency counting.
+- `idx_contact_status`: B-tree index on `status` for rapid inbox tab filtering (`new`, `pending`, `resolved`).
+- `idx_contact_department`: B-tree index on `department` for department-level triage.
+- `idx_contact_created_at`: Index on `created_at DESC` for chronological inbox pagination.
+- `idx_contact_storage_quota`: Composite partial index on `(LOWER(TRIM(email)), created_at DESC) WHERE attachment_size_bytes IS NOT NULL` powering the 30-day cumulative 20MB quota summation.
+
+**Automatic Updated_At Trigger**:
+- Trigger: `trigger_contact_submissions_updated_at` executing `public.set_contact_submissions_updated_at()` before update.
+
+**Row Level Security (RLS)**:
+- `INSERT`: Open to anyone (`WITH CHECK (true)`), allowing anonymous visitors and authenticated users to submit inquiries.
+- `SELECT`: Only administrators (`TO authenticated USING (public.is_admin(auth.uid()))`).
+- `UPDATE`: Only administrators (`TO authenticated USING (public.is_admin(auth.uid()))`).
+- `DELETE`: Only administrators (`TO authenticated USING (public.is_admin(auth.uid()))`).
+
+---
+
+### 10. `storage.buckets` (`contact-attachments`)
+Secure private storage bucket dedicated to customer proof attachments (e.g. gate dispute photos, payment transaction receipts, identity verification documents, PDF tickets).
+
+| Setting | Value | Description |
+| :--- | :--- | :--- |
+| **Bucket ID / Name** | `contact-attachments` | Storage bucket identifier |
+| **Public Access** | `false` (Private) | Files are not publicly exposed; served strictly via 1-hour expiring signed tokens |
+| **File Size Limit** | `2097152` bytes | **2 MB** max upload size per individual file |
+| **Allowed MIME Types** | `image/jpeg`, `image/png`, `image/webp`, `image/gif`, `application/pdf` | Strict raster image and PDF document formats |
+| **Anti-Abuse Cap** | 20 MB / 30 Days | Cumulative storage quota per email address over a rolling 30-day window |
+| **Storage RLS** | Public `INSERT`, Admin-only `SELECT`, Admin-only `DELETE` | Managed via `storage.objects` policies |
+
+---
+
 ## 🏷️ Custom Enums & Types
 
 ### `user_role`
@@ -453,6 +554,25 @@ CREATE TYPE public.user_role AS ENUM ('user', 'organizer', 'admin');
 ### `user_status`
 ```sql
 CREATE TYPE public.user_status AS ENUM ('active', 'suspended');
+```
+
+### `contact_department` (Domain Check Constraint)
+Defined on `contact_submissions.department` via `CHECK (department IN (...))`:
+```sql
+'tickets'    -- Ticket booking, seating, and allocation inquiries
+'payments'   -- Payment processing, refunds, and charge questions
+'stadium'    -- Gate turnstile, stadium admission, and turnstile issues
+'organizers' -- Event host partnership and tournament management
+'technical'  -- Platform bugs, login issues, and digital wallet assistance
+'general'    -- General inquiries, feedback, and customer support
+```
+
+### `contact_status` (Domain Check Constraint)
+Defined on `contact_submissions.status` via `CHECK (status IN (...))`:
+```sql
+'new'        -- Unread incoming support inquiry
+'pending'    -- Under active investigation or awaiting team action
+'resolved'   -- Successfully handled and closed ticket
 ```
 
 ### `permission_section`

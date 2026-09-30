@@ -27,9 +27,9 @@ export const metadata: Metadata = {
   description:
     "Book events, football matches, sports showdowns, and live experiences with Tiqora.",
   icons: {
-    icon: "/logo.png",
-    shortcut: "/logo.png",
-    apple: "/logo.png",
+    icon: "/new-logo.png",
+    shortcut: "/new-logo.png",
+    apple: "/new-logo.png",
   },
 };
 

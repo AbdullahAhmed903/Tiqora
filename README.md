@@ -1,6 +1,6 @@
 <div align="center">
 
-  <img src="./public/Tiqora%20logo.png" alt="Tiqora Logo" width="140" />
+  <img src="./public/new-logo.png" alt="Tiqora Logo" width="160" />
 
   # 🎟️ Tiqora
   **Next-Gen Events, Sports Matches & Live Entertainment Ticketing Platform**
@@ -88,6 +88,20 @@ Polished error handling with interactive graphics and instant redirects back to 
   - Role-aware onboarding (Fans vs. Event Organizers).
   - Password recovery and reset pipelines (`/forgot-password`, `/reset-password`).
   - Dedicated **Organizer & Admin Portal** login (`/admin/login`).
+- 🎧 **Enterprise Contact & Support Desk (`/contact` & `/admin/contacts`)**:
+  - Inquiry submission with automated ticket numbers (`TIQ-######`), departmental routing (*General*, *Booking*, *Technical*, *Billing*, *Partnerships*), anti-spam honeypot, IP rate limiting, and private attachment uploads up to 2MB (with a 20MB 30-day quota).
+  - Admin support console with status lifecycle management (*Open*, *In Progress*, *Resolved*, *Closed*), department filtering, internal staff notes, and 1-hour expiring signed download links for attachments.
+- 📬 **Newsletter & Audience Growth Engine (`/admin/newsletter`)**:
+  - Instant subscription engine integrated in the footer with RFC-5322 validation, duplicate rejection, and opt-out support.
+  - Admin subscriber management dashboard with real-time KPI cards (active subscribers, unsubscriptions, retention rate), instant CSV export, and subscriber search/status toggling.
+- 🗂️ **Taxonomy & Category Administration (`/admin/categories` & `/admin/subcategories`)**:
+  - Administrative control over event categories and subcategories with automated slug generation, Lucide icon binding, cover image uploads, and active display order sorting.
+- ⚖️ **Legal, Compliance & Policy Suite (`/terms`, `/privacy`, `/ticket-policy`)**:
+  - Structured, responsive legal pages covering user Terms of Service, GDPR/CCPA Privacy Policy (data collection, retention, user rights), and Tiqora Ticket Policy (refunds, cancellations, transfers, and entry protocols).
+- ❓ **Interactive FAQ Knowledge Base (`/faqs`)**:
+  - Categorized help center covering ticket purchases, booking policies, digital stubs, and account management.
+- 👤 **User Profile & Notifications Hub (`/profile` & `/notifications`)**:
+  - Dedicated user profile customization, avatar uploads, and notification inbox for booking alerts.
 - 🌓 **Adaptive Dual Theme (Light & Dark)**:
   - Custom Tailwind CSS v4 design system with smooth color shifts.
   - Automatic system preference detection with manual override toggle.
@@ -123,6 +137,7 @@ Polished error handling with interactive graphics and instant redirects back to 
 ```text
 tiqora/
 ├── public/                           # Brand assets, screenshots & static media
+│   ├── new-logo.png                  # Updated modern high-resolution brand logo
 │   ├── Tiqora logo.png               # Official Tiqora brand logo
 │   ├── logo.png                      # Brand logo alias
 │   ├── Categories-page.png           # Categories hub preview
@@ -133,45 +148,56 @@ tiqora/
 │   └── sigupAndLogin/                # Auth banners and split-card media
 ├── src/
 │   ├── app/                          # Next.js App Router
-│   │   ├── (auth)/                   # Authentication route group
-│   │   │   ├── login/                # User login page
-│   │   │   ├── signup/               # Fan & Organizer signup page
-│   │   │   ├── forgot-password/      # Password recovery request
-│   │   │   └── reset-password/       # Password update confirmation
-│   │   ├── actions/                  # Server Actions (auth, organizers, events)
+│   │   ├── (auth)/                   # Authentication route group (login, signup, reset)
+│   │   ├── actions/                  # Server Actions
+│   │   │   ├── admin-categories.ts   # Category CRUD & upload actions
+│   │   │   ├── admin-organizers.ts   # Organizer onboarding actions
+│   │   │   ├── admin-subcategories.ts # Subcategory CRUD actions
 │   │   │   ├── auth.ts               # Auth server actions (login, signup, OAuth)
-│   │   │   └── admin-organizers.ts   # Organizer onboarding actions
-│   │   ├── admin/
-│   │   │   └── login/                # Admin & Organizer portal login
-│   │   ├── auth/
-│   │   │   └── callback/             # OAuth callback exchange handler
+│   │   │   ├── contact.ts            # Support ticket submission & management actions
+│   │   │   ├── newsletter.ts         # Newsletter subscription & export actions
+│   │   │   └── profile.ts            # User profile management actions
+│   │   ├── admin/                    # Admin & Organizer management portal
+│   │   │   ├── (dashboard)/          # Authenticated admin layout & panels
+│   │   │   │   ├── categories/       # Category management panel
+│   │   │   │   ├── contacts/         # Support inquiries desk
+│   │   │   │   ├── newsletter/       # Newsletter subscriber dashboard
+│   │   │   │   ├── subcategories/    # Subcategory management panel
+│   │   │   │   └── page.tsx          # Admin executive dashboard
+│   │   │   └── login/                # Admin portal authentication
+│   │   ├── auth/callback/            # OAuth callback exchange handler
 │   │   ├── categories/               # Categories exploration hub
-│   │   │   └── page.tsx              # Categories grid & popular list
-│   │   ├── events/
-│   │   │   ├── page.tsx              # Global event directory
-│   │   │   └── [category]/           # Dynamic category slug pages
-│   │   │       └── page.tsx          # Filtered category view
+│   │   ├── contact/                  # Enterprise customer support desk & ticket submission
+│   │   ├── events/                   # Global event directory & [category] slug pages
+│   │   ├── faqs/                     # Customer Help & FAQ knowledge base
 │   │   ├── favorites/                # User favorites & wishlist
-│   │   │   └── page.tsx              # Favorites manager
+│   │   ├── notifications/            # User alerts & notifications center
+│   │   ├── privacy/                  # GDPR/CCPA Privacy Policy
+│   │   ├── profile/                  # User account profile manager
+│   │   ├── terms/                    # Platform Terms of Service
+│   │   ├── ticket-policy/            # Event Admission & Ticket Policy
 │   │   ├── globals.css               # Tailwind CSS v4 design tokens & base rules
 │   │   ├── layout.tsx                # Root layout (Navbar, Footer, Toaster)
 │   │   ├── not-found.tsx             # Custom interactive 404 experience
 │   │   └── page.tsx                  # Tiqora homepage (Hero, Globe, Matches)
 │   ├── components/
+│   │   ├── admin/                    # Admin sidebar, categories, contacts, newsletter
 │   │   ├── auth/                     # Split-screen auth cards, forms, Google OAuth
 │   │   ├── categories/               # Categories hero, explorer, category cards
+│   │   ├── contact/                  # Support contact form, ticket status, dept badges
 │   │   ├── events/                   # Ticket stub cards, filter sidebar, grids
+│   │   ├── faqs/                     # Interactive FAQ accordion & search filters
 │   │   ├── favorites/                # Favorites explorer, item cards, sidebar
 │   │   ├── home/                     # Hero, Globe, Matches, CTA, App promo
-│   │   ├── layout/                   # Global Navbar & comprehensive Footer
+│   │   ├── layout/                   # Global Navbar & comprehensive Footer (w/ newsletter)
+│   │   ├── legal/                    # Policy legal article layouts & sticky navigation
+│   │   ├── notifications/            # Notification list & status indicators
+│   │   ├── profile/                  # Profile forms & avatar management
 │   │   ├── theme-toggle.tsx          # Dark/Light mode theme switcher
 │   │   └── ui/                       # Primitive design tokens (Button, Badge, Toaster)
 │   ├── lib/
-│   │   ├── supabase/
-│   │   │   ├── client.ts             # Browser Supabase client
-│   │   │   ├── server.ts             # Server Supabase client (cookies & RSC)
-│   │   │   └── middleware.ts         # Session refresh helper
-│   │   ├── validations/              # Zod schemas (auth, registration, forms)
+│   │   ├── supabase/                 # Supabase client (client.ts, server.ts, middleware.ts)
+│   │   ├── validations/              # Zod validation schemas (auth, contact, newsletter, etc.)
 │   │   ├── categories-data.ts        # Categories catalog & metadata
 │   │   ├── events-data.ts            # Sports matches & events mock database
 │   │   ├── home-data.ts              # Homepage curated showcase data
@@ -181,10 +207,16 @@ tiqora/
 │   ├── types/                        # TypeScript type declarations
 │   │   ├── auth.ts                   # Auth & user profile definitions
 │   │   ├── categories.ts             # Category data structures
-│   │   └── events.ts                 # Event, match & ticket stub types
+│   │   ├── contact.ts                # Support ticket & attachment types
+│   │   ├── events.ts                 # Event, match & ticket stub types
+│   │   ├── faqs.ts                   # Help center & FAQ models
+│   │   ├── newsletter.ts             # Newsletter subscription types
+│   │   ├── notifications.ts          # Alert & notification models
+│   │   └── subcategories.ts          # Subcategory taxonomy definitions
 │   └── proxy.ts                      # Next.js 16 Proxy handler (session refresh)
 ├── docs/
-│   ├── DB_STRUCTURE.md               # Database ER diagrams & schema dictionary
+│   ├── DB_STRUCTURE.md               # Database ER diagrams, relationships & schema dictionary
+│   ├── db-diagram.svg                # Full visual relational architecture SVG diagram
 │   └── PR_REVIEW_CHECKLIST.md        # Code review & PR submission standards
 ├── AGENTS.md                         # Engineering rules and conventions
 ├── .env.example                      # Environment variables reference
