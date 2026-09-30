@@ -127,17 +127,17 @@ export function Navbar({
       <div className="max-w-[1920px] mx-auto h-14 sm:h-16 px-4 sm:px-6 rounded-2xl sm:rounded-full bg-[#080B12]/95 backdrop-blur-2xl border border-zinc-800/80 shadow-2xl flex items-center justify-between gap-2 lg:gap-4 transition-all">
         {/* Left: Brand Logo & Title */}
         <Link href="/" className="flex items-center gap-2.5 group flex-shrink-0">
-          <div className="relative h-8 w-8 rounded-xl overflow-hidden flex items-center justify-center">
+          <div className="relative h-10 w-10 sm:h-11 sm:w-11 flex items-center justify-center">
             <Image
-              src="/logo.png"
+              src="/new-logo.png"
               alt="Tiqora Logo"
-              width={32}
-              height={32}
-              className="object-contain"
+              width={44}
+              height={44}
+              className="object-contain transition-transform group-hover:scale-105"
               priority
             />
           </div>
-          <span className="font-black text-lg sm:text-xl tracking-tight text-white group-hover:text-[#2563EB] transition-colors">
+          <span className="font-black text-xl sm:text-2xl tracking-tight text-white group-hover:text-blue-500 transition-colors">
             Tiqora
           </span>
         </Link>

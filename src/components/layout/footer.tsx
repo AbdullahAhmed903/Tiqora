@@ -74,25 +74,15 @@ export function Footer({ categories = [] }: FooterProps) {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 xl:gap-8 items-start pb-12 lg:pb-16">
           {/* Column 1: Brand Info & Social Icons (lg:col-span-3) */}
           <div className="space-y-6 lg:col-span-3">
-            <Link href="/" className="inline-flex items-center gap-3 group">
-              <div className="relative w-9 h-9 flex items-center justify-center shrink-0">
-                <svg viewBox="0 0 38 38" fill="none" className="w-8 h-8 drop-shadow-md">
-                  {/* Top slanted blue bar */}
-                  <path
-                    d="M4.5 5.5H33.5L28.5 13.5H0.5L4.5 5.5Z"
-                    fill="#2563EB"
-                  />
-                  {/* Left stem portion (deep blue) */}
-                  <path
-                    d="M10 13.5H18L11 32.5H3L10 13.5Z"
-                    fill="#1D4ED8"
-                  />
-                  {/* Right facet / highlight (clean white) */}
-                  <path
-                    d="M18 13.5H24L17 32.5H11L18 13.5Z"
-                    fill="#FFFFFF"
-                  />
-                </svg>
+            <Link href="/" className="inline-flex items-center gap-3.5 group">
+              <div className="relative w-11 h-11 sm:w-12 sm:h-12 flex items-center justify-center shrink-0">
+                <Image
+                  src="/new-logo.png"
+                  alt="Tiqora Logo"
+                  width={48}
+                  height={48}
+                  className="object-contain transition-transform group-hover:scale-105"
+                />
               </div>
               <span className="font-extrabold text-2xl sm:text-3xl text-white tracking-tight">
                 Tiqora
@@ -229,18 +219,8 @@ export function Footer({ categories = [] }: FooterProps) {
                   </Link>
                 </li>
                 <li>
-                  <Link href="/careers" className="hover:text-white transition-colors">
-                    Careers
-                  </Link>
-                </li>
-                <li>
                   <Link href="/blog" className="hover:text-white transition-colors">
                     Blog
-                  </Link>
-                </li>
-                <li>
-                  <Link href="/press" className="hover:text-white transition-colors">
-                    Press
                   </Link>
                 </li>
                 <li>
@@ -257,11 +237,6 @@ export function Footer({ categories = [] }: FooterProps) {
                 Support
               </h4>
               <ul className="space-y-2.5 text-sm text-slate-400">
-                <li>
-                  <Link href="/help" className="hover:text-white transition-colors">
-                    Help Center
-                  </Link>
-                </li>
                 <li>
                   <Link href="/ticket-policy" className="hover:text-white transition-colors">
                     Ticket Policy

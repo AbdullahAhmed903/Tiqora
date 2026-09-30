@@ -81,10 +81,10 @@ function SidebarNavContent({
     <div className="flex flex-col h-full">
       {/* Brand Header */}
       <div className="p-5 border-b border-zinc-200 dark:border-zinc-800/80 flex items-center justify-between">
-        <Link href="/admin" className="flex items-center gap-2.5">
-          <div className="relative w-8 h-8 rounded-xl overflow-hidden shrink-0">
+        <Link href="/admin" className="flex items-center gap-3">
+          <div className="relative w-10 h-10 shrink-0 flex items-center justify-center">
             <Image
-              src="/logo.png"
+              src="/new-logo.png"
               alt="Tiqora Logo"
               fill
               className="object-contain"
@@ -198,8 +198,8 @@ export function AdminSidebar({ userEmail }: AdminSidebarProps) {
     <>
       {/* Mobile Menu Trigger Header */}
       <div className="md:hidden flex items-center justify-between p-4 border-b border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900">
-        <div className="flex items-center gap-2">
-          <Image src="/logo.png" alt="Logo" width={26} height={26} />
+        <div className="flex items-center gap-2.5">
+          <Image src="/new-logo.png" alt="Logo" width={32} height={32} className="object-contain" />
           <span className="font-bold text-sm text-zinc-900 dark:text-white">
             Tiqora Admin
           </span>
