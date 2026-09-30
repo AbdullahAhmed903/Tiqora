@@ -19,7 +19,7 @@ export const ALLOWED_DOCUMENT_MIME_TYPES = [
 ] as const;
 
 // Default size limits
-export const DEFAULT_MAX_ATTACHMENT_SIZE_BYTES = 2 * 1024 * 1024; // 10 MB
+export const DEFAULT_MAX_ATTACHMENT_SIZE_BYTES = 2 * 1024 * 1024; // 2 MB
 export const DEFAULT_MAX_IMAGE_SIZE_BYTES = 2 * 1024 * 1024; // 2 MB (matches image-processing.ts)
 
 export interface FileValidationOptions {
