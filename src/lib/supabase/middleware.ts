@@ -37,6 +37,32 @@ export async function updateSession(request: NextRequest) {
     data: { user },
   } = await supabase.auth.getUser();
 
+  // If user is authenticated, verify their account is not suspended
+  if (user) {
+    const { data: profile } = await supabase
+      .from("profiles")
+      .select("status")
+      .eq("id", user.id)
+      .maybeSingle();
+
+    if (profile?.status === "suspended") {
+      await supabase.auth.signOut();
+      const url = request.nextUrl.clone();
+      url.pathname = "/login";
+      url.searchParams.set("error", "account_suspended");
+      const redirectResponse = NextResponse.redirect(url);
+
+      // Clear session cookies
+      request.cookies.getAll().forEach((cookie) => {
+        if (cookie.name.startsWith("sb-")) {
+          redirectResponse.cookies.delete(cookie.name);
+        }
+      });
+
+      return redirectResponse;
+    }
+  }
+
   // If user is logged in and tries to access standard login/signup/forgot-password pages, redirect to home page.
   // Note: /reset-password must be accessible during active password recovery.
   const pathname = request.nextUrl.pathname;

@@ -98,7 +98,7 @@ export function Navbar({
     user?.user_metadata?.full_name ||
     user?.user_metadata?.username ||
     user?.email?.split("@")[0] ||
-    "Abdullah Ahmed";
+    "User";
 
   const primaryCategories = categories.slice(0, 4);
   const moreCategories = categories.slice(4);
@@ -127,17 +127,17 @@ export function Navbar({
       <div className="max-w-[1920px] mx-auto h-14 sm:h-16 px-4 sm:px-6 rounded-2xl sm:rounded-full bg-[#080B12]/95 backdrop-blur-2xl border border-zinc-800/80 shadow-2xl flex items-center justify-between gap-2 lg:gap-4 transition-all">
         {/* Left: Brand Logo & Title */}
         <Link href="/" className="flex items-center gap-2.5 group flex-shrink-0">
-          <div className="relative h-8 w-8 rounded-xl overflow-hidden flex items-center justify-center">
+          <div className="relative h-10 w-10 sm:h-11 sm:w-11 flex items-center justify-center">
             <Image
-              src="/logo.png"
+              src="/new-logo.png"
               alt="Tiqora Logo"
-              width={32}
-              height={32}
-              className="object-contain"
+              width={44}
+              height={44}
+              className="object-contain transition-transform group-hover:scale-105"
               priority
             />
           </div>
-          <span className="font-black text-lg sm:text-xl tracking-tight text-white group-hover:text-[#2563EB] transition-colors">
+          <span className="font-black text-xl sm:text-2xl tracking-tight text-white group-hover:text-blue-500 transition-colors">
             Tiqora
           </span>
         </Link>
@@ -264,26 +264,39 @@ export function Navbar({
           />
 
           {/* Notification Bell with Blue Indicator Dot */}
-          <button
-            type="button"
+          <Link
+            href="/notifications"
             aria-label="Notifications"
-            onClick={() => toast.info("No new notifications")}
-            className="w-9 h-9 rounded-full bg-zinc-900 border border-zinc-800 text-zinc-300 hover:text-white hover:border-zinc-700 flex items-center justify-center relative transition-colors cursor-pointer"
+            className={`w-9 h-9 rounded-full bg-zinc-900 border text-zinc-300 hover:text-white flex items-center justify-center relative transition-colors cursor-pointer ${
+              pathname === "/notifications"
+                ? "border-[#2563EB] text-white bg-blue-950/40"
+                : "border-zinc-800 hover:border-zinc-700"
+            }`}
           >
             <Bell className="w-4 h-4" />
             <span className="absolute top-2 right-2 w-2 h-2 rounded-full bg-[#2563EB] shadow-[0_0_6px_#2563EB]" />
-          </button>
+          </Link>
 
           {/* User Profile Pill or Auth Action */}
-          {user || true ? (
+          {user ? (
             <div className="relative">
               <button
                 type="button"
                 onClick={() => setIsUserMenuOpen(!isUserMenuOpen)}
                 className="flex items-center gap-2 pl-1.5 pr-3 py-1 rounded-full bg-zinc-900 border border-zinc-800 hover:border-zinc-700 transition-colors cursor-pointer"
               >
-                <div className="w-7 h-7 rounded-full bg-[#2563EB] text-white text-xs font-black flex items-center justify-center shadow-xs">
-                  {displayName.charAt(0).toUpperCase()}
+                <div className="w-7 h-7 rounded-full bg-[#2563EB] text-white text-xs font-black flex items-center justify-center shadow-xs overflow-hidden">
+                  {user?.user_metadata?.avatar_url ? (
+                    <Image
+                      src={user.user_metadata.avatar_url}
+                      alt={displayName}
+                      width={28}
+                      height={28}
+                      className="w-full h-full object-cover"
+                    />
+                  ) : (
+                    displayName.charAt(0).toUpperCase()
+                  )}
                 </div>
                 <span className="text-xs font-bold text-white max-w-[110px] truncate hidden sm:inline">
                   {displayName}
@@ -297,9 +310,24 @@ export function Navbar({
                   className="absolute right-0 top-full mt-2 w-52 rounded-2xl bg-zinc-950 border border-zinc-800 p-2 shadow-2xl z-50 space-y-1"
                   onMouseLeave={() => setIsUserMenuOpen(false)}
                 >
-                  <div className="px-3 py-2 border-b border-zinc-800/80">
-                    <p className="text-xs font-bold text-white truncate">{displayName}</p>
-                    <p className="text-[10px] text-zinc-400 truncate">{user?.email || "user@tiqora.com"}</p>
+                  <div className="px-3 py-2 border-b border-zinc-800/80 flex items-center gap-2.5">
+                    <div className="w-8 h-8 rounded-full bg-[#2563EB] text-white text-xs font-black flex items-center justify-center flex-shrink-0 overflow-hidden">
+                      {user?.user_metadata?.avatar_url ? (
+                        <Image
+                          src={user.user_metadata.avatar_url}
+                          alt={displayName}
+                          width={32}
+                          height={32}
+                          className="w-full h-full object-cover"
+                        />
+                      ) : (
+                        displayName.charAt(0).toUpperCase()
+                      )}
+                    </div>
+                    <div className="min-w-0 flex-1">
+                      <p className="text-xs font-bold text-white truncate">{displayName}</p>
+                      <p className="text-[10px] text-zinc-400 truncate">{user?.email || "user@tiqora.com"}</p>
+                    </div>
                   </div>
 
                   <Link
@@ -309,6 +337,15 @@ export function Navbar({
                   >
                     <Heart className="w-3.5 h-3.5 text-[#3B82F6]" />
                     <span>Favorites</span>
+                  </Link>
+
+                  <Link
+                    href="/notifications"
+                    onClick={() => setIsUserMenuOpen(false)}
+                    className="w-full flex items-center gap-2.5 px-3 py-2 text-xs font-medium text-zinc-300 hover:text-white hover:bg-zinc-900 rounded-xl transition-colors cursor-pointer"
+                  >
+                    <Bell className="w-3.5 h-3.5 text-[#3B82F6]" />
+                    <span>Notifications</span>
                   </Link>
 
                   <Link
@@ -466,6 +503,97 @@ export function Navbar({
               <Heart className={`w-4 h-4 ${pathname === "/favorites" ? "text-[#3B82F6]" : "text-zinc-400"}`} />
               <span>Favorites</span>
             </Link>
+
+            {user ? (
+              <>
+                <Link
+                  href="/notifications"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                  className={`px-3 py-2 text-xs font-semibold rounded-xl transition-colors flex items-center gap-2.5 ${
+                    pathname === "/notifications"
+                      ? "text-[#3B82F6] bg-blue-950/40 border border-blue-500/20 font-bold"
+                      : "text-zinc-300 hover:text-white hover:bg-zinc-900"
+                  }`}
+                >
+                  <Bell className="w-4 h-4 text-zinc-400" />
+                  <span>Notifications</span>
+                </Link>
+                <Link
+                  href="/tickets"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                  className={`px-3 py-2 text-xs font-semibold rounded-xl transition-colors flex items-center gap-2.5 ${
+                    pathname === "/tickets"
+                      ? "text-[#3B82F6] bg-blue-950/40 border border-blue-500/20 font-bold"
+                      : "text-zinc-300 hover:text-white hover:bg-zinc-900"
+                  }`}
+                >
+                  <Ticket className="w-4 h-4 text-zinc-400" />
+                  <span>My Tickets</span>
+                </Link>
+                <Link
+                  href="/profile"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                  className={`px-3 py-2 text-xs font-semibold rounded-xl transition-colors flex items-center gap-2.5 ${
+                    pathname === "/profile"
+                      ? "text-[#3B82F6] bg-blue-950/40 border border-blue-500/20 font-bold"
+                      : "text-zinc-300 hover:text-white hover:bg-zinc-900"
+                  }`}
+                >
+                  <UserIcon className="w-4 h-4 text-zinc-400" />
+                  <span>Profile</span>
+                </Link>
+                <Link
+                  href="/settings"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                  className={`px-3 py-2 text-xs font-semibold rounded-xl transition-colors flex items-center gap-2.5 ${
+                    pathname === "/settings"
+                      ? "text-[#3B82F6] bg-blue-950/40 border border-blue-500/20 font-bold"
+                      : "text-zinc-300 hover:text-white hover:bg-zinc-900"
+                  }`}
+                >
+                  <SettingsIcon className="w-4 h-4 text-zinc-400" />
+                  <span>Settings</span>
+                </Link>
+                <div className="h-px bg-zinc-800/80 my-1" />
+                <button
+                  type="button"
+                  onClick={() => {
+                    setIsMobileMenuOpen(false);
+                    handleSignOut();
+                  }}
+                  disabled={isSigningOut}
+                  className="w-full flex items-center gap-2.5 px-3 py-2 text-xs font-semibold text-red-400 hover:bg-zinc-900 rounded-xl transition-colors cursor-pointer text-left"
+                >
+                  {isSigningOut ? (
+                    <Loader2 className="w-4 h-4 animate-spin" />
+                  ) : (
+                    <LogOut className="w-4 h-4" />
+                  )}
+                  <span>Sign out</span>
+                </button>
+              </>
+            ) : (
+              <div className="pt-2 flex flex-col gap-2">
+                <Link
+                  href="/login"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                  className="w-full py-2 text-center text-xs font-bold text-zinc-300 hover:text-white bg-zinc-900 border border-zinc-800 rounded-xl transition-colors"
+                >
+                  Sign in
+                </Link>
+                <Link
+                  href="/signup"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                >
+                  <Button
+                    size="sm"
+                    className="w-full bg-[#2563EB] hover:bg-[#1D4ED8] text-white font-bold text-xs py-2 rounded-xl shadow-md transition-all cursor-pointer h-8"
+                  >
+                    Sign up
+                  </Button>
+                </Link>
+              </div>
+            )}
           </div>
         </div>
       )}

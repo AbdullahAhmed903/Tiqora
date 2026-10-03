@@ -8,6 +8,7 @@ interface PaginationProps {
   totalPages: number;
   totalItems: number;
   pageSize?: number;
+  itemLabel?: string;
   onPageChange: (page: number) => void;
   isLoading?: boolean;
 }
@@ -17,6 +18,7 @@ export function Pagination({
   totalPages,
   totalItems,
   pageSize = 10,
+  itemLabel = "items",
   onPageChange,
   isLoading = false,
 }: PaginationProps) {
@@ -68,7 +70,7 @@ export function Pagination({
         <span className="font-semibold text-zinc-900 dark:text-white">
           {totalItems}
         </span>
-        <span>categories</span>
+        <span>{itemLabel}</span>
         <span className="text-xs text-zinc-400 dark:text-zinc-500 ml-1">
           (10 per page)
         </span>

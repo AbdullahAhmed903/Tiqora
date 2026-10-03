@@ -72,13 +72,30 @@ export async function loginAction(formData: {
     }
   }
 
-  const { error } = await supabase.auth.signInWithPassword({
+  const { data: authData, error } = await supabase.auth.signInWithPassword({
     email,
     password: parsed.data.password,
   });
 
   if (error) {
     return { success: false, error: error.message };
+  }
+
+  // Verify account is not suspended
+  if (authData.user) {
+    const { data: profile } = await supabase
+      .from("profiles")
+      .select("status")
+      .eq("id", authData.user.id)
+      .maybeSingle();
+
+    if (profile?.status === "suspended") {
+      await supabase.auth.signOut();
+      return {
+        success: false,
+        error: "Your account has been suspended. Please contact support.",
+      };
+    }
   }
 
   return { success: true, redirectUrl: "/" };

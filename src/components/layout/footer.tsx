@@ -4,8 +4,9 @@ import * as React from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, Loader2 } from "lucide-react";
 import { toast } from "sonner";
+import { subscribeNewsletterAction } from "@/app/actions/newsletter";
 
 interface FooterProps {
   categories?: { name: string; slug: string }[];
@@ -14,20 +15,43 @@ interface FooterProps {
 export function Footer({ categories = [] }: FooterProps) {
   const pathname = usePathname();
   const [newsletterEmail, setNewsletterEmail] = React.useState("");
+  const [isSubmitting, setIsSubmitting] = React.useState(false);
+  const [honeypot, setHoneypot] = React.useState("");
 
   // Do not render consumer footer in admin dashboard / admin routes
   if (pathname?.startsWith("/admin")) {
     return null;
   }
 
-  const handleNewsletterSubmit = (e: React.FormEvent) => {
+  const handleNewsletterSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!newsletterEmail.trim() || !newsletterEmail.includes("@")) {
-      toast.error("Please enter a valid email address");
+    if (!newsletterEmail.trim()) {
+      toast.error("Please enter your email address");
       return;
     }
-    toast.success("Thank you for subscribing to Tiqora newsletter!");
-    setNewsletterEmail("");
+
+    setIsSubmitting(true);
+    try {
+      const res = await subscribeNewsletterAction({
+        email: newsletterEmail,
+        website: honeypot,
+      });
+
+      if (res.success) {
+        if (res.code === "ALREADY_SUBSCRIBED") {
+          toast.info(res.message);
+        } else {
+          toast.success(res.message);
+        }
+        setNewsletterEmail("");
+      } else {
+        toast.error(res.message);
+      }
+    } catch {
+      toast.error("Failed to process subscription. Please try again later.");
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -50,25 +74,15 @@ export function Footer({ categories = [] }: FooterProps) {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 xl:gap-8 items-start pb-12 lg:pb-16">
           {/* Column 1: Brand Info & Social Icons (lg:col-span-3) */}
           <div className="space-y-6 lg:col-span-3">
-            <Link href="/" className="inline-flex items-center gap-3 group">
-              <div className="relative w-9 h-9 flex items-center justify-center shrink-0">
-                <svg viewBox="0 0 38 38" fill="none" className="w-8 h-8 drop-shadow-md">
-                  {/* Top slanted blue bar */}
-                  <path
-                    d="M4.5 5.5H33.5L28.5 13.5H0.5L4.5 5.5Z"
-                    fill="#2563EB"
-                  />
-                  {/* Left stem portion (deep blue) */}
-                  <path
-                    d="M10 13.5H18L11 32.5H3L10 13.5Z"
-                    fill="#1D4ED8"
-                  />
-                  {/* Right facet / highlight (clean white) */}
-                  <path
-                    d="M18 13.5H24L17 32.5H11L18 13.5Z"
-                    fill="#FFFFFF"
-                  />
-                </svg>
+            <Link href="/" className="inline-flex items-center gap-3.5 group">
+              <div className="relative w-11 h-11 sm:w-12 sm:h-12 flex items-center justify-center shrink-0">
+                <Image
+                  src="/new-logo.png"
+                  alt="Tiqora Logo"
+                  width={48}
+                  height={48}
+                  className="object-contain transition-transform group-hover:scale-105"
+                />
               </div>
               <span className="font-extrabold text-2xl sm:text-3xl text-white tracking-tight">
                 Tiqora
@@ -205,18 +219,8 @@ export function Footer({ categories = [] }: FooterProps) {
                   </Link>
                 </li>
                 <li>
-                  <Link href="/careers" className="hover:text-white transition-colors">
-                    Careers
-                  </Link>
-                </li>
-                <li>
                   <Link href="/blog" className="hover:text-white transition-colors">
                     Blog
-                  </Link>
-                </li>
-                <li>
-                  <Link href="/press" className="hover:text-white transition-colors">
-                    Press
                   </Link>
                 </li>
                 <li>
@@ -233,11 +237,6 @@ export function Footer({ categories = [] }: FooterProps) {
                 Support
               </h4>
               <ul className="space-y-2.5 text-sm text-slate-400">
-                <li>
-                  <Link href="/help" className="hover:text-white transition-colors">
-                    Help Center
-                  </Link>
-                </li>
                 <li>
                   <Link href="/ticket-policy" className="hover:text-white transition-colors">
                     Ticket Policy
@@ -275,22 +274,40 @@ export function Footer({ categories = [] }: FooterProps) {
             </p>
 
             {/* Input Form with pill and circular arrow button */}
-            <form onSubmit={handleNewsletterSubmit} className="flex items-center gap-3 pt-1 max-w-sm">
+            <form onSubmit={handleNewsletterSubmit} className="flex items-center gap-3 pt-1 max-w-sm relative">
+              {/* Invisible honeypot field for anti-bot trap */}
+              <input
+                type="text"
+                name="website"
+                value={honeypot}
+                onChange={(e) => setHoneypot(e.target.value)}
+                tabIndex={-1}
+                autoComplete="off"
+                className="opacity-0 absolute -z-10 w-0 h-0 pointer-events-none select-none"
+                aria-hidden="true"
+              />
+
               <div className="relative flex-1">
                 <input
                   type="email"
                   value={newsletterEmail}
                   onChange={(e) => setNewsletterEmail(e.target.value)}
                   placeholder="Enter your email"
-                  className="w-full bg-[#070D1B]/90 backdrop-blur-md border border-white/15 rounded-full px-5 py-3 text-sm text-white placeholder:text-slate-500 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-all shadow-inner"
+                  disabled={isSubmitting}
+                  className="w-full bg-[#070D1B]/90 backdrop-blur-md border border-white/15 rounded-full px-5 py-3 text-sm text-white placeholder:text-slate-500 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-all shadow-inner disabled:opacity-60"
                 />
               </div>
               <button
                 type="submit"
+                disabled={isSubmitting}
                 aria-label="Subscribe to newsletter"
-                className="w-11 h-11 rounded-full bg-[#2563EB] hover:bg-[#1D4ED8] active:scale-95 text-white flex items-center justify-center shrink-0 shadow-lg shadow-blue-600/30 transition-all cursor-pointer group"
+                className="w-11 h-11 rounded-full bg-[#2563EB] hover:bg-[#1D4ED8] active:scale-95 text-white flex items-center justify-center shrink-0 shadow-lg shadow-blue-600/30 transition-all cursor-pointer group disabled:opacity-60 disabled:cursor-not-allowed"
               >
-                <ArrowRight className="w-5 h-5 transition-transform group-hover:translate-x-0.5" />
+                {isSubmitting ? (
+                  <Loader2 className="w-5 h-5 animate-spin" />
+                ) : (
+                  <ArrowRight className="w-5 h-5 transition-transform group-hover:translate-x-0.5" />
+                )}
               </button>
             </form>
           </div>

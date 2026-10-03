@@ -32,9 +32,20 @@ export interface OrganizerPermission {
   user_id: string;
   section: PermissionSection;
   access_level: AccessLevel;
+  specializations: string[];
   granted_by: string | null;
   created_at: string;
   updated_at: string;
+}
+
+export interface StaffMemberRow extends Profile {
+  permissions: OrganizerPermission[];
+  specializations: string[];
+  granted_by_user?: {
+    id: string;
+    full_name: string | null;
+    email: string | null;
+  } | null;
 }
 
 export type OrganizerPermissionsMap = Partial<Record<PermissionSection, AccessLevel>>;
@@ -47,3 +58,12 @@ export interface AdminAuditLog {
   metadata: Record<string, unknown>;
   created_at: string;
 }
+
+export type AuthProvider = "email" | "google" | "oauth";
+
+export interface ProfileStats {
+  favoritesCount: number;
+  ticketsCount: number;
+  memberSinceFormatted: string;
+}
+
