@@ -49,7 +49,7 @@ const NAVIGATION_ITEMS = [
     matchExact: false,
   },
   {
-    name: "Organizers",
+    name: "Staff & Organizers",
     href: "/admin/organizers",
     icon: Users,
     matchExact: false,
@@ -163,7 +163,11 @@ function SidebarNavContent({
       {/* Admin User Footer */}
       <div className="p-3 border-t border-zinc-200 dark:border-zinc-800/80 bg-zinc-50/50 dark:bg-zinc-900/30">
         <div className="flex items-center justify-between p-2 rounded-xl bg-white dark:bg-zinc-800/60 border border-zinc-200 dark:border-zinc-700/60">
-          <div className="flex items-center gap-2.5 min-w-0">
+          <Link
+            href="/admin/profile"
+            className="flex items-center gap-2.5 min-w-0 flex-1 hover:opacity-85 transition-opacity"
+            title="Manage your staff profile"
+          >
             <div className="w-8 h-8 rounded-lg bg-gradient-to-tr from-blue-600 to-indigo-600 flex items-center justify-center text-white text-xs font-bold shrink-0">
               <Shield className="w-4 h-4" />
             </div>
@@ -175,7 +179,7 @@ function SidebarNavContent({
                 {userEmail || "admin@tiqora.com"}
               </p>
             </div>
-          </div>
+          </Link>
 
           <Link
             href="/"
