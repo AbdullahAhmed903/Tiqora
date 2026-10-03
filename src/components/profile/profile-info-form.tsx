@@ -11,6 +11,8 @@ import {
   RotateCcw,
   Loader2,
   CheckCircle2,
+  Shield,
+  Briefcase,
 } from "lucide-react";
 import { toast } from "sonner";
 import { updateProfileAction } from "@/app/actions/profile";
@@ -199,6 +201,65 @@ export function ProfileInfoForm({
           </div>
           <p className="text-[11px] text-zinc-500">
             Required for age-restricted sports events, festivals, and VIP access.
+          </p>
+        </div>
+
+        {/* System Role (Read-Only) */}
+        <div className="space-y-1.5">
+          <label className="text-xs font-bold text-zinc-400 flex items-center justify-between">
+            <span className="flex items-center gap-1.5">
+              <Shield className="w-3.5 h-3.5 text-zinc-500" />
+              <span>Platform Role</span>
+            </span>
+            <span className="text-[10px] text-zinc-500 font-normal">
+              System Assigned
+            </span>
+          </label>
+          <div className="flex items-center gap-2 px-3.5 py-2.5 rounded-xl bg-zinc-950/60 border border-zinc-800/80 text-sm">
+            {profile.role === "admin" ? (
+              <span className="inline-flex items-center gap-1 text-xs font-bold text-purple-400">
+                <Shield className="w-3.5 h-3.5" />
+                Administrator
+              </span>
+            ) : profile.role === "organizer" ? (
+              <span className="inline-flex items-center gap-1 text-xs font-bold text-blue-400">
+                <Briefcase className="w-3.5 h-3.5" />
+                Event Organizer
+              </span>
+            ) : (
+              <span className="text-xs font-medium text-zinc-400 capitalize">
+                Member ({profile.role})
+              </span>
+            )}
+          </div>
+          <p className="text-[11px] text-zinc-500">
+            Governs your administrative and publishing permissions across Tiqora.
+          </p>
+        </div>
+
+        {/* Account Status (Read-Only) */}
+        <div className="space-y-1.5">
+          <label className="text-xs font-bold text-zinc-400 flex items-center justify-between">
+            <span className="flex items-center gap-1.5">
+              <Lock className="w-3.5 h-3.5 text-zinc-500" />
+              <span>Account Status</span>
+            </span>
+            <span className="text-[10px] text-zinc-500 font-normal">
+              Moderation
+            </span>
+          </label>
+          <div className="flex items-center gap-2 px-3.5 py-2.5 rounded-xl bg-zinc-950/60 border border-zinc-800/80 text-sm">
+            <span
+              className={`inline-flex items-center gap-1 text-xs font-bold ${
+                profile.status === "active" ? "text-emerald-400" : "text-red-400"
+              }`}
+            >
+              <CheckCircle2 className="w-3.5 h-3.5" />
+              {profile.status.toUpperCase()}
+            </span>
+          </div>
+          <p className="text-[11px] text-zinc-500">
+            Account standing governed by platform terms and moderation.
           </p>
         </div>
       </div>

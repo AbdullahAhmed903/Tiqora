@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useRef, useState } from "react";
+import React, { useState } from "react";
 import Image from "next/image";
 import {
   Camera,
@@ -15,7 +15,7 @@ import {
   Check,
 } from "lucide-react";
 import { toast } from "sonner";
-import { uploadAvatarAction, deleteAvatarAction } from "@/app/actions/profile";
+import { useAvatarManager } from "@/hooks/use-avatar-manager";
 import type { Profile, ProfileStats } from "@/types/auth";
 
 interface ProfileHeaderProps {
@@ -29,101 +29,18 @@ export function ProfileHeader({
   stats,
   onProfileUpdate,
 }: ProfileHeaderProps) {
-  const fileInputRef = useRef<HTMLInputElement>(null);
-  const [isUploading, setIsUploading] = useState(false);
-  const [isDeleting, setIsDeleting] = useState(false);
   const [copied, setCopied] = useState(false);
 
-  const handleAvatarSelect = async (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-    if (!file) return;
-
-    // Fast client-side size check (2MB)
-    if (file.size > 2 * 1024 * 1024) {
-      toast.error(
-        `Image size too large (${(file.size / (1024 * 1024)).toFixed(2)} MB). Maximum allowed is 2MB.`
-      );
-      return;
-    }
-
-    // Supported format check
-    const validMimes = ["image/jpeg", "image/png", "image/webp", "image/gif"];
-    if (!validMimes.includes(file.type)) {
-      toast.error(
-        "Unsupported file format. Please upload JPG, PNG, WebP, or GIF."
-      );
-      return;
-    }
-
-    // Client-side image dimensions check
-    const objectUrl = URL.createObjectURL(file);
-    const img = new window.Image();
-    img.onload = async () => {
-      URL.revokeObjectURL(objectUrl);
-
-      if (img.width < 64 || img.height < 64) {
-        toast.error(
-          `Image resolution too low (${img.width}×${img.height}px). Minimum required is 64×64px.`
-        );
-        return;
-      }
-
-      const formData = new FormData();
-      formData.append("avatar", file);
-
-      setIsUploading(true);
-      const toastId = toast.loading("Optimizing and uploading avatar...");
-
-      try {
-        const res = await uploadAvatarAction(formData);
-        if (res.success && res.avatarUrl) {
-          onProfileUpdate({ avatar_url: res.avatarUrl });
-          toast.success("Avatar updated successfully!", { id: toastId });
-        } else {
-          toast.error(res.error || "Failed to update avatar.", { id: toastId });
-        }
-      } catch {
-        toast.error("An unexpected error occurred while uploading avatar.", {
-          id: toastId,
-        });
-      } finally {
-        setIsUploading(false);
-        if (fileInputRef.current) {
-          fileInputRef.current.value = "";
-        }
-      }
-    };
-
-    img.onerror = () => {
-      URL.revokeObjectURL(objectUrl);
-      toast.error("Unable to read image file. Please select a valid image.");
-    };
-  };
-
-  const handleDeleteAvatar = async () => {
-    if (!profile.avatar_url) return;
-
-    if (!confirm("Are you sure you want to remove your profile picture?")) {
-      return;
-    }
-
-    setIsDeleting(true);
-    const toastId = toast.loading("Removing avatar...");
-
-    try {
-      const res = await deleteAvatarAction();
-      if (res.success) {
-        onProfileUpdate({ avatar_url: null });
-        toast.success("Avatar removed.", { id: toastId });
-      } else {
-        toast.error(res.error || "Failed to remove avatar.", { id: toastId });
-      }
-    } catch {
-      toast.error("An unexpected error occurred.", { id: toastId });
-    } finally {
-      setIsDeleting(false);
-    }
-  };
+  const {
+    fileInputRef,
+    isUploading,
+    isDeleting,
+    handleAvatarSelect,
+    handleAvatarDelete: handleDeleteAvatar,
+  } = useAvatarManager({
+    currentAvatarUrl: profile.avatar_url,
+    onAvatarChange: (newUrl) => onProfileUpdate({ avatar_url: newUrl }),
+  });
 
   const copyUsername = () => {
     navigator.clipboard.writeText(`@${profile.username}`);

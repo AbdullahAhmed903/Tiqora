@@ -161,7 +161,7 @@ In relational database modeling, relationships have two primary dimensions: **Ca
 | Parent Table | Child Table | Relationship Type | Parent Participation | Child Participation | Foreign Key Column | On Delete Action | Business Semantics |
 | :--- | :--- | :---: | :---: | :---: | :--- | :--- | :--- |
 | `auth.users` | `public.profiles` | **1 : 1** | **Total** (Mandatory) | **Total** (Mandatory) | `profiles.id` &rarr; `auth.users(id)` | `CASCADE` | Extends auth accounts with profile bio, role, and avatar. |
-| `public.profiles` | `public.organizer_permissions` | **1 : N** | **Partial** (0..N) | **Total** (1..1) | `organizer_permissions.user_id` &rarr; `profiles.id` | `CASCADE` | Users have 0 or many role-scoped permissions. |
+| `public.profiles` | `public.organizer_permissions` | **1 : N** | **Partial** (0..N) | **Total** (1..1) | `organizer_permissions.user_id` &rarr; `profiles.id` | `CASCADE` | Users have 0 or many role-scoped permissions and specializations. |
 | `public.profiles` | `public.organizer_permissions` | **1 : N** | **Partial** (0..N) | **Partial** (0..1) | `organizer_permissions.granted_by` &rarr; `profiles.id` | `SET NULL` | Admin who granted permission. Retained if admin is removed. |
 | `public.profiles` | `public.admin_audit_logs` | **1 : N** | **Partial** (0..N) | **Total** (1..1) | `admin_audit_logs.admin_id` &rarr; `profiles.id` | `CASCADE` | Administrator responsible for performing the logged action. |
 | `public.profiles` | `public.admin_audit_logs` | **1 : N** | **Partial** (0..N) | **Partial** (0..1) | `admin_audit_logs.target_user_id` &rarr; `profiles.id` | `SET NULL` | User affected by admin action; nullable for general actions. |
@@ -437,11 +437,17 @@ Granular permission matrix for organizers to manage distinct sub-domains.
 | `user_id` | `UUID` | **FK** &rarr; `profiles(id)` | None | Organizer user ID (`ON DELETE CASCADE`) |
 | `section` | `permission_section` | `NOT NULL` | None | Scoped section (`events`, `tickets`, etc.) |
 | `access_level` | `access_level` | `NOT NULL` | `'read'` | Permission level: `read` or `write` |
+| `specializations` | `TEXT[]` | `NOT NULL` | `'{}'` | Domain event categories or specializations (e.g. `{"football"}`) |
 | `granted_by` | `UUID` | **FK** &rarr; `profiles(id)` | `NULL` | Admin profile that approved permissions |
 | `created_at` | `TIMESTAMPTZ` | `NOT NULL` | `now()` | Date granted |
 | `updated_at` | `TIMESTAMPTZ` | `NOT NULL` | `now()` | Last modification |
 
 **Unique Constraint**: `UNIQUE(user_id, section)`
+
+**Indexes**:
+- `idx_organizer_permissions_user_id`: B-tree index on `user_id`.
+- `idx_organizer_permissions_section`: B-tree index on `section`.
+- `idx_organizer_permissions_specializations`: GIN index on `specializations`.
 
 ---
 
