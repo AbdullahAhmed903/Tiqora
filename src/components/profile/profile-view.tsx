@@ -64,8 +64,8 @@ export function ProfileView({
     <div className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8">
       {/* 2-Column Layout matching Favorites: Sidebar (Sticky) | Main Profile Area */}
       <div className="flex flex-col lg:flex-row items-start gap-6">
-        {/* Left Sidebar: Sticky (scrolls with user) & Fit-Height */}
-        <aside className="hidden md:block w-52 xl:w-56 flex-shrink-0 sticky top-24">
+        {/* Left Sidebar: Sticky (scrolls with user) on desktop & Mobile horizontal pills on mobile */}
+        <aside className="w-full md:w-52 xl:w-56 flex-shrink-0 md:sticky md:top-24">
           <UserSidebar favoritesCount={stats.favoritesCount} />
         </aside>
 

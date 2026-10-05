@@ -13,11 +13,11 @@ export function EventsHeroBanner({ category = "all" }: EventsHeroBannerProps) {
     CATEGORY_HERO_CONFIGS[normKey] || CATEGORY_HERO_CONFIGS["all"];
 
   return (
-    <div className="relative w-full overflow-hidden rounded-2xl sm:rounded-3xl border border-blue-950/60 shadow-[0_10px_40px_-15px_rgba(37,99,235,0.25)] min-h-[260px] sm:min-h-[290px] flex items-center bg-[#07090E]">
+    <div className="relative w-full overflow-hidden rounded-2xl sm:rounded-3xl border border-blue-950/60 shadow-[0_10px_40px_-15px_rgba(37,99,235,0.25)] min-h-[200px] sm:min-h-[280px] flex items-center bg-[#07090E]">
       {/* Background Banner Image */}
       <div className="absolute inset-0 z-0">
         <Image
-          src="/slug-pages.png"
+          src="/slug-pages.webp"
           alt="Events Banner"
           fill
           priority
@@ -31,15 +31,15 @@ export function EventsHeroBanner({ category = "all" }: EventsHeroBannerProps) {
       </div>
 
       {/* Hero Content on Left */}
-      <div className="relative z-10 px-6 sm:px-10 lg:px-14 py-8 max-w-2xl flex flex-col justify-center">
+      <div className="relative z-10 px-5 sm:px-10 lg:px-14 py-6 sm:py-8 max-w-2xl flex flex-col justify-center">
         {/* Pill Badge */}
-        <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-blue-950/80 border border-blue-500/40 text-blue-300 text-xs font-semibold backdrop-blur-md w-fit mb-3 shadow-[0_0_15px_rgba(59,130,246,0.3)]">
-          <Calendar className="w-3.5 h-3.5 text-blue-400" />
+        <div className="inline-flex items-center gap-2 px-3 py-1 sm:px-3.5 sm:py-1.5 rounded-full bg-blue-950/80 border border-blue-500/40 text-blue-300 text-[11px] sm:text-xs font-semibold backdrop-blur-md w-fit mb-2.5 sm:mb-3 shadow-[0_0_15px_rgba(59,130,246,0.3)]">
+          <Calendar className="w-3 h-3 sm:w-3.5 sm:h-3.5 text-blue-400" />
           <span>{config.badge}</span>
         </div>
 
         {/* Dynamic Title */}
-        <h1 className="text-3xl sm:text-4xl lg:text-5xl font-black tracking-tight text-white leading-tight">
+        <h1 className="text-2xl sm:text-4xl lg:text-5xl font-black tracking-tight text-white leading-tight">
           <span>{config.titleFirst}</span>
           <span className="block text-transparent bg-clip-text bg-gradient-to-r from-[#3B82F6] via-[#60A5FA] to-[#93C5FD]">
             {config.titleAccent}

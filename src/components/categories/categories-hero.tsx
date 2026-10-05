@@ -15,10 +15,10 @@ export function CategoriesHero({
 }: CategoriesHeroProps) {
   return (
     <div className="relative w-full overflow-hidden rounded-2xl sm:rounded-3xl border border-blue-950/60 shadow-[0_15px_50px_-15px_rgba(37,99,235,0.25)] min-h-[380px] sm:min-h-[440px] lg:min-h-[480px] flex items-center bg-[#060912]">
-      {/* Background Hero Banner (Categories-page.png) */}
+      {/* Background Hero Banner (Categories-page.webp) */}
       <div className="absolute inset-0 z-0 pointer-events-none">
         <Image
-          src="/Categories-page.png"
+          src="/Categories-page.webp"
           alt="Browse All Categories Banner"
           fill
           priority
@@ -73,7 +73,7 @@ export function CategoriesHero({
         </div>
       </div>
 
-      {/* Hand-drawn style text directly above the curved doodle arrow in Categories-page.png */}
+      {/* Hand-drawn style text directly above the curved doodle arrow in Categories-page.webp */}
       <div className="hidden lg:flex absolute right-[4%] xl:right-[4.8%] 2xl:right-[5.2%] top-[29%] xl:top-[31%] z-10 pointer-events-none flex-col items-center select-none">
         <div
           className="text-[#D8B4FE] text-xs sm:text-sm xl:text-base font-bold tracking-tight italic text-center leading-tight drop-shadow-[0_2px_8px_rgba(168,85,247,0.7)]"

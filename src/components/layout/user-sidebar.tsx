@@ -74,9 +74,48 @@ export function UserSidebar({
   ];
 
   return (
-    <div className="w-full h-fit space-y-4 select-none">
-      {/* Navigation Capsule List */}
-      <nav className="bg-[#0B0F19]/90 border border-zinc-800/80 rounded-2xl p-2.5 space-y-1 shadow-xl backdrop-blur-md">
+    <div className="w-full select-none">
+      {/* Mobile Horizontal Navigation Capsule Bar */}
+      <div className="md:hidden w-full overflow-x-auto pb-1 no-scrollbar">
+        <div className="flex items-center gap-1.5 p-1.5 bg-[#0B0F19]/90 border border-zinc-800/80 rounded-2xl backdrop-blur-md w-max">
+          {navItems.map((item) => {
+            const Icon = item.icon;
+            return (
+              <Link
+                key={item.label}
+                href={item.href}
+                className={`flex items-center gap-2 px-3.5 py-2 rounded-xl text-xs font-bold transition-all whitespace-nowrap ${
+                  item.isActive
+                    ? "bg-[#2563EB] text-white shadow-[0_4px_16px_rgba(37,99,235,0.35)]"
+                    : "text-zinc-400 hover:text-white hover:bg-zinc-900/80"
+                }`}
+              >
+                <Icon
+                  className={`w-3.5 h-3.5 ${
+                    item.isActive ? "text-white" : "text-zinc-400"
+                  }`}
+                />
+                <span>{item.label}</span>
+
+                {item.badge !== null && (
+                  <span
+                    className={`px-1.5 py-0.2 rounded-full text-[10px] font-black ${
+                      item.isActive
+                        ? "bg-white/20 text-white"
+                        : "bg-zinc-800 text-zinc-300"
+                    }`}
+                  >
+                    {item.badge}
+                  </span>
+                )}
+              </Link>
+            );
+          })}
+        </div>
+      </div>
+
+      {/* Desktop Vertical Capsule List */}
+      <nav className="hidden md:block bg-[#0B0F19]/90 border border-zinc-800/80 rounded-2xl p-2.5 space-y-1 shadow-xl backdrop-blur-md">
         {navItems.map((item) => {
           const Icon = item.icon;
           return (

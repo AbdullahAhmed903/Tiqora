@@ -24,7 +24,7 @@ export const HERO_SLIDES: HeroSlide[] = [
     titleLine3: "TO YOU",
     description:
       "From football matches to concerts, theater, festivals and more — all in one place.",
-    image: "/hero/ChatGPT Image Sep 8, 2026, 03_29_09 PM.png",
+    image: "/hero/hero-one.webp",
   },
   {
     id: "slide-2",
@@ -35,7 +35,7 @@ export const HERO_SLIDES: HeroSlide[] = [
     titleLine3: "LIVE",
     description:
       "Witness premier league, champions league, and international sports clashes live from top seats.",
-    image: "/hero/ChatGPT Image Sep 8, 2026, 03_28_22 PM.png",
+    image: "/hero/heroTwo.webp",
   },
   {
     id: "slide-3",
@@ -46,7 +46,7 @@ export const HERO_SLIDES: HeroSlide[] = [
     titleLine3: "YOU",
     description:
       "Secure instant verified tickets for sold-out stadium concerts, festivals, and theatrical shows.",
-    image: "/hero/ChatGPT Image Sep 8, 2026, 03_27_57 PM.png",
+    image: "/hero/heroThree.webp",
   },
   {
     id: "slide-4",
@@ -57,7 +57,7 @@ export const HERO_SLIDES: HeroSlide[] = [
     titleLine3: "TODAY",
     description:
       "Experience world-class drama, live orchestral performances, and spectacular festival events.",
-    image: "/hero/ChatGPT Image Sep 8, 2026, 03_29_09 PM.png",
+    image: "/hero/hero-one.webp",
   },
 ];
 

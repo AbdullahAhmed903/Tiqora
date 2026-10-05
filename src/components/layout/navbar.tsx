@@ -129,7 +129,7 @@ export function Navbar({
         <Link href="/" className="flex items-center gap-2.5 group flex-shrink-0">
           <div className="relative h-10 w-10 sm:h-11 sm:w-11 flex items-center justify-center">
             <Image
-              src="/new-logo.png"
+              src="/new-logo.webp"
               alt="Tiqora Logo"
               width={44}
               height={44}

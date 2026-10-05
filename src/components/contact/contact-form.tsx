@@ -195,7 +195,7 @@ export function ContactForm() {
       initial={{ opacity: 0, y: 15 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.35 }}
-      className="relative rounded-3xl p-6 sm:p-8 md:p-10 bg-zinc-900/90 dark:bg-[#0E1526]/90 border border-zinc-800 dark:border-zinc-800/80 shadow-2xl backdrop-blur-xl"
+      className="relative rounded-2xl sm:rounded-3xl p-4 sm:p-7 md:p-10 bg-zinc-900/90 dark:bg-[#0E1526]/90 border border-zinc-800 dark:border-zinc-800/80 shadow-2xl backdrop-blur-xl"
     >
       {/* Background Accent Glow */}
       <div className="absolute top-0 right-10 w-64 h-64 bg-blue-600/10 rounded-full blur-3xl pointer-events-none" />

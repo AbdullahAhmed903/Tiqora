@@ -56,10 +56,10 @@ export function Footer({ categories = [] }: FooterProps) {
 
   return (
     <footer className="relative w-full bg-[#050814] text-slate-300 overflow-hidden border-t border-slate-900/80">
-      {/* Background graphic from public/footer.png */}
+      {/* Background graphic from public/footer.webp */}
       <div className="absolute inset-0 select-none pointer-events-none z-0">
         <Image
-          src="/footer.png"
+          src="/footer.webp"
           alt="Tiqora Footer Background"
           fill
           priority
@@ -69,15 +69,15 @@ export function Footer({ categories = [] }: FooterProps) {
         <div className="absolute inset-0 bg-gradient-to-b from-[#050814]/40 via-transparent to-[#050814]/60 pointer-events-none" />
       </div>
 
-      <div className="relative z-10 max-w-[1520px] mx-auto px-6 sm:px-10 lg:px-14 pt-16 lg:pt-20 pb-8">
+      <div className="relative z-10 max-w-[1520px] mx-auto px-4 sm:px-8 lg:px-14 pt-12 sm:pt-16 lg:pt-20 pb-8">
         {/* Main Upper Grid */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 xl:gap-8 items-start pb-12 lg:pb-16">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 xl:gap-8 items-start pb-10 sm:pb-12 lg:pb-16">
           {/* Column 1: Brand Info & Social Icons (lg:col-span-3) */}
           <div className="space-y-6 lg:col-span-3">
             <Link href="/" className="inline-flex items-center gap-3.5 group">
               <div className="relative w-11 h-11 sm:w-12 sm:h-12 flex items-center justify-center shrink-0">
                 <Image
-                  src="/new-logo.png"
+                  src="/new-logo.webp"
                   alt="Tiqora Logo"
                   width={48}
                   height={48}
@@ -152,7 +152,7 @@ export function Footer({ categories = [] }: FooterProps) {
           </div>
 
           {/* Navigation Links Group (lg:col-span-4) */}
-          <div className="grid grid-cols-3 gap-6 sm:gap-8 lg:col-span-4">
+          <div className="grid grid-cols-2 sm:grid-cols-3 gap-6 sm:gap-8 lg:col-span-4">
             {/* Explore */}
             <div className="space-y-4">
               <h4 className="text-xs font-semibold text-white/90 uppercase tracking-[0.2em]">

@@ -8,17 +8,17 @@ import { ChevronLeft, ChevronRight } from "lucide-react";
 const HERO_IMAGES = [
   {
     id: "hero-1",
-    src: "/hero/hero-one.png",
+    src: "/hero/hero-one.webp",
     alt: "Events Bring People Closer",
   },
   {
     id: "hero-2",
-    src: "/hero/heroTwo.png",
+    src: "/hero/heroTwo.webp",
     alt: "Live Experiences For A Brighter Tomorrow",
   },
   {
     id: "hero-3",
-    src: "/hero/heroThree.png",
+    src: "/hero/heroThree.webp",
     alt: "Live Moments Last Longer",
   },
 ];
@@ -57,7 +57,7 @@ export function HeroSection() {
       {/* Clickable Banner Image Container */}
       <Link
         href="/events"
-        className="block relative w-full aspect-[2.35/1] min-h-[220px]"
+        className="block relative w-full aspect-[16/9] sm:aspect-[2.35/1] min-h-[180px] sm:min-h-[220px]"
       >
         {HERO_IMAGES.map((img, idx) => (
           <div

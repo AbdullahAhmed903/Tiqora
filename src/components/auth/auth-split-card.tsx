@@ -16,19 +16,19 @@ export function AuthSplitCard({
   return (
     <div
       className={cn(
-        "w-full min-h-[calc(100vh-8rem)] flex items-center justify-center py-10 px-4 sm:px-6 lg:px-8 bg-slate-50/60 dark:bg-zinc-950 relative overflow-hidden selection:bg-[#2563EB]/20 selection:text-[#2563EB]",
+        "w-full min-h-[calc(100vh-8rem)] flex items-center justify-center py-6 sm:py-10 px-3.5 sm:px-6 lg:px-8 bg-slate-50/60 dark:bg-zinc-950 relative overflow-hidden selection:bg-[#2563EB]/20 selection:text-[#2563EB]",
         className
       )}
     >
       <div className="max-w-7xl w-full mx-auto grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center relative z-10">
-        {/* Left Column: Hero Content & Category Badges */}
-        <div className="lg:col-span-6 xl:col-span-7">
+        {/* Left Column: Hero Content & Category Badges (Desktop only) */}
+        <div className="hidden lg:block lg:col-span-6 xl:col-span-7">
           <AuthHeroBanner type={type} />
         </div>
 
         {/* Right Column: Floating Auth Card Container */}
-        <div className="lg:col-span-6 xl:col-span-5 flex justify-center lg:justify-end">
-          <div className="w-full max-w-md bg-white dark:bg-zinc-900 border border-zinc-200/80 dark:border-zinc-800 shadow-xl shadow-zinc-200/50 dark:shadow-none rounded-3xl p-6 sm:p-8">
+        <div className="col-span-1 lg:col-span-6 xl:col-span-5 flex justify-center lg:justify-end w-full">
+          <div className="w-full max-w-md bg-white dark:bg-zinc-900 border border-zinc-200/80 dark:border-zinc-800 shadow-xl shadow-zinc-200/50 dark:shadow-none rounded-2xl sm:rounded-3xl p-5 sm:p-8">
             {children}
           </div>
         </div>

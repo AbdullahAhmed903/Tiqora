@@ -16,7 +16,7 @@ This document defines architecture, conventions, and operational rules for AI ag
 
 ## 1. Core Principles & Stack Rules
 
-- **Project Name & Branding**: **Tiqora**. Official logo is in `/public/Tiqora logo.png` (aliased as `/public/logo.png`).
+- **Project Name & Branding**: **Tiqora**. Official logo is in `/public/new-logo.webp`.
 - **Framework**: Next.js 16+ using the **App Router** (`src/app`).
 - **React Server Components (RSC)**:
   - By default, all pages and components in `src/app` are React Server Components unless client state/interactivity (`useState`, `useEffect`, event listeners) is needed.
@@ -48,7 +48,7 @@ This document defines architecture, conventions, and operational rules for AI ag
 
 ## 2. Directory Structure & Conventions
 
-- `public/`: Brand assets including `Tiqora logo.png` and `logo.png`.
+- `public/`: Brand and static assets including `new-logo.webp`.
 - `src/app/`: Next.js App Router pages, layouts, and route handlers.
 - `src/proxy.ts`: Next.js 16 Proxy handler (session refreshing).
 - `src/components/ui/`: Primitive design tokens (Button, Badge, Toaster).
