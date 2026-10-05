@@ -55,7 +55,7 @@ export function CategoriesExplorer({
 
   return (
     <div className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8 space-y-12 sm:space-y-14">
-      {/* 1. Hero Section using Categories-page.png */}
+      {/* 1. Hero Section using Categories-page.webp */}
       <CategoriesHero
         searchQuery={searchQuery}
         onSearchChange={setSearchQuery}

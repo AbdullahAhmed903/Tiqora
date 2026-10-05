@@ -136,19 +136,19 @@ export function FavoritesExplorer() {
     <div className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8">
       {/* 2-Column Layout: Sidebar (Fit-height & Sticky) | Main Area (Favorites) */}
       <div className="flex flex-col lg:flex-row items-start gap-6">
-        {/* 1. Left Sidebar: Sticky (scrolls with user) & Fit-Height without Home */}
-        <aside className="hidden md:block w-52 xl:w-56 flex-shrink-0 sticky top-24">
+        {/* 1. Left Sidebar: Sticky (scrolls with user) on desktop & Mobile Horizontal Pills on mobile */}
+        <aside className="w-full md:w-52 xl:w-56 flex-shrink-0 md:sticky md:top-24">
           <FavoritesSidebar favoritesCount={favoriteEvents.length} />
         </aside>
 
         {/* 2. Main Content Area */}
         <div className="flex-1 min-w-0 space-y-6">
-          {/* Hero Banner with Favorite.png background */}
+          {/* Hero Banner with Favorite.webp background */}
           <div className="relative bg-[#070B14] border border-zinc-800/80 rounded-2xl md:rounded-3xl p-6 sm:p-8 md:p-10 shadow-2xl overflow-hidden min-h-[190px] sm:min-h-[220px] flex items-center">
-            {/* Background Stadium Photo (Favorite.png) */}
+            {/* Background Stadium Photo (Favorite.webp) */}
             <div className="absolute inset-0 z-0 pointer-events-none">
               <Image
-                src="/Favorite.png"
+                src="/Favorite.webp"
                 alt="Favorites Arena"
                 fill
                 priority

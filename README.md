@@ -1,6 +1,6 @@
 <div align="center">
 
-  <img src="./public/new-logo.png" alt="Tiqora Logo" width="160" />
+  <img src="./public/new-logo.webp" alt="Tiqora Logo" width="160" />
 
   # 🎟️ Tiqora
   **Next-Gen Events, Sports Matches & Live Entertainment Ticketing Platform**
@@ -136,16 +136,15 @@ Polished error handling with interactive graphics and instant redirects back to 
 
 ```text
 tiqora/
-├── public/                           # Brand assets, screenshots & static media
-│   ├── new-logo.png                  # Updated modern high-resolution brand logo
-│   ├── Tiqora logo.png               # Official Tiqora brand logo
-│   ├── logo.png                      # Brand logo alias
-│   ├── Categories-page.png           # Categories hub preview
-│   ├── Favorite.png                  # Favorites page preview
-│   ├── slug-pages.png                # Dynamic category events preview
-│   ├── 404-page.png                  # Not found preview
-│   ├── hero/                         # Hero section visuals
-│   └── sigupAndLogin/                # Auth banners and split-card media
+├── public/                           # Brand assets, screenshots & static media (WebP optimized)
+│   ├── new-logo.webp                 # Official modern Tiqora brand logo
+│   ├── Categories-page.webp          # Categories hub preview
+│   ├── Favorite.webp                 # Favorites page preview
+│   ├── slug-pages.webp               # Dynamic category events preview
+│   ├── 404-page.webp                 # Not found preview
+│   ├── footer.webp                   # Mobile app promo visual
+│   ├── favicon.ico                   # Optimized browser favicon
+│   └── hero/                         # Hero section WebP visuals (hero-one, heroTwo, heroThree)
 ├── src/
 │   ├── app/                          # Next.js App Router
 │   │   ├── (auth)/                   # Authentication route group (login, signup, reset)

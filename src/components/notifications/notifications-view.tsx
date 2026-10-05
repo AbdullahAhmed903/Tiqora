@@ -170,8 +170,8 @@ export function NotificationsView({ favoritesCount = 13 }: NotificationsViewProp
     <div className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8">
       {/* 2-Column Responsive Layout matching Favorites & Profile */}
       <div className="flex flex-col lg:flex-row items-start gap-6">
-        {/* Left: Sticky User Sidebar */}
-        <aside className="hidden md:block w-52 xl:w-56 flex-shrink-0 sticky top-24">
+        {/* Left: Sticky User Sidebar on desktop & Mobile Horizontal Pills on mobile */}
+        <aside className="w-full md:w-52 xl:w-56 flex-shrink-0 md:sticky md:top-24">
           <UserSidebar
             favoritesCount={favoritesCount}
             notificationsCount={unreadCount}

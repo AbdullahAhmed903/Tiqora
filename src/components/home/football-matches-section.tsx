@@ -29,11 +29,11 @@ export function FootballMatchesSection() {
       </div>
 
       {/* Grid of 5 Football Match Cards */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-3.5 sm:gap-4">
         {FOOTBALL_MATCHES.map((match: FootballMatch) => (
           <div
             key={match.id}
-            className="group relative rounded-2xl border border-border bg-surface p-4 flex flex-col justify-between hover:border-[#2563EB]/60 hover:shadow-lg transition-all duration-200 space-y-4"
+            className="group relative rounded-2xl border border-border bg-surface p-3.5 sm:p-4 flex flex-col justify-between hover:border-[#2563EB]/60 hover:shadow-lg transition-all duration-200 space-y-4"
           >
             {/* Top Row: Live status or Scheduled Time */}
             <div className="flex items-center justify-between">

@@ -10,6 +10,7 @@ import {
   ShieldCheck,
   ArrowRight,
   Sparkles,
+  ChevronDown,
 } from "lucide-react";
 
 export interface PolicyHighlight {
@@ -54,6 +55,7 @@ export function PolicyLayout({
   relatedLinks,
 }: PolicyLayoutProps) {
   const [activeSection, setActiveSection] = React.useState<string>(sections[0]?.id || "");
+  const [isMobileTocOpen, setIsMobileTocOpen] = React.useState<boolean>(false);
 
   // IntersectionObserver to highlight current active section on scroll
   React.useEffect(() => {
@@ -78,17 +80,18 @@ export function PolicyLayout({
       const topOffset = el.getBoundingClientRect().top + window.pageYOffset - 110;
       window.scrollTo({ top: topOffset, behavior: "smooth" });
       setActiveSection(id);
+      setIsMobileTocOpen(false);
     }
   };
 
   return (
-    <div className="max-w-[1360px] mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12 space-y-10">
+    <div className="max-w-[1360px] mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-12 space-y-7 sm:space-y-10">
       {/* 1. Hero Header Banner */}
       <motion.div
         initial={{ opacity: 0, y: 16 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.35 }}
-        className="relative bg-gradient-to-br from-[#0B0F19] via-[#0E1528] to-[#080B12] border border-zinc-800/80 rounded-3xl p-6 sm:p-10 md:p-12 shadow-2xl overflow-hidden text-center"
+        className="relative bg-gradient-to-br from-[#0B0F19] via-[#0E1528] to-[#080B12] border border-zinc-800/80 rounded-2xl sm:rounded-3xl p-5 sm:p-10 md:p-12 shadow-2xl overflow-hidden text-center"
       >
         {/* Ambient Glows */}
         <div className="absolute top-0 right-1/4 w-96 h-96 bg-blue-600/10 rounded-full blur-3xl pointer-events-none" />
@@ -102,7 +105,7 @@ export function PolicyLayout({
           </div>
 
           {/* Title */}
-          <h1 className="text-3xl sm:text-4xl md:text-5xl font-black text-white tracking-tight leading-tight">
+          <h1 className="text-2xl sm:text-4xl md:text-5xl font-black text-white tracking-tight leading-tight">
             {title}
           </h1>
 
@@ -152,18 +155,36 @@ export function PolicyLayout({
       {/* 3. Main Document Body with Sticky Sidebar */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
         {/* Left Sticky Sidebar (Table of Contents) */}
-        <aside className="lg:col-span-4 xl:col-span-3 lg:sticky lg:top-24 space-y-6">
-          <div className="p-5 rounded-2xl bg-[#0B0F19]/90 border border-zinc-800/80 shadow-xl space-y-4">
-            <div className="flex items-center justify-between pb-2 border-b border-zinc-800">
-              <span className="text-xs font-bold uppercase tracking-wider text-white">
-                Table of Contents
-              </span>
-              <span className="text-[11px] font-mono text-zinc-500">
-                {sections.length} sections
-              </span>
-            </div>
+        <aside className="lg:col-span-4 xl:col-span-3 lg:sticky lg:top-24 space-y-6 w-full">
+          <div className="p-4 sm:p-5 rounded-2xl bg-[#0B0F19]/90 border border-zinc-800/80 shadow-xl space-y-3 sm:space-y-4">
+            <button
+              type="button"
+              onClick={() => setIsMobileTocOpen(!isMobileTocOpen)}
+              className="w-full flex items-center justify-between pb-2 border-b border-zinc-800 lg:cursor-default cursor-pointer text-left"
+            >
+              <div className="flex items-center gap-2">
+                <span className="text-xs font-bold uppercase tracking-wider text-white">
+                  Table of Contents
+                </span>
+                <span className="text-[11px] font-mono text-zinc-500">
+                  ({sections.length})
+                </span>
+              </div>
+              <div className="flex items-center gap-1.5 lg:hidden text-blue-400 text-xs font-semibold">
+                <span className="text-[11px]">{isMobileTocOpen ? "Close" : "Jump"}</span>
+                <ChevronDown
+                  className={`w-3.5 h-3.5 transition-transform duration-200 ${
+                    isMobileTocOpen ? "rotate-180" : ""
+                  }`}
+                />
+              </div>
+            </button>
 
-            <nav className="space-y-1 custom-scrollbar max-h-[60vh] overflow-y-auto pr-1">
+            <nav
+              className={`space-y-1 custom-scrollbar max-h-[60vh] overflow-y-auto pr-1 ${
+                isMobileTocOpen ? "block" : "hidden lg:block"
+              }`}
+            >
               {sections.map((sec) => {
                 const isActive = activeSection === sec.id;
                 const Icon = sec.icon;
@@ -193,8 +214,8 @@ export function PolicyLayout({
             </nav>
           </div>
 
-          {/* Quick Help Card */}
-          <div className="p-5 rounded-2xl bg-gradient-to-br from-[#0B0F19] to-[#0E1528] border border-zinc-800/80 space-y-3">
+          {/* Quick Help Card (Desktop only to prevent mobile clutter) */}
+          <div className="hidden lg:block p-5 rounded-2xl bg-gradient-to-br from-[#0B0F19] to-[#0E1528] border border-zinc-800/80 space-y-3">
             <div className="flex items-center gap-2 text-blue-400">
               <ShieldCheck className="w-4 h-4" />
               <span className="text-xs font-bold uppercase tracking-wider">
@@ -224,32 +245,32 @@ export function PolicyLayout({
         </aside>
 
         {/* Right Content Area (Detailed Policy Clauses) */}
-        <div className="lg:col-span-8 xl:col-span-9 space-y-8">
+        <div className="lg:col-span-8 xl:col-span-9 space-y-6 sm:space-y-8 w-full min-w-0">
           {sections.map((sec) => {
             const Icon = sec.icon;
             return (
               <section
                 key={sec.id}
                 id={sec.id}
-                className="p-6 sm:p-8 rounded-3xl bg-[#0B0F19]/90 border border-zinc-800/80 shadow-xl space-y-5 scroll-mt-28 transition-colors hover:border-zinc-700/80"
+                className="p-4 sm:p-6 md:p-8 rounded-2xl sm:rounded-3xl bg-[#0B0F19]/90 border border-zinc-800/80 shadow-xl space-y-4 sm:space-y-5 scroll-mt-28 transition-colors hover:border-zinc-700/80"
               >
                 {/* Section Header */}
-                <div className="flex items-center gap-3.5 pb-4 border-b border-zinc-800/80">
-                  <div className="w-10 h-10 rounded-xl bg-blue-600/15 border border-blue-500/25 flex items-center justify-center text-blue-400 shrink-0">
-                    <Icon className="w-5 h-5" />
+                <div className="flex items-center gap-3 sm:gap-3.5 pb-3 sm:pb-4 border-b border-zinc-800/80">
+                  <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-blue-600/15 border border-blue-500/25 flex items-center justify-center text-blue-400 shrink-0">
+                    <Icon className="w-4 h-4 sm:w-5 sm:h-5" />
                   </div>
                   <div>
-                    <div className="text-[11px] font-mono font-bold text-blue-400 uppercase tracking-widest">
+                    <div className="text-[10px] sm:text-[11px] font-mono font-bold text-blue-400 uppercase tracking-widest">
                       Section {sec.number}
                     </div>
-                    <h2 className="text-xl sm:text-2xl font-black text-white tracking-tight">
+                    <h2 className="text-lg sm:text-2xl font-black text-white tracking-tight">
                       {sec.title}
                     </h2>
                   </div>
                 </div>
 
                 {/* Section Body */}
-                <div className="text-xs sm:text-sm text-zinc-300 leading-relaxed space-y-4">
+                <div className="text-xs sm:text-sm text-zinc-300 leading-relaxed space-y-3 sm:space-y-4">
                   {sec.content}
                 </div>
               </section>
@@ -258,7 +279,7 @@ export function PolicyLayout({
 
           {/* 4. Related Policies Cross-Link Cards */}
           {relatedLinks.length > 0 && (
-            <div className="p-6 sm:p-8 rounded-3xl bg-[#0B0F19] border border-zinc-800/80 space-y-4">
+            <div className="p-4 sm:p-6 md:p-8 rounded-2xl sm:rounded-3xl bg-[#0B0F19] border border-zinc-800/80 space-y-4">
               <h3 className="text-sm font-bold text-white uppercase tracking-wider">
                 Related Legal &amp; Policy Documents
               </h3>

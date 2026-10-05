@@ -6,10 +6,10 @@ import { AlertCircle, Home } from "lucide-react";
 export default function NotFound() {
   return (
     <div className="fixed inset-0 z-[60] bg-[#050814] text-slate-100 overflow-y-auto min-h-screen flex flex-col justify-between">
-      {/* Background artwork from public/404-page.png */}
+      {/* Background artwork from public/404-page.webp */}
       <div className="absolute inset-0 select-none pointer-events-none z-0">
         <Image
-          src="/404-page.png"
+          src="/404-page.webp"
           alt="Tiqora 404 Page Not Found"
           fill
           priority
@@ -20,12 +20,12 @@ export default function NotFound() {
       </div>
 
       {/* Top Navigation Bar */}
-      <header className="relative z-20 w-full max-w-7xl mx-auto px-6 sm:px-10 lg:px-12 pt-6 sm:pt-8 flex items-center justify-between">
+      <header className="relative z-20 w-full max-w-7xl mx-auto px-4 sm:px-10 lg:px-12 pt-4 sm:pt-8 flex items-center justify-between">
         {/* Official Tiqora Brand Logo */}
         <Link href="/" className="inline-flex items-center gap-3 group flex-shrink-0">
-          <div className="relative h-11 w-11 flex items-center justify-center">
+          <div className="relative h-10 w-10 sm:h-11 sm:w-11 flex items-center justify-center">
             <Image
-              src="/new-logo.png"
+              src="/new-logo.webp"
               alt="Tiqora Logo"
               width={44}
               height={44}
@@ -40,7 +40,7 @@ export default function NotFound() {
       </header>
 
       {/* Main Content Area */}
-      <main className="relative z-20 w-full max-w-7xl mx-auto px-6 sm:px-10 lg:px-12 py-12 sm:py-16 my-auto flex flex-col justify-center">
+      <main className="relative z-20 w-full max-w-7xl mx-auto px-4 sm:px-10 lg:px-12 py-8 sm:py-16 my-auto flex flex-col justify-center">
         <div className="max-w-xl">
           {/* Badge: Page Not Found */}
           <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/[0.06] border border-white/10 text-xs font-medium text-slate-300 backdrop-blur-md shadow-sm">
@@ -49,7 +49,7 @@ export default function NotFound() {
           </div>
 
           {/* Large Hero Title */}
-          <h1 className="text-5xl sm:text-6xl lg:text-7xl font-extrabold text-white tracking-tight leading-[1.08] mt-6">
+          <h1 className="text-4xl sm:text-6xl lg:text-7xl font-extrabold text-white tracking-tight leading-[1.08] mt-6">
             Oops!
             <br />
             <span className="text-[#3B82F6] drop-shadow-[0_0_35px_rgba(59,130,246,0.6)]">

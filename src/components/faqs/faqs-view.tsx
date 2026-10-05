@@ -120,13 +120,13 @@ export function FaqsView() {
   };
 
   return (
-    <div className="max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12 space-y-10">
+    <div className="max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-12 space-y-7 sm:space-y-10">
       {/* 1. Hero Banner */}
       <motion.div
         initial={{ opacity: 0, y: 16 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.35 }}
-        className="relative bg-gradient-to-br from-[#0B0F19] via-[#0E1528] to-[#080B12] border border-zinc-800/80 rounded-3xl p-6 sm:p-10 md:p-12 shadow-2xl overflow-hidden text-center"
+        className="relative bg-gradient-to-br from-[#0B0F19] via-[#0E1528] to-[#080B12] border border-zinc-800/80 rounded-2xl sm:rounded-3xl p-5 sm:p-10 md:p-12 shadow-2xl overflow-hidden text-center"
       >
         {/* Ambient Glows */}
         <div className="absolute top-0 right-1/4 w-96 h-96 bg-blue-600/10 rounded-full blur-3xl pointer-events-none" />
@@ -140,7 +140,7 @@ export function FaqsView() {
           </div>
 
           {/* Title */}
-          <h1 className="text-3xl sm:text-4xl md:text-5xl font-black text-white tracking-tight leading-tight">
+          <h1 className="text-2xl sm:text-4xl md:text-5xl font-black text-white tracking-tight leading-tight">
             Frequently Asked Questions
           </h1>
 
@@ -328,7 +328,7 @@ export function FaqsView() {
       </div>
 
       {/* 5. Direct Contact & Support CTA Card */}
-      <div className="relative rounded-3xl bg-gradient-to-r from-[#0E1528] via-[#0B0F19] to-[#0E1528] border border-blue-500/30 p-6 sm:p-8 md:p-10 shadow-2xl overflow-hidden flex flex-col md:flex-row items-center justify-between gap-6">
+      <div className="relative rounded-2xl sm:rounded-3xl bg-gradient-to-r from-[#0E1528] via-[#0B0F19] to-[#0E1528] border border-blue-500/30 p-5 sm:p-8 md:p-10 shadow-2xl overflow-hidden flex flex-col md:flex-row items-center justify-between gap-6">
         <div className="space-y-2 text-center md:text-left">
           <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-blue-600/20 text-[#3B82F6] text-[11px] font-bold uppercase tracking-wider">
             <MessageCircle className="w-3.5 h-3.5" />
