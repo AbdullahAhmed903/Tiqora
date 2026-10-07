@@ -33,7 +33,7 @@ export function FootballMatchesSection() {
         {FOOTBALL_MATCHES.map((match: FootballMatch) => (
           <div
             key={match.id}
-            className="group relative rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-[#F4F4F6] dark:bg-[#18181B] p-3.5 sm:p-4 flex flex-col justify-between hover:border-[#2563EB]/60 hover:shadow-lg transition-all duration-200 space-y-4"
+            className="group relative rounded-2xl border border-border bg-surface p-3.5 sm:p-4 flex flex-col justify-between hover:border-[#2563EB]/60 hover:shadow-lg transition-all duration-200 space-y-4"
           >
             {/* Top Row: Live status or Scheduled Time */}
             <div className="flex items-center justify-between">

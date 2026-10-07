@@ -43,7 +43,7 @@ export function CategorySection({ categories = [] }: CategorySectionProps) {
           <Link
             key={cat.slug}
             href={`/events/${cat.slug}`}
-            className="flex flex-col items-center justify-center p-4 rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-[#F4F4F6] dark:bg-[#18181B] hover:border-[#2563EB]/60 hover:shadow-lg hover:shadow-[#2563EB]/5 transition-all duration-200 group text-center"
+            className="flex flex-col items-center justify-center p-4 rounded-2xl border border-border bg-surface hover:border-[#2563EB]/60 hover:shadow-lg hover:shadow-[#2563EB]/5 transition-all duration-200 group text-center"
           >
             <div className="w-12 h-12 rounded-xl bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 group-hover:border-[#2563EB]/40 flex items-center justify-center text-zinc-600 dark:text-zinc-400 group-hover:text-[#2563EB] group-hover:scale-110 transition-all duration-200 mb-3 shadow-xs">
               <CategoryIcon name={cat.icon} className="w-6 h-6" />

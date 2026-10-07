@@ -35,7 +35,7 @@ export function FeaturedEventsSection() {
           <Link
             key={event.id}
             href={event.href}
-            className="group relative rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-[#F4F4F6] dark:bg-[#18181B] overflow-hidden flex flex-col justify-between hover:border-[#2563EB]/60 hover:shadow-xl hover:shadow-[#2563EB]/10 transition-all duration-300 min-h-[340px]"
+            className="group relative rounded-2xl border border-border bg-surface overflow-hidden flex flex-col justify-between hover:border-[#2563EB]/60 hover:shadow-xl hover:shadow-[#2563EB]/10 transition-all duration-300 min-h-[340px]"
           >
             {/* Image Background Container */}
             <div className="relative h-44 w-full overflow-hidden bg-zinc-900">
@@ -46,7 +46,7 @@ export function FeaturedEventsSection() {
                 sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
                 className="object-cover group-hover:scale-105 transition-transform duration-500"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-[#F4F4F6] dark:from-[#18181B] via-transparent to-transparent opacity-90" />
+              <div className="absolute inset-0 bg-gradient-to-t from-surface via-transparent to-transparent opacity-90" />
 
               {/* Date Badge Overlay (Top Left) */}
               <div className="absolute top-3 left-3 bg-zinc-950/80 backdrop-blur-md border border-zinc-800 rounded-xl px-2.5 py-1 text-center text-white shadow-md">
@@ -79,7 +79,7 @@ export function FeaturedEventsSection() {
               </div>
 
               {/* Card Footer: Price & Arrow CTA */}
-              <div className="flex items-center justify-between pt-2 border-t border-zinc-200 dark:border-zinc-800/80">
+              <div className="flex items-center justify-between pt-2 border-t border-border/80">
                 <div>
                   <span className="text-[11px] text-zinc-500 dark:text-zinc-400 block">From</span>
                   <span className="text-base font-extrabold text-zinc-900 dark:text-white">

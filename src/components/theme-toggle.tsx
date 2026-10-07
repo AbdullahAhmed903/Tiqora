@@ -27,16 +27,6 @@ interface ThemeToggleProps {
 export function ThemeToggle({ iconOnly = false, className }: ThemeToggleProps) {
   const theme = useSyncExternalStore(subscribe, getSnapshot, getServerSnapshot);
 
-  // Sync html class on mount if there's a stored preference
-  if (typeof window !== "undefined") {
-    const saved = localStorage.getItem("tiqora-theme");
-    if (saved === "light" && document.documentElement.classList.contains("dark")) {
-      document.documentElement.classList.remove("dark");
-    } else if (saved === "dark" && !document.documentElement.classList.contains("dark")) {
-      document.documentElement.classList.add("dark");
-    }
-  }
-
   const toggleTheme = () => {
     const next = theme === "dark" ? "light" : "dark";
     localStorage.setItem("tiqora-theme", next);

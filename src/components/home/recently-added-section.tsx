@@ -35,7 +35,7 @@ export function RecentlyAddedSection() {
           <Link
             key={event.id}
             href={event.href}
-            className="group relative rounded-xl border border-zinc-200 dark:border-zinc-800 bg-[#F4F4F6] dark:bg-[#18181B] p-3 flex items-center gap-3 hover:border-[#2563EB]/60 hover:shadow-md transition-all duration-200"
+            className="group relative rounded-xl border border-border bg-surface p-3 flex items-center gap-3 hover:border-[#2563EB]/60 hover:shadow-md transition-all duration-200"
           >
             {/* Thumbnail */}
             <div className="relative h-14 w-14 rounded-lg overflow-hidden flex-shrink-0 bg-zinc-900">
