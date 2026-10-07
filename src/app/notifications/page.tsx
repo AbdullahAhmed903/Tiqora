@@ -28,8 +28,8 @@ export default async function NotificationsPage() {
   }
 
   return (
-    <main className="min-h-screen pb-20 bg-[#080B12]">
+    <div className="min-h-screen pb-20 bg-background">
       <NotificationsView favoritesCount={favoritesCount} />
-    </main>
+    </div>
   );
 }

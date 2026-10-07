@@ -26,7 +26,7 @@ export const PasswordInput = React.forwardRef<
         ref={ref}
         type={showPassword ? "text" : "password"}
         className={cn(
-          "w-full rounded-xl border border-zinc-200 bg-white py-2.5 text-sm text-zinc-900 placeholder:text-zinc-400",
+          "w-full rounded-xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-950 py-2.5 text-sm text-zinc-900 dark:text-white placeholder:text-zinc-400 dark:placeholder:text-zinc-600",
           "transition-all duration-150 shadow-2xs",
           "focus:border-[#2563EB] focus:outline-none focus:ring-2 focus:ring-[#2563EB]/15",
           leftIcon ? "pl-10" : "pl-3.5",
@@ -38,7 +38,7 @@ export const PasswordInput = React.forwardRef<
       <button
         type="button"
         onClick={() => setShowPassword((prev) => !prev)}
-        className="absolute inset-y-0 right-0 pr-3.5 flex items-center text-zinc-400 hover:text-zinc-600 transition-colors cursor-pointer"
+        className="absolute inset-y-0 right-0 pr-3.5 flex items-center text-zinc-400 hover:text-zinc-600 dark:hover:text-zinc-200 transition-colors cursor-pointer"
         aria-label={showPassword ? "Hide password" : "Show password"}
         tabIndex={-1}
       >

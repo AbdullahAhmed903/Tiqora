@@ -80,10 +80,10 @@ export function ProfileSecurityCard({
   return (
     <div className="space-y-6">
       {/* Auth Provider Status Card */}
-      <div className="p-5 rounded-2xl bg-zinc-900/60 border border-zinc-800 flex items-start gap-4">
+      <div className="p-5 rounded-2xl bg-zinc-50 dark:bg-zinc-900/60 border border-zinc-200 dark:border-zinc-800 flex items-start gap-4">
         {isGoogleUser ? (
           <>
-            <div className="w-10 h-10 rounded-xl bg-white flex items-center justify-center flex-shrink-0 shadow-md">
+            <div className="w-10 h-10 rounded-xl bg-white border border-zinc-200 dark:border-transparent flex items-center justify-center flex-shrink-0 shadow-sm">
               <svg className="w-5 h-5" viewBox="0 0 24 24">
                 <path
                   fill="#4285F4"
@@ -105,17 +105,17 @@ export function ProfileSecurityCard({
             </div>
             <div className="space-y-1">
               <div className="flex items-center gap-2">
-                <h3 className="text-sm font-bold text-white">
+                <h3 className="text-sm font-bold text-zinc-900 dark:text-white">
                   Google Account Authentication
                 </h3>
-                <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-bold bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
+                <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-bold bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20">
                   <CheckCircle2 className="w-3 h-3" />
                   OAuth Connected
                 </span>
               </div>
-              <p className="text-xs text-zinc-400 leading-relaxed">
+              <p className="text-xs text-zinc-600 dark:text-zinc-400 leading-relaxed">
                 You authenticated with Google using{" "}
-                <span className="text-white font-medium">{userEmail}</span>.
+                <span className="text-zinc-900 dark:text-white font-medium">{userEmail}</span>.
                 Your password, two-factor authentication, and login credentials are
                 securely managed by Google.
               </p>
@@ -123,20 +123,20 @@ export function ProfileSecurityCard({
           </>
         ) : (
           <>
-            <div className="w-10 h-10 rounded-xl bg-[#2563EB]/10 border border-[#2563EB]/20 flex items-center justify-center flex-shrink-0 text-[#3B82F6]">
+            <div className="w-10 h-10 rounded-xl bg-[#2563EB]/10 border border-[#2563EB]/20 flex items-center justify-center flex-shrink-0 text-[#2563EB] dark:text-[#3B82F6]">
               <Shield className="w-5 h-5" />
             </div>
             <div className="space-y-1">
               <div className="flex items-center gap-2">
-                <h3 className="text-sm font-bold text-white">
+                <h3 className="text-sm font-bold text-zinc-900 dark:text-white">
                   Email &amp; Password Security
                 </h3>
-                <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-bold bg-blue-500/10 text-blue-400 border border-blue-500/20">
+                <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-bold bg-blue-500/10 text-blue-600 dark:text-blue-400 border border-blue-500/20">
                   <Lock className="w-3 h-3" />
                   Password Auth
                 </span>
               </div>
-              <p className="text-xs text-zinc-400 leading-relaxed">
+              <p className="text-xs text-zinc-600 dark:text-zinc-400 leading-relaxed">
                 Your account is protected by an encrypted password. You can change
                 your password below anytime.
               </p>
@@ -148,16 +148,16 @@ export function ProfileSecurityCard({
       {/* Password Change Form (Only for Email/Password users) */}
       {!isGoogleUser ? (
         <form onSubmit={handlePasswordSubmit} className="space-y-5">
-          <div className="flex items-center gap-2 pb-2 border-b border-zinc-800">
-            <KeyRound className="w-4 h-4 text-[#3B82F6]" />
-            <h3 className="text-sm font-bold text-white">Change Password</h3>
+          <div className="flex items-center gap-2 pb-2 border-b border-zinc-200 dark:border-zinc-800">
+            <KeyRound className="w-4 h-4 text-[#2563EB] dark:text-[#3B82F6]" />
+            <h3 className="text-sm font-bold text-zinc-900 dark:text-white">Change Password</h3>
           </div>
 
           {/* Current Password */}
           <div className="space-y-1.5">
             <label
               htmlFor="current_password"
-              className="text-xs font-bold text-zinc-300"
+              className="text-xs font-bold text-zinc-700 dark:text-zinc-300"
             >
               Current Password
             </label>
@@ -168,12 +168,12 @@ export function ProfileSecurityCard({
                 value={currentPassword}
                 onChange={(e) => setCurrentPassword(e.target.value)}
                 placeholder="Enter current password"
-                className="w-full px-3.5 py-2.5 pr-10 rounded-xl bg-zinc-900/90 border border-zinc-800 text-sm text-white placeholder-zinc-500 focus:outline-none focus:border-[#2563EB] focus:ring-1 focus:ring-[#2563EB] transition-all"
+                className="w-full px-3.5 py-2.5 pr-10 rounded-xl bg-zinc-50 dark:bg-zinc-900/90 border border-zinc-200 dark:border-zinc-800 text-sm text-zinc-900 dark:text-white placeholder-zinc-400 dark:placeholder-zinc-500 focus:outline-none focus:border-[#2563EB] focus:ring-1 focus:ring-[#2563EB] transition-all"
               />
               <button
                 type="button"
                 onClick={() => setShowCurrent(!showCurrent)}
-                className="absolute right-3 top-1/2 -translate-y-1/2 text-zinc-400 hover:text-white transition-colors cursor-pointer"
+                className="absolute right-3 top-1/2 -translate-y-1/2 text-zinc-400 hover:text-zinc-700 dark:text-zinc-400 dark:hover:text-white transition-colors cursor-pointer"
                 aria-label={showCurrent ? "Hide password" : "Show password"}
               >
                 {showCurrent ? (
@@ -190,7 +190,7 @@ export function ProfileSecurityCard({
             <div className="space-y-1.5">
               <label
                 htmlFor="new_password"
-                className="text-xs font-bold text-zinc-300"
+                className="text-xs font-bold text-zinc-700 dark:text-zinc-300"
               >
                 New Password
               </label>
@@ -201,12 +201,12 @@ export function ProfileSecurityCard({
                   value={newPassword}
                   onChange={(e) => setNewPassword(e.target.value)}
                   placeholder="At least 8 characters"
-                  className="w-full px-3.5 py-2.5 pr-10 rounded-xl bg-zinc-900/90 border border-zinc-800 text-sm text-white placeholder-zinc-500 focus:outline-none focus:border-[#2563EB] focus:ring-1 focus:ring-[#2563EB] transition-all"
+                  className="w-full px-3.5 py-2.5 pr-10 rounded-xl bg-zinc-50 dark:bg-zinc-900/90 border border-zinc-200 dark:border-zinc-800 text-sm text-zinc-900 dark:text-white placeholder-zinc-400 dark:placeholder-zinc-500 focus:outline-none focus:border-[#2563EB] focus:ring-1 focus:ring-[#2563EB] transition-all"
                 />
                 <button
                   type="button"
                   onClick={() => setShowNew(!showNew)}
-                  className="absolute right-3 top-1/2 -translate-y-1/2 text-zinc-400 hover:text-white transition-colors cursor-pointer"
+                  className="absolute right-3 top-1/2 -translate-y-1/2 text-zinc-400 hover:text-zinc-700 dark:text-zinc-400 dark:hover:text-white transition-colors cursor-pointer"
                   aria-label={showNew ? "Hide password" : "Show password"}
                 >
                   {showNew ? (
@@ -221,7 +221,7 @@ export function ProfileSecurityCard({
             <div className="space-y-1.5">
               <label
                 htmlFor="confirm_password"
-                className="text-xs font-bold text-zinc-300"
+                className="text-xs font-bold text-zinc-700 dark:text-zinc-300"
               >
                 Confirm New Password
               </label>
@@ -232,12 +232,12 @@ export function ProfileSecurityCard({
                   value={confirmPassword}
                   onChange={(e) => setConfirmPassword(e.target.value)}
                   placeholder="Repeat new password"
-                  className="w-full px-3.5 py-2.5 pr-10 rounded-xl bg-zinc-900/90 border border-zinc-800 text-sm text-white placeholder-zinc-500 focus:outline-none focus:border-[#2563EB] focus:ring-1 focus:ring-[#2563EB] transition-all"
+                  className="w-full px-3.5 py-2.5 pr-10 rounded-xl bg-zinc-50 dark:bg-zinc-900/90 border border-zinc-200 dark:border-zinc-800 text-sm text-zinc-900 dark:text-white placeholder-zinc-400 dark:placeholder-zinc-500 focus:outline-none focus:border-[#2563EB] focus:ring-1 focus:ring-[#2563EB] transition-all"
                 />
                 <button
                   type="button"
                   onClick={() => setShowConfirm(!showConfirm)}
-                  className="absolute right-3 top-1/2 -translate-y-1/2 text-zinc-400 hover:text-white transition-colors cursor-pointer"
+                  className="absolute right-3 top-1/2 -translate-y-1/2 text-zinc-400 hover:text-zinc-700 dark:text-zinc-400 dark:hover:text-white transition-colors cursor-pointer"
                   aria-label={showConfirm ? "Hide password" : "Show password"}
                 >
                   {showConfirm ? (
@@ -272,8 +272,8 @@ export function ProfileSecurityCard({
           </div>
         </form>
       ) : (
-        <div className="p-4 rounded-xl bg-zinc-900/30 border border-zinc-800/60 flex items-center gap-3 text-xs text-zinc-400">
-          <AlertCircle className="w-4 h-4 text-blue-400 flex-shrink-0" />
+        <div className="p-4 rounded-xl bg-zinc-50 dark:bg-zinc-900/30 border border-zinc-200 dark:border-zinc-800/60 flex items-center gap-3 text-xs text-zinc-600 dark:text-zinc-400">
+          <AlertCircle className="w-4 h-4 text-blue-600 dark:text-blue-400 flex-shrink-0" />
           <span>
             Password modification is disabled because your account uses Google OAuth.
             To change your password or security settings, visit your Google Security

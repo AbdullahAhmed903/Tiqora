@@ -79,9 +79,9 @@ export function ProfileView({
           />
 
           {/* Main Content Card with Animated Tabs */}
-          <div className="rounded-3xl bg-zinc-950/80 border border-zinc-800/80 backdrop-blur-xl shadow-2xl">
+          <div className="rounded-3xl bg-white dark:bg-zinc-950/80 border border-zinc-200 dark:border-zinc-800/80 backdrop-blur-xl shadow-sm dark:shadow-2xl">
             {/* Tab Selection Bar */}
-            <div className="border-b border-zinc-800/80 px-4 sm:px-8 pt-4 pb-0 bg-zinc-900/30 rounded-t-3xl">
+            <div className="border-b border-zinc-200 dark:border-zinc-800/80 px-4 sm:px-8 pt-4 pb-0 bg-zinc-50 dark:bg-zinc-900/30 rounded-t-3xl">
               <div className="flex items-center gap-2 overflow-x-auto custom-scrollbar no-scrollbar">
                 {TABS.map((tab) => {
                   const Icon = tab.icon;
@@ -94,13 +94,13 @@ export function ProfileView({
                       onClick={() => setActiveTab(tab.key)}
                       className={`relative flex items-center gap-2.5 px-4 py-3.5 text-xs sm:text-sm font-bold transition-colors whitespace-nowrap cursor-pointer select-none ${
                         isActive
-                          ? "text-white"
-                          : "text-zinc-400 hover:text-zinc-200"
+                          ? "text-zinc-900 dark:text-white"
+                          : "text-zinc-500 hover:text-zinc-800 dark:text-zinc-400 dark:hover:text-zinc-200"
                       }`}
                     >
                       <Icon
                         className={`w-4 h-4 transition-colors ${
-                          isActive ? "text-[#3B82F6]" : "text-zinc-500"
+                          isActive ? "text-[#2563EB] dark:text-[#3B82F6]" : "text-zinc-400 dark:text-zinc-500"
                         }`}
                       />
                       <span>{tab.label}</span>
@@ -125,12 +125,12 @@ export function ProfileView({
 
             {/* Tab Header Banner */}
             {activeTabMeta && (
-              <div className="px-6 sm:px-8 pt-6 pb-2 border-b border-zinc-800/40">
-                <h2 className="text-base sm:text-lg font-bold text-white flex items-center gap-2">
-                  <Layers className="w-4 h-4 text-[#3B82F6]" />
+              <div className="px-6 sm:px-8 pt-6 pb-2 border-b border-zinc-200 dark:border-zinc-800/40">
+                <h2 className="text-base sm:text-lg font-bold text-zinc-900 dark:text-white flex items-center gap-2">
+                  <Layers className="w-4 h-4 text-[#2563EB] dark:text-[#3B82F6]" />
                   <span>{activeTabMeta.label}</span>
                 </h2>
-                <p className="text-xs text-zinc-400 mt-0.5">
+                <p className="text-xs text-zinc-500 dark:text-zinc-400 mt-0.5">
                   {activeTabMeta.description}
                 </p>
               </div>

@@ -22,16 +22,16 @@ export default async function CategoriesPage() {
   ]);
 
   return (
-    <main className="min-h-screen pb-16 bg-[#080B12]">
+    <div className="min-h-screen pb-16 bg-background">
       <Suspense
         fallback={
           <div className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 py-8 animate-pulse space-y-12">
-            <div className="w-full h-96 rounded-3xl bg-zinc-900/50" />
+            <div className="w-full h-96 rounded-3xl bg-zinc-200 dark:bg-zinc-900/50" />
             <div className="space-y-4">
-              <div className="w-48 h-8 rounded-full bg-zinc-900/50" />
+              <div className="w-48 h-8 rounded-full bg-zinc-200 dark:bg-zinc-900/50" />
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
                 {Array.from({ length: 8 }).map((_, i) => (
-                  <div key={i} className="h-72 rounded-2xl bg-zinc-900/50" />
+                  <div key={i} className="h-72 rounded-2xl bg-zinc-200 dark:bg-zinc-900/50" />
                 ))}
               </div>
             </div>
@@ -43,6 +43,6 @@ export default async function CategoriesPage() {
           popularCategories={popularCategories}
         />
       </Suspense>
-    </main>
+    </div>
   );
 }

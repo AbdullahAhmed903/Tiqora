@@ -224,21 +224,21 @@ export function CustomCalendar({
         }}
         className={`w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl border text-sm transition-all cursor-pointer ${
           disabled
-            ? "bg-zinc-950/60 border-zinc-800 text-zinc-500 cursor-not-allowed"
+            ? "bg-zinc-100 dark:bg-zinc-950/60 border-zinc-200 dark:border-zinc-800 text-zinc-400 dark:text-zinc-500 cursor-not-allowed"
             : isOpen
-            ? "bg-zinc-900 border-[#2563EB] ring-2 ring-[#2563EB]/20 text-white"
-            : "bg-zinc-900/90 border-zinc-800 hover:border-zinc-700 text-white"
+            ? "bg-zinc-50 dark:bg-zinc-900 border-[#2563EB] ring-2 ring-[#2563EB]/20 text-zinc-900 dark:text-white"
+            : "bg-zinc-50 dark:bg-zinc-900/90 border-zinc-200 dark:border-zinc-800 hover:border-zinc-300 dark:hover:border-zinc-700 text-zinc-900 dark:text-white"
         }`}
       >
         <div className="flex items-center gap-2.5 min-w-0">
           <CalendarIcon
             className={`w-4 h-4 flex-shrink-0 transition-colors ${
-              isOpen || value ? "text-[#3B82F6]" : "text-zinc-500"
+              isOpen || value ? "text-[#2563EB] dark:text-[#3B82F6]" : "text-zinc-400 dark:text-zinc-500"
             }`}
           />
           <span
             className={`truncate text-sm ${
-              value ? "text-white font-medium" : "text-zinc-500"
+              value ? "text-zinc-900 dark:text-white font-medium" : "text-zinc-400 dark:text-zinc-500"
             }`}
           >
             {displayLabel || placeholder}
@@ -251,14 +251,14 @@ export function CustomCalendar({
               type="button"
               onClick={handleClear}
               aria-label="Clear date"
-              className="p-1 rounded-md text-zinc-500 hover:text-zinc-300 hover:bg-zinc-800 transition-colors cursor-pointer"
+              className="p-1 rounded-md text-zinc-400 hover:text-zinc-700 dark:text-zinc-500 dark:hover:text-zinc-300 hover:bg-zinc-200 dark:hover:bg-zinc-800 transition-colors cursor-pointer"
             >
               <X className="w-3.5 h-3.5" />
             </button>
           )}
           <ChevronDown
-            className={`w-4 h-4 text-zinc-500 transition-transform duration-200 ${
-              isOpen ? "rotate-180 text-[#3B82F6]" : ""
+            className={`w-4 h-4 text-zinc-400 dark:text-zinc-500 transition-transform duration-200 ${
+              isOpen ? "rotate-180 text-[#2563EB] dark:text-[#3B82F6]" : ""
             }`}
           />
         </div>
@@ -282,16 +282,16 @@ export function CustomCalendar({
             transition={{ duration: 0.16, ease: "easeOut" }}
             className={`absolute left-0 ${
               computedPlacement === "top" ? "bottom-full mb-2" : "top-full mt-2"
-            } w-72 sm:w-80 rounded-2xl bg-[#0B0F19] border border-zinc-800/90 p-4 shadow-[0_12px_40px_rgba(0,0,0,0.85)] z-[90] backdrop-blur-xl`}
+            } w-72 sm:w-80 rounded-2xl bg-white dark:bg-[#0B0F19] border border-zinc-200 dark:border-zinc-800/90 p-4 shadow-xl dark:shadow-[0_12px_40px_rgba(0,0,0,0.85)] z-[90] backdrop-blur-xl`}
           >
             {/* Calendar Header: Month & Year Selectors with Step Chevrons */}
-            <div className="flex items-center justify-between gap-1 pb-3 mb-3 border-b border-zinc-800/70">
+            <div className="flex items-center justify-between gap-1 pb-3 mb-3 border-b border-zinc-200 dark:border-zinc-800/70">
               <button
                 type="button"
                 onClick={handlePrevMonth}
                 disabled={viewYear <= minYear && viewMonth === 0}
                 aria-label="Previous month"
-                className="p-1.5 rounded-lg text-zinc-400 hover:text-white hover:bg-zinc-850 disabled:opacity-30 disabled:cursor-not-allowed transition-colors cursor-pointer"
+                className="p-1.5 rounded-lg text-zinc-500 hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-white hover:bg-zinc-100 dark:hover:bg-zinc-800 disabled:opacity-30 disabled:cursor-not-allowed transition-colors cursor-pointer"
               >
                 <ChevronLeft className="w-4 h-4" />
               </button>
@@ -306,10 +306,10 @@ export function CustomCalendar({
                       setNavMonth(parseInt(e.target.value, 10));
                       setNavYear(viewYear);
                     }}
-                    className="appearance-none bg-zinc-900 border border-zinc-800 hover:border-zinc-700 text-white text-xs font-bold rounded-lg pl-2.5 pr-6 py-1.5 cursor-pointer focus:outline-none focus:border-[#2563EB]"
+                    className="appearance-none bg-zinc-100 dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 hover:border-zinc-300 dark:hover:border-zinc-700 text-zinc-900 dark:text-white text-xs font-bold rounded-lg pl-2.5 pr-6 py-1.5 cursor-pointer focus:outline-none focus:border-[#2563EB]"
                   >
                     {MONTH_NAMES.map((name, idx) => (
-                      <option key={name} value={idx} className="bg-zinc-900 text-white">
+                      <option key={name} value={idx} className="bg-white dark:bg-zinc-900 text-zinc-900 dark:text-white">
                         {name}
                       </option>
                     ))}
@@ -325,10 +325,10 @@ export function CustomCalendar({
                       setNavYear(parseInt(e.target.value, 10));
                       setNavMonth(viewMonth);
                     }}
-                    className="appearance-none bg-zinc-900 border border-zinc-800 hover:border-zinc-700 text-white text-xs font-bold rounded-lg pl-2.5 pr-6 py-1.5 cursor-pointer focus:outline-none focus:border-[#2563EB]"
+                    className="appearance-none bg-zinc-100 dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 hover:border-zinc-300 dark:hover:border-zinc-700 text-zinc-900 dark:text-white text-xs font-bold rounded-lg pl-2.5 pr-6 py-1.5 cursor-pointer focus:outline-none focus:border-[#2563EB]"
                   >
                     {yearOptions.map((y) => (
-                      <option key={y} value={y} className="bg-zinc-900 text-white">
+                      <option key={y} value={y} className="bg-white dark:bg-zinc-900 text-zinc-900 dark:text-white">
                         {y}
                       </option>
                     ))}
@@ -342,7 +342,7 @@ export function CustomCalendar({
                 onClick={handleNextMonth}
                 disabled={viewYear >= maxYear && viewMonth >= 11}
                 aria-label="Next month"
-                className="p-1.5 rounded-lg text-zinc-400 hover:text-white hover:bg-zinc-850 disabled:opacity-30 disabled:cursor-not-allowed transition-colors cursor-pointer"
+                className="p-1.5 rounded-lg text-zinc-500 hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-white hover:bg-zinc-100 dark:hover:bg-zinc-800 disabled:opacity-30 disabled:cursor-not-allowed transition-colors cursor-pointer"
               >
                 <ChevronRight className="w-4 h-4" />
               </button>
@@ -353,7 +353,7 @@ export function CustomCalendar({
               {DAY_ABBREVIATIONS.map((day) => (
                 <div
                   key={day}
-                  className="text-[11px] font-bold text-zinc-500 py-1"
+                  className="text-[11px] font-bold text-zinc-400 dark:text-zinc-500 py-1"
                 >
                   {day}
                 </div>
@@ -368,7 +368,7 @@ export function CustomCalendar({
                 return (
                   <div
                     key={`prev-${idx}`}
-                    className="h-8 flex items-center justify-center text-xs text-zinc-700 select-none"
+                    className="h-8 flex items-center justify-center text-xs text-zinc-300 dark:text-zinc-700 select-none"
                   >
                     {prevDay}
                   </div>
@@ -400,10 +400,10 @@ export function CustomCalendar({
                       isSelected
                         ? "bg-[#2563EB] text-white font-bold shadow-[0_0_12px_rgba(37,99,235,0.45)]"
                         : isDisabled
-                        ? "text-zinc-700 cursor-not-allowed"
+                        ? "text-zinc-300 dark:text-zinc-700 cursor-not-allowed"
                         : isToday
-                        ? "text-[#3B82F6] border border-[#2563EB]/60 hover:bg-[#2563EB]/20 hover:text-white"
-                        : "text-zinc-300 hover:text-white hover:bg-zinc-800"
+                        ? "text-[#2563EB] dark:text-[#3B82F6] border border-[#2563EB]/40 dark:border-[#2563EB]/60 hover:bg-[#2563EB]/10 dark:hover:bg-[#2563EB]/20 hover:text-[#2563EB] dark:hover:text-white"
+                        : "text-zinc-700 dark:text-zinc-300 hover:text-zinc-900 dark:hover:text-white hover:bg-zinc-100 dark:hover:bg-zinc-800"
                     }`}
                   >
                     {day}
@@ -413,7 +413,7 @@ export function CustomCalendar({
             </div>
 
             {/* Calendar Footer Info */}
-            <div className="mt-3 pt-2.5 border-t border-zinc-800/70 flex items-center justify-between text-[11px] text-zinc-500">
+            <div className="mt-3 pt-2.5 border-t border-zinc-200 dark:border-zinc-800/70 flex items-center justify-between text-[11px] text-zinc-500">
               <span className="text-zinc-500">
                 {parsedValue
                   ? `Selected: ${formatToISO(
@@ -428,7 +428,7 @@ export function CustomCalendar({
                 <button
                   type="button"
                   onClick={handleClear}
-                  className="text-xs text-zinc-400 hover:text-rose-400 transition-colors cursor-pointer"
+                  className="text-xs text-zinc-500 hover:text-red-600 dark:text-zinc-400 dark:hover:text-rose-400 transition-colors cursor-pointer"
                 >
                   Clear
                 </button>

@@ -41,19 +41,19 @@ export function PopularCategoriesRow({
   };
 
   return (
-    <div className="relative bg-[#070B14]/90 border border-zinc-800/80 rounded-2xl sm:rounded-3xl p-6 sm:p-8 shadow-xl">
+    <div className="relative bg-white dark:bg-[#070B14]/90 border border-zinc-200 dark:border-zinc-800/80 rounded-2xl sm:rounded-3xl p-6 sm:p-8 shadow-sm dark:shadow-xl">
       {/* Header with Title & Navigation Controls */}
-      <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 pb-6 border-b border-zinc-800/60">
+      <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 pb-6 border-b border-zinc-200 dark:border-zinc-800/60">
         <div>
           {/* Badge */}
           <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-rose-500/10 border border-rose-500/25 text-rose-400 text-xs font-semibold mb-2.5">
             <Flame className="w-3.5 h-3.5 text-rose-400 fill-rose-500/20" />
             <span>Trending Now</span>
           </div>
-          <h2 className="text-xl sm:text-2xl font-black text-white tracking-tight">
+          <h2 className="text-xl sm:text-2xl font-black text-zinc-900 dark:text-white tracking-tight">
             Popular Categories
           </h2>
-          <p className="text-xs sm:text-sm text-zinc-400 mt-1">
+          <p className="text-xs sm:text-sm text-zinc-600 dark:text-zinc-400 mt-1">
             These categories are getting the most attention right now. Don&apos;t miss out!
           </p>
         </div>
@@ -65,7 +65,7 @@ export function PopularCategoriesRow({
             onClick={() => handleScroll("left")}
             disabled={!canScrollLeft}
             aria-label="Previous popular categories"
-            className="w-8 h-8 rounded-full border border-zinc-800 bg-zinc-900/80 text-zinc-400 hover:text-white hover:border-zinc-700 disabled:opacity-40 disabled:cursor-not-allowed flex items-center justify-center transition-all cursor-pointer shadow-sm"
+            className="w-8 h-8 rounded-full border border-zinc-200 dark:border-zinc-800 bg-zinc-100 hover:bg-zinc-200 dark:bg-zinc-900/80 dark:hover:bg-zinc-800 text-zinc-600 hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-white hover:border-zinc-300 dark:hover:border-zinc-700 disabled:opacity-40 disabled:cursor-not-allowed flex items-center justify-center transition-all cursor-pointer shadow-sm"
           >
             <ChevronLeft className="w-4 h-4" />
           </button>
@@ -74,7 +74,7 @@ export function PopularCategoriesRow({
             onClick={() => handleScroll("right")}
             disabled={!canScrollRight}
             aria-label="Next popular categories"
-            className="w-8 h-8 rounded-full border border-zinc-800 bg-zinc-900/80 text-zinc-400 hover:text-white hover:border-zinc-700 disabled:opacity-40 disabled:cursor-not-allowed flex items-center justify-center transition-all cursor-pointer shadow-sm"
+            className="w-8 h-8 rounded-full border border-zinc-200 dark:border-zinc-800 bg-zinc-100 hover:bg-zinc-200 dark:bg-zinc-900/80 dark:hover:bg-zinc-800 text-zinc-600 hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-white hover:border-zinc-300 dark:hover:border-zinc-700 disabled:opacity-40 disabled:cursor-not-allowed flex items-center justify-center transition-all cursor-pointer shadow-sm"
           >
             <ChevronRight className="w-4 h-4" />
           </button>
@@ -91,7 +91,7 @@ export function PopularCategoriesRow({
           <Link
             key={cat.slug}
             href={`/events/${cat.slug}`}
-            className="group flex items-center justify-between px-4 py-3 rounded-full bg-zinc-900/80 hover:bg-zinc-800/90 border border-zinc-800/90 hover:border-zinc-700 transition-all duration-300 shadow-sm cursor-pointer"
+            className="group flex items-center justify-between px-4 py-3 rounded-full bg-zinc-100 hover:bg-zinc-200/80 dark:bg-zinc-900/80 dark:hover:bg-zinc-800/90 border border-zinc-200 dark:border-zinc-800/90 hover:border-zinc-300 dark:hover:border-zinc-700 transition-all duration-300 shadow-sm cursor-pointer"
           >
             {/* Left: Icon & Info */}
             <div className="flex items-center gap-3 min-w-0">
@@ -99,14 +99,14 @@ export function PopularCategoriesRow({
                 <CategoryIcon name={cat.icon} className="w-4 h-4" />
               </div>
               <div className="min-w-0">
-                <span className="block text-sm font-bold text-white group-hover:text-blue-400 transition-colors truncate">
+                <span className="block text-sm font-bold text-zinc-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors truncate">
                   {cat.name}
                 </span>
               </div>
             </div>
 
             {/* Right: Arrow */}
-            <div className="w-6 h-6 rounded-full flex items-center justify-center text-zinc-400 group-hover:text-white group-hover:translate-x-1 transition-all shrink-0 ml-2">
+            <div className="w-6 h-6 rounded-full flex items-center justify-center text-zinc-500 group-hover:text-zinc-900 dark:text-zinc-400 dark:group-hover:text-white group-hover:translate-x-1 transition-all shrink-0 ml-2">
               <ArrowRight className="w-4 h-4" />
             </div>
           </Link>

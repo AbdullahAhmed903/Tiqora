@@ -39,36 +39,36 @@ export function NotificationCard({
       case "tickets":
         return {
           icon: Ticket,
-          badgeBg: "bg-blue-500/10 text-[#3B82F6] border-blue-500/30",
-          iconBg: "bg-blue-600/15 border-blue-500/30 text-[#3B82F6]",
+          badgeBg: "bg-blue-500/10 text-blue-600 dark:text-[#3B82F6] border-blue-500/30",
+          iconBg: "bg-blue-500/10 dark:bg-blue-600/15 border-blue-500/30 text-blue-600 dark:text-[#3B82F6]",
           label: "Ticket Booking",
         };
       case "matches":
         return {
           icon: Trophy,
-          badgeBg: "bg-emerald-500/10 text-emerald-400 border-emerald-500/30",
-          iconBg: "bg-emerald-600/15 border-emerald-500/30 text-emerald-400",
+          badgeBg: "bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border-emerald-500/30",
+          iconBg: "bg-emerald-500/10 dark:bg-emerald-600/15 border-emerald-500/30 text-emerald-600 dark:text-emerald-400",
           label: "Match Day",
         };
       case "offers":
         return {
           icon: Sparkles,
-          badgeBg: "bg-purple-500/10 text-purple-400 border-purple-500/30",
-          iconBg: "bg-purple-600/15 border-purple-500/30 text-purple-400",
+          badgeBg: "bg-purple-500/10 text-purple-600 dark:text-purple-400 border-purple-500/30",
+          iconBg: "bg-purple-500/10 dark:bg-purple-600/15 border-purple-500/30 text-purple-600 dark:text-purple-400",
           label: "Exclusive Drop",
         };
       case "security":
         return {
           icon: ShieldCheck,
-          badgeBg: "bg-amber-500/10 text-amber-400 border-amber-500/30",
-          iconBg: "bg-amber-600/15 border-amber-500/30 text-amber-400",
+          badgeBg: "bg-amber-500/10 text-amber-600 dark:text-amber-400 border-amber-500/30",
+          iconBg: "bg-amber-500/10 dark:bg-amber-600/15 border-amber-500/30 text-amber-600 dark:text-amber-400",
           label: "Security",
         };
       default:
         return {
           icon: Ticket,
-          badgeBg: "bg-blue-500/10 text-[#3B82F6] border-blue-500/30",
-          iconBg: "bg-blue-600/15 border-blue-500/30 text-[#3B82F6]",
+          badgeBg: "bg-blue-500/10 text-blue-600 dark:text-[#3B82F6] border-blue-500/30",
+          iconBg: "bg-blue-500/10 dark:bg-blue-600/15 border-blue-500/30 text-blue-600 dark:text-[#3B82F6]",
           label: "Alert",
         };
     }
@@ -84,16 +84,16 @@ export function NotificationCard({
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, scale: 0.96 }}
       transition={{ duration: 0.2 }}
-      className={`group relative rounded-2xl p-4 sm:p-5 transition-all duration-200 shadow-md hover:shadow-xl ${
+      className={`group relative rounded-2xl p-4 sm:p-5 transition-all duration-200 shadow-sm hover:shadow-md ${
         notification.read
-          ? "bg-[#0B0F19]/90 border border-zinc-800/80 hover:border-zinc-700/90 text-zinc-300"
-          : "bg-gradient-to-r from-blue-950/25 via-[#0B0F19]/95 to-[#0B0F19]/95 border border-blue-500/40 hover:border-blue-400/60 shadow-[0_4px_20px_rgba(37,99,235,0.08)]"
+          ? "bg-white dark:bg-[#0B0F19]/90 border border-zinc-200 dark:border-zinc-800/80 hover:border-zinc-300 dark:hover:border-zinc-700/90 text-zinc-700 dark:text-zinc-300"
+          : "bg-blue-50/60 dark:bg-gradient-to-r dark:from-blue-950/25 dark:via-[#0B0F19]/95 dark:to-[#0B0F19]/95 border border-blue-200 dark:border-blue-500/40 hover:border-blue-300 dark:hover:border-blue-400/60 shadow-[0_4px_20px_rgba(37,99,235,0.08)]"
       }`}
     >
       <div className="flex items-start gap-3 sm:gap-4">
         {/* Left: Category Icon with Styled Glow */}
         <div
-          className={`w-10 h-10 sm:w-11 sm:h-11 rounded-xl sm:rounded-2xl border flex items-center justify-center flex-shrink-0 shadow-inner transition-transform group-hover:scale-105 duration-200 ${theme.iconBg}`}
+          className={`w-10 h-10 sm:w-11 sm:h-11 rounded-xl sm:rounded-2xl border flex items-center justify-center flex-shrink-0 shadow-xs transition-transform group-hover:scale-105 duration-200 ${theme.iconBg}`}
         >
           <IconComponent className="w-5 h-5" />
         </div>
@@ -110,15 +110,15 @@ export function NotificationCard({
               </span>
 
               {!notification.read && (
-                <span className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full text-[10px] font-extrabold bg-[#2563EB] text-white shadow-[0_0_10px_rgba(37,99,235,0.7)] animate-pulse">
+                <span className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full text-[10px] font-extrabold bg-[#2563EB] text-white shadow-[0_0_10px_rgba(37,99,235,0.5)] animate-pulse">
                   <span className="w-1.5 h-1.5 rounded-full bg-white" />
                   New
                 </span>
               )}
             </div>
 
-            <div className="flex items-center gap-1 text-[11px] text-zinc-400 font-medium">
-              <Clock className="w-3 h-3 text-zinc-500" />
+            <div className="flex items-center gap-1 text-[11px] text-zinc-500 dark:text-zinc-400 font-medium">
+              <Clock className="w-3 h-3 text-zinc-400 dark:text-zinc-500" />
               <span>{notification.timeAgo}</span>
             </div>
           </div>
@@ -127,15 +127,15 @@ export function NotificationCard({
           <h3
             className={`text-sm sm:text-base font-bold tracking-tight mb-1 transition-colors ${
               notification.read
-                ? "text-zinc-200 group-hover:text-white"
-                : "text-white"
+                ? "text-zinc-900 group-hover:text-blue-600 dark:text-zinc-200 dark:group-hover:text-white"
+                : "text-zinc-900 dark:text-white"
             }`}
           >
             {notification.title}
           </h3>
 
           {/* Description Body */}
-          <p className="text-xs sm:text-sm text-zinc-400 leading-relaxed mb-3">
+          <p className="text-xs sm:text-sm text-zinc-600 dark:text-zinc-400 leading-relaxed mb-3">
             {notification.message}
           </p>
 
@@ -143,31 +143,31 @@ export function NotificationCard({
           {notification.meta && (
             <div className="flex flex-wrap items-center gap-2 mb-3">
               {notification.meta.venue && (
-                <div className="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg bg-zinc-900/80 border border-zinc-800 text-[11px] text-zinc-300">
-                  <MapPin className="w-3 h-3 text-zinc-500" />
+                <div className="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg bg-zinc-100 dark:bg-zinc-900/80 border border-zinc-200 dark:border-zinc-800 text-[11px] text-zinc-700 dark:text-zinc-300">
+                  <MapPin className="w-3 h-3 text-zinc-400 dark:text-zinc-500" />
                   <span>{notification.meta.venue}</span>
                 </div>
               )}
 
               {notification.meta.eventDate && (
-                <div className="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg bg-zinc-900/80 border border-zinc-800 text-[11px] text-zinc-300">
-                  <Calendar className="w-3 h-3 text-zinc-500" />
+                <div className="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg bg-zinc-100 dark:bg-zinc-900/80 border border-zinc-200 dark:border-zinc-800 text-[11px] text-zinc-700 dark:text-zinc-300">
+                  <Calendar className="w-3 h-3 text-zinc-400 dark:text-zinc-500" />
                   <span>{notification.meta.eventDate}</span>
                 </div>
               )}
 
               {notification.meta.orderId && (
-                <div className="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg bg-zinc-900/80 border border-zinc-800 text-[11px] text-zinc-300 font-mono">
+                <div className="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg bg-zinc-100 dark:bg-zinc-900/80 border border-zinc-200 dark:border-zinc-800 text-[11px] text-zinc-700 dark:text-zinc-300 font-mono">
                   <span className="text-zinc-500">Order:</span>
-                  <span className="text-blue-400 font-bold">
+                  <span className="text-blue-600 dark:text-blue-400 font-bold">
                     {notification.meta.orderId}
                   </span>
                 </div>
               )}
 
               {notification.meta.seat && (
-                <div className="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg bg-zinc-900/80 border border-zinc-800 text-[11px] text-zinc-300">
-                  <Ticket className="w-3 h-3 text-zinc-500" />
+                <div className="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg bg-zinc-100 dark:bg-zinc-900/80 border border-zinc-200 dark:border-zinc-800 text-[11px] text-zinc-700 dark:text-zinc-300">
+                  <Ticket className="w-3 h-3 text-zinc-400 dark:text-zinc-500" />
                   <span>{notification.meta.seat}</span>
                 </div>
               )}
@@ -175,12 +175,12 @@ export function NotificationCard({
           )}
 
           {/* Bottom Actions Row */}
-          <div className="flex items-center justify-between pt-1 border-t border-zinc-800/40">
+          <div className="flex items-center justify-between pt-1 border-t border-zinc-200 dark:border-zinc-800/40">
             {/* Primary Action Link / Button if available */}
             {notification.actionUrl && notification.actionLabel ? (
               <Link
                 href={notification.actionUrl}
-                className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-bold bg-[#2563EB]/15 hover:bg-[#2563EB] text-[#3B82F6] hover:text-white border border-[#2563EB]/30 transition-all cursor-pointer shadow-xs group/btn"
+                className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-bold bg-blue-50 dark:bg-[#2563EB]/15 hover:bg-[#2563EB] text-[#2563EB] hover:text-white border border-blue-200 dark:border-[#2563EB]/30 transition-all cursor-pointer shadow-xs group/btn"
               >
                 <span>{notification.actionLabel}</span>
                 <ArrowRight className="w-3.5 h-3.5 transition-transform group-hover/btn:translate-x-0.5" />
@@ -199,8 +199,8 @@ export function NotificationCard({
                 title={notification.read ? "Mark as unread" : "Mark as read"}
                 className={`p-1.5 rounded-xl border transition-colors cursor-pointer text-xs flex items-center gap-1 ${
                   notification.read
-                    ? "bg-zinc-900/80 border-zinc-800 text-zinc-400 hover:text-white hover:border-zinc-700"
-                    : "bg-blue-900/20 border-blue-500/30 text-blue-400 hover:bg-blue-900/40 hover:text-white"
+                    ? "bg-zinc-100 dark:bg-zinc-900/80 border-zinc-200 dark:border-zinc-800 text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white hover:border-zinc-300 dark:hover:border-zinc-700"
+                    : "bg-blue-100/60 dark:bg-blue-900/20 border-blue-200 dark:border-blue-500/30 text-blue-600 dark:text-blue-400 hover:bg-blue-600 hover:text-white"
                 }`}
               >
                 {notification.read ? (
@@ -218,7 +218,7 @@ export function NotificationCard({
                 type="button"
                 onClick={() => setIsMenuOpen(!isMenuOpen)}
                 aria-label="More options"
-                className="p-1.5 rounded-xl bg-zinc-900/80 border border-zinc-800 hover:border-zinc-700 text-zinc-400 hover:text-white transition-colors cursor-pointer"
+                className="p-1.5 rounded-xl bg-zinc-100 dark:bg-zinc-900/80 border border-zinc-200 dark:border-zinc-800 hover:border-zinc-300 dark:hover:border-zinc-700 text-zinc-500 hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-white transition-colors cursor-pointer"
               >
                 <MoreVertical className="w-3.5 h-3.5" />
               </button>
@@ -226,7 +226,7 @@ export function NotificationCard({
               {/* Dropdown Menu */}
               {isMenuOpen && (
                 <div
-                  className="absolute right-0 bottom-full mb-1.5 w-44 rounded-2xl bg-zinc-950 border border-zinc-800 p-1.5 shadow-2xl z-30 space-y-1"
+                  className="absolute right-0 bottom-full mb-1.5 w-44 rounded-2xl bg-white dark:bg-zinc-950 border border-zinc-200 dark:border-zinc-800 p-1.5 shadow-2xl z-30 space-y-1"
                   onMouseLeave={() => setIsMenuOpen(false)}
                 >
                   <button
@@ -235,16 +235,16 @@ export function NotificationCard({
                       onToggleRead(notification.id);
                       setIsMenuOpen(false);
                     }}
-                    className="w-full flex items-center gap-2 px-2.5 py-1.5 rounded-xl text-xs text-zinc-300 hover:text-white hover:bg-zinc-900 transition-colors text-left"
+                    className="w-full flex items-center gap-2 px-2.5 py-1.5 rounded-xl text-xs text-zinc-700 dark:text-zinc-300 hover:text-zinc-900 dark:hover:text-white hover:bg-zinc-100 dark:hover:bg-zinc-900 transition-colors text-left"
                   >
                     {notification.read ? (
                       <>
-                        <Check className="w-3.5 h-3.5 text-blue-400" />
+                        <Check className="w-3.5 h-3.5 text-blue-600 dark:text-blue-400" />
                         <span>Mark as unread</span>
                       </>
                     ) : (
                       <>
-                        <CheckCheck className="w-3.5 h-3.5 text-blue-400" />
+                        <CheckCheck className="w-3.5 h-3.5 text-blue-600 dark:text-blue-400" />
                         <span>Mark as read</span>
                       </>
                     )}
@@ -254,14 +254,14 @@ export function NotificationCard({
                     <Link
                       href={notification.actionUrl}
                       onClick={() => setIsMenuOpen(false)}
-                      className="w-full flex items-center gap-2 px-2.5 py-1.5 rounded-xl text-xs text-zinc-300 hover:text-white hover:bg-zinc-900 transition-colors"
+                      className="w-full flex items-center gap-2 px-2.5 py-1.5 rounded-xl text-xs text-zinc-700 dark:text-zinc-300 hover:text-zinc-900 dark:hover:text-white hover:bg-zinc-100 dark:hover:bg-zinc-900 transition-colors"
                     >
-                      <ExternalLink className="w-3.5 h-3.5 text-zinc-400" />
+                      <ExternalLink className="w-3.5 h-3.5 text-zinc-500 dark:text-zinc-400" />
                       <span>{notification.actionLabel || "View Details"}</span>
                     </Link>
                   )}
 
-                  <div className="h-px bg-zinc-800/80 my-0.5" />
+                  <div className="h-px bg-zinc-200 dark:bg-zinc-800/80 my-0.5" />
 
                   <button
                     type="button"
@@ -269,9 +269,9 @@ export function NotificationCard({
                       onDelete(notification.id);
                       setIsMenuOpen(false);
                     }}
-                    className="w-full flex items-center gap-2 px-2.5 py-1.5 rounded-xl text-xs text-red-400 hover:text-red-300 hover:bg-red-500/10 transition-colors text-left"
+                    className="w-full flex items-center gap-2 px-2.5 py-1.5 rounded-xl text-xs text-red-600 dark:text-red-400 hover:text-red-700 dark:hover:text-red-300 hover:bg-red-50 dark:hover:bg-red-500/10 transition-colors text-left"
                   >
-                    <Trash2 className="w-3.5 h-3.5 text-red-400" />
+                    <Trash2 className="w-3.5 h-3.5 text-red-600 dark:text-red-400" />
                     <span>Delete alert</span>
                   </button>
                 </div>

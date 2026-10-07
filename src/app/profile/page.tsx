@@ -79,12 +79,12 @@ export default async function ProfilePage() {
   };
 
   return (
-    <main className="min-h-screen pb-20 bg-[#080B12]">
+    <div className="min-h-screen pb-20 bg-background">
       <ProfileView
         initialProfile={profile as Profile}
         stats={stats}
         isGoogleUser={isGoogleUser}
       />
-    </main>
+    </div>
   );
 }

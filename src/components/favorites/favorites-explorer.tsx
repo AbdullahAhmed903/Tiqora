@@ -144,7 +144,7 @@ export function FavoritesExplorer() {
         {/* 2. Main Content Area */}
         <div className="flex-1 min-w-0 space-y-6">
           {/* Hero Banner with Favorite.webp background */}
-          <div className="relative bg-[#070B14] border border-zinc-800/80 rounded-2xl md:rounded-3xl p-6 sm:p-8 md:p-10 shadow-2xl overflow-hidden min-h-[190px] sm:min-h-[220px] flex items-center">
+          <div className="relative bg-[#070B14] border border-zinc-200 dark:border-zinc-800/80 rounded-2xl md:rounded-3xl p-6 sm:p-8 md:p-10 shadow-md dark:shadow-2xl overflow-hidden min-h-[190px] sm:min-h-[220px] flex items-center">
             {/* Background Stadium Photo (Favorite.webp) */}
             <div className="absolute inset-0 z-0 pointer-events-none">
               <Image
@@ -189,7 +189,7 @@ export function FavoritesExplorer() {
                 className={`px-5 py-2.5 rounded-full text-xs font-bold transition-all cursor-pointer flex-shrink-0 ${
                   activeCategory === "all"
                     ? "bg-[#2563EB] text-white shadow-[0_4px_14px_rgba(37,99,235,0.4)]"
-                    : "bg-[#0B0F19] hover:bg-zinc-900 text-zinc-400 hover:text-white border border-zinc-800"
+                    : "bg-zinc-100 hover:bg-zinc-200 text-zinc-700 hover:text-zinc-900 border border-zinc-200 dark:bg-[#0B0F19] dark:hover:bg-zinc-900 dark:text-zinc-400 dark:hover:text-white dark:border-zinc-800"
                 }`}
               >
                 All
@@ -210,7 +210,7 @@ export function FavoritesExplorer() {
                     className={`flex items-center gap-2 px-4 py-2.5 rounded-full text-xs font-bold transition-all cursor-pointer flex-shrink-0 ${
                       isSelected
                         ? "bg-[#2563EB] text-white shadow-[0_4px_14px_rgba(37,99,235,0.4)]"
-                        : "bg-[#0B0F19] hover:bg-zinc-900 text-zinc-400 hover:text-white border border-zinc-800"
+                        : "bg-zinc-100 hover:bg-zinc-200 text-zinc-700 hover:text-zinc-900 border border-zinc-200 dark:bg-[#0B0F19] dark:hover:bg-zinc-900 dark:text-zinc-400 dark:hover:text-white dark:border-zinc-800"
                     }`}
                   >
                     <Icon className="w-3.5 h-3.5" />
@@ -219,7 +219,7 @@ export function FavoritesExplorer() {
                       className={`text-[10px] px-1.5 py-0.5 rounded-full font-black ${
                         isSelected
                           ? "bg-white/20 text-white"
-                          : "bg-zinc-800/90 text-zinc-400"
+                          : "bg-zinc-200 text-zinc-700 dark:bg-zinc-800/90 dark:text-zinc-400"
                       }`}
                     >
                       {count}
@@ -234,7 +234,7 @@ export function FavoritesExplorer() {
               <button
                 type="button"
                 onClick={() => setIsSortOpen(!isSortOpen)}
-                className="flex items-center gap-2 px-4 py-2.5 rounded-full bg-[#0B0F19] hover:bg-zinc-900 border border-zinc-800 text-xs font-semibold text-zinc-300 hover:text-white transition-colors cursor-pointer"
+                className="flex items-center gap-2 px-4 py-2.5 rounded-full bg-white hover:bg-zinc-50 border border-zinc-200 text-xs font-semibold text-zinc-700 hover:text-zinc-900 dark:bg-[#0B0F19] dark:hover:bg-zinc-900 dark:border-zinc-800 dark:text-zinc-300 dark:hover:text-white transition-colors cursor-pointer shadow-sm dark:shadow-none"
               >
                 <ArrowUpDown className="w-3.5 h-3.5 text-[#3B82F6]" />
                 <span>{currentSortLabel}</span>
@@ -246,7 +246,7 @@ export function FavoritesExplorer() {
               </button>
 
               {isSortOpen && (
-                <div className="absolute right-0 top-full mt-1.5 w-44 bg-zinc-950 border border-zinc-800 rounded-xl p-1 shadow-2xl z-30">
+                <div className="absolute right-0 top-full mt-1.5 w-44 bg-white dark:bg-zinc-950 border border-zinc-200 dark:border-zinc-800 rounded-xl p-1 shadow-xl dark:shadow-2xl z-30">
                   {SORT_OPTIONS.map((opt) => (
                     <button
                       key={opt.id}
@@ -258,7 +258,7 @@ export function FavoritesExplorer() {
                       className={`w-full text-left px-3 py-2 rounded-lg text-xs font-medium transition-colors cursor-pointer ${
                         sortBy === opt.id
                           ? "bg-[#2563EB] text-white font-semibold"
-                          : "text-zinc-300 hover:bg-zinc-900 hover:text-white"
+                          : "text-zinc-700 dark:text-zinc-300 hover:bg-zinc-100 dark:hover:bg-zinc-900 hover:text-zinc-900 dark:hover:text-white"
                       }`}
                     >
                       {opt.label}
@@ -271,15 +271,15 @@ export function FavoritesExplorer() {
 
           {/* Empty State */}
           {displayedCategories.length === 0 ? (
-            <div className="flex flex-col items-center justify-center py-20 px-4 bg-[#0B0F19]/50 border border-zinc-800/80 rounded-2xl text-center space-y-4">
-              <div className="w-14 h-14 rounded-full bg-zinc-900 border border-zinc-800 flex items-center justify-center text-zinc-500 shadow-inner">
-                <Heart className="w-6 h-6 text-zinc-600" />
+            <div className="flex flex-col items-center justify-center py-20 px-4 bg-zinc-50 dark:bg-[#0B0F19]/50 border border-zinc-200 dark:border-zinc-800/80 rounded-2xl text-center space-y-4">
+              <div className="w-14 h-14 rounded-full bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 flex items-center justify-center text-zinc-400 dark:text-zinc-500 shadow-inner">
+                <Heart className="w-6 h-6 text-zinc-400 dark:text-zinc-600" />
               </div>
               <div className="space-y-1">
-                <h3 className="text-base font-bold text-white">
+                <h3 className="text-base font-bold text-zinc-900 dark:text-white">
                   No favorites in this category
                 </h3>
-                <p className="text-xs text-zinc-400 max-w-sm">
+                <p className="text-xs text-zinc-600 dark:text-zinc-400 max-w-sm">
                   You haven’t added any favorites here yet. Explore events and tap
                   the heart icon to save them.
                 </p>
@@ -311,17 +311,17 @@ export function FavoritesExplorer() {
                     <div className="flex items-center justify-between">
                       <div className="flex items-center gap-2.5">
                         <Icon className="w-5 h-5 text-[#3B82F6]" />
-                        <h2 className="text-lg font-black text-white tracking-tight">
+                        <h2 className="text-lg font-black text-zinc-900 dark:text-white tracking-tight">
                           {cat.label}
                         </h2>
-                        <span className="text-xs font-bold px-2.5 py-0.5 rounded-full bg-zinc-900 border border-zinc-800 text-zinc-400">
+                        <span className="text-xs font-bold px-2.5 py-0.5 rounded-full bg-zinc-100 dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 text-zinc-600 dark:text-zinc-400">
                           {events.length}
                         </span>
                       </div>
 
                       <Link
                         href={`/events/${cat.slug}`}
-                        className="text-xs font-bold text-[#3B82F6] hover:text-blue-400 flex items-center gap-1 transition-colors"
+                        className="text-xs font-bold text-[#3B82F6] hover:text-blue-600 dark:hover:text-blue-400 flex items-center gap-1 transition-colors"
                       >
                         <span>View all</span>
                         <ArrowRight className="w-3 h-3" />
@@ -345,7 +345,7 @@ export function FavoritesExplorer() {
                         <button
                           type="button"
                           onClick={() => toggleCategoryExpand(cat.id)}
-                          className="inline-flex items-center gap-1.5 px-5 py-2.5 rounded-full bg-zinc-900/90 hover:bg-zinc-800 border border-zinc-800 hover:border-zinc-700 text-xs font-bold text-zinc-300 hover:text-white transition-all cursor-pointer shadow-sm"
+                          className="inline-flex items-center gap-1.5 px-5 py-2.5 rounded-full bg-zinc-100 hover:bg-zinc-200 border border-zinc-200 hover:border-zinc-300 text-xs font-bold text-zinc-700 hover:text-zinc-900 dark:bg-zinc-900/90 dark:hover:bg-zinc-800 dark:border-zinc-800 dark:hover:border-zinc-700 dark:text-zinc-300 dark:hover:text-white transition-all cursor-pointer shadow-sm"
                         >
                           {isExpanded ? (
                             <>

@@ -77,7 +77,7 @@ export function UserSidebar({
     <div className="w-full select-none">
       {/* Mobile Horizontal Navigation Capsule Bar */}
       <div className="md:hidden w-full overflow-x-auto pb-1 no-scrollbar">
-        <div className="flex items-center gap-1.5 p-1.5 bg-[#0B0F19]/90 border border-zinc-800/80 rounded-2xl backdrop-blur-md w-max">
+        <div className="flex items-center gap-1.5 p-1.5 bg-white dark:bg-[#0B0F19]/90 border border-zinc-200 dark:border-zinc-800/80 rounded-2xl backdrop-blur-md w-max shadow-sm">
           {navItems.map((item) => {
             const Icon = item.icon;
             return (
@@ -87,12 +87,12 @@ export function UserSidebar({
                 className={`flex items-center gap-2 px-3.5 py-2 rounded-xl text-xs font-bold transition-all whitespace-nowrap ${
                   item.isActive
                     ? "bg-[#2563EB] text-white shadow-[0_4px_16px_rgba(37,99,235,0.35)]"
-                    : "text-zinc-400 hover:text-white hover:bg-zinc-900/80"
+                    : "text-zinc-600 hover:text-zinc-900 hover:bg-zinc-100 dark:text-zinc-400 dark:hover:text-white dark:hover:bg-zinc-900/80"
                 }`}
               >
                 <Icon
                   className={`w-3.5 h-3.5 ${
-                    item.isActive ? "text-white" : "text-zinc-400"
+                    item.isActive ? "text-white" : "text-zinc-500 dark:text-zinc-400"
                   }`}
                 />
                 <span>{item.label}</span>
@@ -102,7 +102,7 @@ export function UserSidebar({
                     className={`px-1.5 py-0.2 rounded-full text-[10px] font-black ${
                       item.isActive
                         ? "bg-white/20 text-white"
-                        : "bg-zinc-800 text-zinc-300"
+                        : "bg-zinc-100 text-zinc-700 dark:bg-zinc-800 dark:text-zinc-300"
                     }`}
                   >
                     {item.badge}
@@ -115,7 +115,7 @@ export function UserSidebar({
       </div>
 
       {/* Desktop Vertical Capsule List */}
-      <nav className="hidden md:block bg-[#0B0F19]/90 border border-zinc-800/80 rounded-2xl p-2.5 space-y-1 shadow-xl backdrop-blur-md">
+      <nav className="hidden md:block bg-white dark:bg-[#0B0F19]/90 border border-zinc-200 dark:border-zinc-800/80 rounded-2xl p-2.5 space-y-1 shadow-md dark:shadow-xl backdrop-blur-md">
         {navItems.map((item) => {
           const Icon = item.icon;
           return (
@@ -125,13 +125,13 @@ export function UserSidebar({
               className={`w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl text-xs font-bold transition-all ${
                 item.isActive
                   ? "bg-[#2563EB] text-white shadow-[0_4px_16px_rgba(37,99,235,0.35)]"
-                  : "text-zinc-400 hover:text-white hover:bg-zinc-900/80"
+                  : "text-zinc-600 hover:text-zinc-900 hover:bg-zinc-100 dark:text-zinc-400 dark:hover:text-white dark:hover:bg-zinc-900/80"
               }`}
             >
               <div className="flex items-center gap-2.5">
                 <Icon
                   className={`w-4 h-4 ${
-                    item.isActive ? "text-white" : "text-zinc-400"
+                    item.isActive ? "text-white" : "text-zinc-500 dark:text-zinc-400"
                   }`}
                 />
                 <span>{item.label}</span>
@@ -142,7 +142,7 @@ export function UserSidebar({
                   className={`px-2 py-0.5 rounded-full text-[11px] font-black ${
                     item.isActive
                       ? "bg-white/20 text-white"
-                      : "bg-zinc-800 text-zinc-300"
+                      : "bg-zinc-100 text-zinc-700 dark:bg-zinc-800 dark:text-zinc-300"
                   }`}
                 >
                   {item.badge}

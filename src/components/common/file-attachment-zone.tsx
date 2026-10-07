@@ -124,7 +124,7 @@ export function FileAttachmentZone({
   return (
     <div className={`space-y-1.5 ${className}`}>
       {label && (
-        <label className="block text-xs font-semibold text-zinc-300">
+        <label className="block text-xs font-semibold text-zinc-700 dark:text-zinc-300">
           {label}{" "}
           {helperText && (
             <span className="text-zinc-500 font-normal">({helperText})</span>
@@ -147,10 +147,10 @@ export function FileAttachmentZone({
 
       {file ? (
         /* Selected File Card */
-        <div className="flex items-center justify-between p-3.5 rounded-2xl bg-zinc-950/90 border border-blue-500/40 shadow-md">
+        <div className="flex items-center justify-between p-3.5 rounded-2xl bg-white dark:bg-zinc-950/90 border border-blue-300 dark:border-blue-500/40 shadow-xs">
           <div className="flex items-center gap-3 min-w-0">
             {previewUrl ? (
-              <div className="relative w-12 h-12 rounded-xl overflow-hidden border border-zinc-700 bg-zinc-900 shrink-0">
+              <div className="relative w-12 h-12 rounded-xl overflow-hidden border border-zinc-200 dark:border-zinc-700 bg-zinc-100 dark:bg-zinc-900 shrink-0">
                 <Image
                   src={previewUrl}
                   alt="Attachment preview"
@@ -159,15 +159,15 @@ export function FileAttachmentZone({
                 />
               </div>
             ) : (
-              <div className="w-12 h-12 rounded-xl bg-blue-600/15 border border-blue-500/25 flex items-center justify-center text-blue-400 shrink-0">
+              <div className="w-12 h-12 rounded-xl bg-blue-50 dark:bg-blue-600/15 border border-blue-200 dark:border-blue-500/25 flex items-center justify-center text-blue-600 dark:text-blue-400 shrink-0">
                 <FileIcon className="w-6 h-6" />
               </div>
             )}
             <div className="min-w-0 space-y-0.5">
-              <div className="text-xs font-bold text-white truncate max-w-[200px] sm:max-w-xs">
+              <div className="text-xs font-bold text-zinc-900 dark:text-white truncate max-w-[200px] sm:max-w-xs">
                 {file.name}
               </div>
-              <div className="text-[11px] text-zinc-400">
+              <div className="text-[11px] text-zinc-500 dark:text-zinc-400">
                 {formatFileSize(file.size)} • {file.type || "Document"}
               </div>
             </div>
@@ -176,7 +176,7 @@ export function FileAttachmentZone({
           <button
             type="button"
             onClick={handleRemove}
-            className="p-1.5 rounded-lg bg-zinc-800 hover:bg-rose-600/20 text-zinc-400 hover:text-rose-400 border border-zinc-700/80 transition-colors cursor-pointer"
+            className="p-1.5 rounded-lg bg-zinc-100 hover:bg-rose-50 dark:bg-zinc-800 dark:hover:bg-rose-600/20 text-zinc-500 hover:text-rose-600 dark:text-zinc-400 dark:hover:text-rose-400 border border-zinc-200 dark:border-zinc-700/80 transition-colors cursor-pointer"
             title="Remove attachment"
           >
             <X className="w-4 h-4" />
@@ -191,16 +191,16 @@ export function FileAttachmentZone({
           onClick={() => fileInputRef.current?.click()}
           className={`border-2 border-dashed rounded-2xl p-5 text-center transition-all cursor-pointer ${
             isDragOver
-              ? "border-[#2563EB] bg-blue-600/10"
-              : "border-zinc-800 hover:border-zinc-700 bg-zinc-950/40 hover:bg-zinc-950/80"
+              ? "border-[#2563EB] bg-blue-50 dark:bg-blue-600/10"
+              : "border-zinc-300 dark:border-zinc-800 hover:border-zinc-400 dark:hover:border-zinc-700 bg-zinc-50/50 hover:bg-zinc-50 dark:bg-zinc-950/40 dark:hover:bg-zinc-950/80"
           }`}
         >
           <div className="flex flex-col items-center justify-center gap-2">
-            <div className="w-10 h-10 rounded-full bg-blue-600/15 border border-blue-500/20 flex items-center justify-center text-[#3B82F6]">
+            <div className="w-10 h-10 rounded-full bg-blue-50 dark:bg-blue-600/15 border border-blue-200 dark:border-blue-500/20 flex items-center justify-center text-[#2563EB] dark:text-[#3B82F6]">
               <UploadCloud className="w-5 h-5" />
             </div>
-            <div className="text-xs text-zinc-300">
-              <span className="font-semibold text-blue-400 hover:underline">
+            <div className="text-xs text-zinc-700 dark:text-zinc-300">
+              <span className="font-semibold text-blue-600 dark:text-blue-400 hover:underline">
                 Click to browse
               </span>{" "}
               or drag and drop your file here

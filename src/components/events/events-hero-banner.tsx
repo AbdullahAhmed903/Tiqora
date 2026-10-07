@@ -13,7 +13,7 @@ export function EventsHeroBanner({ category = "all" }: EventsHeroBannerProps) {
     CATEGORY_HERO_CONFIGS[normKey] || CATEGORY_HERO_CONFIGS["all"];
 
   return (
-    <div className="relative w-full overflow-hidden rounded-2xl sm:rounded-3xl border border-blue-950/60 shadow-[0_10px_40px_-15px_rgba(37,99,235,0.25)] min-h-[200px] sm:min-h-[280px] flex items-center bg-[#07090E]">
+    <div className="relative w-full overflow-hidden rounded-2xl sm:rounded-3xl border border-zinc-200 dark:border-blue-950/60 shadow-md dark:shadow-[0_10px_40px_-15px_rgba(37,99,235,0.25)] min-h-[200px] sm:min-h-[280px] flex items-center bg-[#07090E]">
       {/* Background Banner Image */}
       <div className="absolute inset-0 z-0">
         <Image

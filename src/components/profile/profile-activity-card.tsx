@@ -30,19 +30,19 @@ export function ProfileActivityCard({
         {/* Favorites Card */}
         <Link
           href="/favorites"
-          className="p-4 rounded-2xl bg-zinc-900/60 hover:bg-zinc-900 border border-zinc-800 hover:border-rose-500/40 transition-all group cursor-pointer flex flex-col justify-between h-32 shadow-sm"
+          className="p-4 rounded-2xl bg-white dark:bg-zinc-900/60 hover:bg-zinc-50 dark:hover:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 hover:border-rose-500/40 transition-all group cursor-pointer flex flex-col justify-between h-32 shadow-xs"
         >
           <div className="flex items-center justify-between">
-            <div className="w-8 h-8 rounded-xl bg-rose-500/10 border border-rose-500/20 text-rose-400 flex items-center justify-center">
+            <div className="w-8 h-8 rounded-xl bg-rose-500/10 border border-rose-500/20 text-rose-500 dark:text-rose-400 flex items-center justify-center">
               <Heart className="w-4 h-4 group-hover:scale-110 transition-transform" />
             </div>
-            <ArrowUpRight className="w-4 h-4 text-zinc-500 group-hover:text-white transition-colors" />
+            <ArrowUpRight className="w-4 h-4 text-zinc-400 group-hover:text-zinc-900 dark:text-zinc-500 dark:group-hover:text-white transition-colors" />
           </div>
           <div>
-            <span className="text-xl font-black text-white">
+            <span className="text-xl font-black text-zinc-900 dark:text-white">
               {stats.favoritesCount}
             </span>
-            <p className="text-xs font-semibold text-zinc-400 group-hover:text-zinc-300">
+            <p className="text-xs font-semibold text-zinc-500 group-hover:text-zinc-700 dark:text-zinc-400 dark:group-hover:text-zinc-300">
               Saved Favorites
             </p>
           </div>
@@ -51,17 +51,17 @@ export function ProfileActivityCard({
         {/* Explore Events Card */}
         <Link
           href="/events"
-          className="p-4 rounded-2xl bg-zinc-900/60 hover:bg-zinc-900 border border-zinc-800 hover:border-[#2563EB]/40 transition-all group cursor-pointer flex flex-col justify-between h-32 shadow-sm"
+          className="p-4 rounded-2xl bg-white dark:bg-zinc-900/60 hover:bg-zinc-50 dark:hover:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 hover:border-[#2563EB]/40 transition-all group cursor-pointer flex flex-col justify-between h-32 shadow-xs"
         >
           <div className="flex items-center justify-between">
-            <div className="w-8 h-8 rounded-xl bg-blue-500/10 border border-blue-500/20 text-[#3B82F6] flex items-center justify-center">
+            <div className="w-8 h-8 rounded-xl bg-blue-500/10 border border-blue-500/20 text-[#2563EB] dark:text-[#3B82F6] flex items-center justify-center">
               <Compass className="w-4 h-4 group-hover:rotate-45 transition-transform" />
             </div>
-            <ArrowUpRight className="w-4 h-4 text-zinc-500 group-hover:text-white transition-colors" />
+            <ArrowUpRight className="w-4 h-4 text-zinc-400 group-hover:text-zinc-900 dark:text-zinc-500 dark:group-hover:text-white transition-colors" />
           </div>
           <div>
-            <span className="text-xl font-black text-white">Events</span>
-            <p className="text-xs font-semibold text-zinc-400 group-hover:text-zinc-300">
+            <span className="text-xl font-black text-zinc-900 dark:text-white">Events</span>
+            <p className="text-xs font-semibold text-zinc-500 group-hover:text-zinc-700 dark:text-zinc-400 dark:group-hover:text-zinc-300">
               Browse Matches &amp; Shows
             </p>
           </div>
@@ -70,21 +70,21 @@ export function ProfileActivityCard({
         {/* My Tickets Card */}
         <Link
           href="/tickets"
-          className="p-4 rounded-2xl bg-zinc-900/60 hover:bg-zinc-900 border border-zinc-800 hover:border-emerald-500/40 transition-all group cursor-pointer flex flex-col justify-between h-32 shadow-sm"
+          className="p-4 rounded-2xl bg-white dark:bg-zinc-900/60 hover:bg-zinc-50 dark:hover:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 hover:border-emerald-500/40 transition-all group cursor-pointer flex flex-col justify-between h-32 shadow-xs"
         >
           <div className="flex items-center justify-between">
-            <div className="w-8 h-8 rounded-xl bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 flex items-center justify-center">
+            <div className="w-8 h-8 rounded-xl bg-emerald-500/10 border border-emerald-500/20 text-emerald-600 dark:text-emerald-400 flex items-center justify-center">
               <Ticket className="w-4 h-4 group-hover:scale-110 transition-transform" />
             </div>
-            <span className="text-[10px] font-bold uppercase tracking-wider text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded-md">
+            <span className="text-[10px] font-bold uppercase tracking-wider text-emerald-600 dark:text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded-md">
               Active
             </span>
           </div>
           <div>
-            <span className="text-xl font-black text-white">
+            <span className="text-xl font-black text-zinc-900 dark:text-white">
               {stats.ticketsCount}
             </span>
-            <p className="text-xs font-semibold text-zinc-400 group-hover:text-zinc-300">
+            <p className="text-xs font-semibold text-zinc-500 group-hover:text-zinc-700 dark:text-zinc-400 dark:group-hover:text-zinc-300">
               Booked Tickets
             </p>
           </div>
@@ -93,16 +93,16 @@ export function ProfileActivityCard({
 
       {/* Admin Quick Launch (Conditional) */}
       {profile.role === "admin" && (
-        <div className="p-4 rounded-2xl bg-gradient-to-r from-red-950/30 via-zinc-900/80 to-zinc-900/60 border border-red-500/20 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+        <div className="p-4 rounded-2xl bg-red-50 dark:bg-gradient-to-r dark:from-red-950/30 dark:via-zinc-900/80 dark:to-zinc-900/60 border border-red-200 dark:border-red-500/20 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
           <div className="flex items-center gap-3">
-            <div className="w-9 h-9 rounded-xl bg-red-500/10 border border-red-500/20 text-red-400 flex items-center justify-center">
+            <div className="w-9 h-9 rounded-xl bg-red-500/10 border border-red-500/20 text-red-600 dark:text-red-400 flex items-center justify-center">
               <Shield className="w-4 h-4" />
             </div>
             <div>
-              <h4 className="text-xs font-bold text-white">
+              <h4 className="text-xs font-bold text-zinc-900 dark:text-white">
                 Administrative Control Panel
               </h4>
-              <p className="text-[11px] text-zinc-400">
+              <p className="text-[11px] text-zinc-600 dark:text-zinc-400">
                 Manage categories, organizers, and audit logs.
               </p>
             </div>
@@ -118,30 +118,30 @@ export function ProfileActivityCard({
       )}
 
       {/* Account Activity Summary */}
-      <div className="rounded-2xl bg-zinc-900/40 border border-zinc-800/80 p-5 space-y-4">
-        <div className="flex items-center gap-2 pb-3 border-b border-zinc-800/60">
-          <Sparkles className="w-4 h-4 text-[#3B82F6]" />
-          <h3 className="text-sm font-bold text-white">Account Overview</h3>
+      <div className="rounded-2xl bg-zinc-50 dark:bg-zinc-900/40 border border-zinc-200 dark:border-zinc-800/80 p-5 space-y-4">
+        <div className="flex items-center gap-2 pb-3 border-b border-zinc-200 dark:border-zinc-800/60">
+          <Sparkles className="w-4 h-4 text-[#2563EB] dark:text-[#3B82F6]" />
+          <h3 className="text-sm font-bold text-zinc-900 dark:text-white">Account Overview</h3>
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
-          <div className="flex items-center gap-3 p-3 rounded-xl bg-zinc-900/60 border border-zinc-800/60">
-            <div className="w-8 h-8 rounded-lg bg-emerald-500/10 text-emerald-400 flex items-center justify-center flex-shrink-0">
+          <div className="flex items-center gap-3 p-3 rounded-xl bg-white dark:bg-zinc-900/60 border border-zinc-200 dark:border-zinc-800/60">
+            <div className="w-8 h-8 rounded-lg bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 flex items-center justify-center flex-shrink-0">
               <CheckCircle2 className="w-4 h-4" />
             </div>
             <div>
-              <p className="font-semibold text-white">Account Status</p>
-              <p className="text-zinc-400 text-[11px]">Active &amp; Verified</p>
+              <p className="font-semibold text-zinc-900 dark:text-white">Account Status</p>
+              <p className="text-zinc-500 dark:text-zinc-400 text-[11px]">Active &amp; Verified</p>
             </div>
           </div>
 
-          <div className="flex items-center gap-3 p-3 rounded-xl bg-zinc-900/60 border border-zinc-800/60">
-            <div className="w-8 h-8 rounded-lg bg-blue-500/10 text-[#3B82F6] flex items-center justify-center flex-shrink-0">
+          <div className="flex items-center gap-3 p-3 rounded-xl bg-white dark:bg-zinc-900/60 border border-zinc-200 dark:border-zinc-800/60">
+            <div className="w-8 h-8 rounded-lg bg-blue-500/10 text-[#2563EB] dark:text-[#3B82F6] flex items-center justify-center flex-shrink-0">
               <Clock className="w-4 h-4" />
             </div>
             <div>
-              <p className="font-semibold text-white">Member Since</p>
-              <p className="text-zinc-400 text-[11px]">{stats.memberSinceFormatted}</p>
+              <p className="font-semibold text-zinc-900 dark:text-white">Member Since</p>
+              <p className="text-zinc-500 dark:text-zinc-400 text-[11px]">{stats.memberSinceFormatted}</p>
             </div>
           </div>
         </div>
