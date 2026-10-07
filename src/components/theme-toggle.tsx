@@ -41,7 +41,7 @@ export function ThemeToggle({ iconOnly = false, className }: ThemeToggleProps) {
         title={`Switch to ${theme === "dark" ? "Light" : "Dark"} theme`}
         className={
           className ||
-          "w-9 h-9 rounded-full bg-zinc-900 border border-zinc-800 text-zinc-300 hover:text-white hover:border-zinc-700 transition-all flex items-center justify-center cursor-pointer"
+          "w-9 h-9 rounded-full bg-zinc-100 dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 text-zinc-700 dark:text-zinc-300 hover:text-zinc-900 dark:hover:text-white hover:border-zinc-300 dark:hover:border-zinc-700 transition-all flex items-center justify-center cursor-pointer"
         }
         aria-label="Toggle theme"
       >

@@ -35,17 +35,17 @@ export function FaqAccordionItem({
   const getCategoryBadge = () => {
     switch (item.category) {
       case "tickets":
-        return { label: "Tickets & Passes", icon: Ticket, color: "text-[#3B82F6] bg-blue-950/50 border-blue-500/30" };
+        return { label: "Tickets & Passes", icon: Ticket, color: "text-blue-600 dark:text-[#3B82F6] bg-blue-50 dark:bg-blue-950/50 border-blue-200 dark:border-blue-500/30" };
       case "stadium":
-        return { label: "Match Day & Gates", icon: Trophy, color: "text-emerald-400 bg-emerald-950/50 border-emerald-500/30" };
+        return { label: "Match Day & Gates", icon: Trophy, color: "text-emerald-600 dark:text-emerald-400 bg-emerald-50 dark:bg-emerald-950/50 border-emerald-200 dark:border-emerald-500/30" };
       case "payments":
-        return { label: "Payments & Refunds", icon: CreditCard, color: "text-purple-400 bg-purple-950/50 border-purple-500/30" };
+        return { label: "Payments & Refunds", icon: CreditCard, color: "text-purple-600 dark:text-purple-400 bg-purple-50 dark:bg-purple-950/50 border-purple-200 dark:border-purple-500/30" };
       case "account":
-        return { label: "Account & Safety", icon: ShieldCheck, color: "text-amber-400 bg-amber-950/50 border-amber-500/30" };
+        return { label: "Account & Safety", icon: ShieldCheck, color: "text-amber-600 dark:text-amber-400 bg-amber-50 dark:bg-amber-950/50 border-amber-200 dark:border-amber-500/30" };
       case "organizers":
-        return { label: "Organizers", icon: Users, color: "text-sky-400 bg-sky-950/50 border-sky-500/30" };
+        return { label: "Organizers", icon: Users, color: "text-sky-600 dark:text-sky-400 bg-sky-50 dark:bg-sky-950/50 border-sky-200 dark:border-sky-500/30" };
       default:
-        return { label: "General", icon: Ticket, color: "text-zinc-400 bg-zinc-900 border-zinc-800" };
+        return { label: "General", icon: Ticket, color: "text-zinc-600 dark:text-zinc-400 bg-zinc-100 dark:bg-zinc-900 border-zinc-200 dark:border-zinc-800" };
     }
   };
 
@@ -80,8 +80,8 @@ export function FaqAccordionItem({
       id={item.id}
       className={`rounded-2xl transition-all duration-200 border overflow-hidden ${
         isOpen
-          ? "bg-gradient-to-r from-blue-950/20 via-[#0B0F19]/95 to-[#0B0F19]/95 border-blue-500/40 shadow-[0_4px_24px_rgba(37,99,235,0.08)]"
-          : "bg-[#0B0F19]/90 border-zinc-800/80 hover:border-zinc-700/90 shadow-md"
+          ? "bg-blue-50/50 dark:bg-gradient-to-r dark:from-blue-950/20 dark:via-[#0B0F19]/95 dark:to-[#0B0F19]/95 border-blue-200 dark:border-blue-500/40 shadow-xs dark:shadow-[0_4px_24px_rgba(37,99,235,0.08)]"
+          : "bg-white dark:bg-[#0B0F19]/90 border-zinc-200 dark:border-zinc-800/80 hover:border-zinc-300 dark:hover:border-zinc-700/90 shadow-xs hover:shadow-sm"
       }`}
     >
       {/* Clickable Header Button */}
@@ -103,8 +103,8 @@ export function FaqAccordionItem({
             </span>
 
             {item.popular && (
-              <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-black bg-blue-600/15 border border-blue-500/30 text-blue-400">
-                <Flame className="w-3 h-3 text-[#3B82F6]" />
+              <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[10px] font-black bg-blue-50 dark:bg-blue-600/15 border border-blue-200 dark:border-blue-500/30 text-blue-600 dark:text-blue-400">
+                <Flame className="w-3 h-3 text-[#2563EB] dark:text-[#3B82F6]" />
                 <span>Popular</span>
               </span>
             )}
@@ -114,8 +114,8 @@ export function FaqAccordionItem({
           <h3
             className={`text-sm sm:text-base font-bold tracking-tight transition-colors ${
               isOpen
-                ? "text-white"
-                : "text-zinc-200 group-hover:text-white"
+                ? "text-zinc-900 dark:text-white"
+                : "text-zinc-800 dark:text-zinc-200 group-hover:text-blue-600 dark:group-hover:text-white"
             }`}
           >
             {item.question}
@@ -127,7 +127,7 @@ export function FaqAccordionItem({
           className={`w-8 h-8 rounded-full border flex items-center justify-center flex-shrink-0 mt-1 transition-all duration-200 ${
             isOpen
               ? "bg-[#2563EB] border-[#2563EB] text-white shadow-[0_0_12px_rgba(37,99,235,0.5)] rotate-180"
-              : "bg-zinc-900 border-zinc-800 text-zinc-400 group-hover:text-white group-hover:border-zinc-700"
+              : "bg-zinc-100 dark:bg-zinc-900 border-zinc-200 dark:border-zinc-800 text-zinc-500 dark:text-zinc-400 group-hover:text-zinc-900 dark:group-hover:text-white group-hover:border-zinc-300 dark:group-hover:border-zinc-700"
           }`}
         >
           <ChevronDown className="w-4 h-4 transition-transform duration-200" />
@@ -146,19 +146,19 @@ export function FaqAccordionItem({
             transition={{ type: "spring", duration: 0.35, bounce: 0 }}
             className="overflow-hidden"
           >
-            <div className="px-4 sm:px-5 pb-5 pt-1 text-xs sm:text-sm text-zinc-300 leading-relaxed border-t border-zinc-800/60">
+            <div className="px-4 sm:px-5 pb-5 pt-1 text-xs sm:text-sm text-zinc-700 dark:text-zinc-300 leading-relaxed border-t border-zinc-200 dark:border-zinc-800/60">
               <p className="pt-2">{item.answer}</p>
 
               {/* Tag Chips */}
               {item.tags && item.tags.length > 0 && (
-                <div className="flex flex-wrap items-center gap-1.5 mt-4 pt-3 border-t border-zinc-800/40">
+                <div className="flex flex-wrap items-center gap-1.5 mt-4 pt-3 border-t border-zinc-200 dark:border-zinc-800/40">
                   <span className="text-[10px] font-semibold text-zinc-500 uppercase tracking-wider mr-1">
                     Related:
                   </span>
                   {item.tags.map((tag) => (
                     <span
                       key={tag}
-                      className="px-2 py-0.5 rounded-md bg-zinc-900/80 border border-zinc-800 text-[10px] text-zinc-400 font-mono"
+                      className="px-2 py-0.5 rounded-md bg-zinc-100 dark:bg-zinc-900/80 border border-zinc-200 dark:border-zinc-800 text-[10px] text-zinc-600 dark:text-zinc-400 font-mono"
                     >
                       #{tag}
                     </span>
@@ -167,10 +167,10 @@ export function FaqAccordionItem({
               )}
 
               {/* Footer Feedback & Share Controls */}
-              <div className="flex flex-wrap items-center justify-between gap-3 mt-4 pt-3 border-t border-zinc-800/40">
+              <div className="flex flex-wrap items-center justify-between gap-3 mt-4 pt-3 border-t border-zinc-200 dark:border-zinc-800/40">
                 {/* Helpful feedback */}
                 <div className="flex items-center gap-2">
-                  <span className="text-xs text-zinc-400 font-medium">
+                  <span className="text-xs text-zinc-500 dark:text-zinc-400 font-medium">
                     Was this helpful?
                   </span>
                   <button
@@ -180,8 +180,8 @@ export function FaqAccordionItem({
                     aria-label="Mark answer as helpful"
                     className={`p-1.5 rounded-lg border text-xs flex items-center gap-1 transition-colors cursor-pointer ${
                       feedbackGiven === "up"
-                        ? "bg-emerald-950/60 border-emerald-500/40 text-emerald-400"
-                        : "bg-zinc-900 border-zinc-800 text-zinc-400 hover:text-white hover:border-zinc-700"
+                        ? "bg-emerald-100 dark:bg-emerald-950/60 border-emerald-300 dark:border-emerald-500/40 text-emerald-700 dark:text-emerald-400"
+                        : "bg-zinc-100 dark:bg-zinc-900 border-zinc-200 dark:border-zinc-800 text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white hover:border-zinc-300 dark:hover:border-zinc-700"
                     }`}
                   >
                     <ThumbsUp className="w-3.5 h-3.5" />
@@ -193,8 +193,8 @@ export function FaqAccordionItem({
                     aria-label="Mark answer as not helpful"
                     className={`p-1.5 rounded-lg border text-xs flex items-center gap-1 transition-colors cursor-pointer ${
                       feedbackGiven === "down"
-                        ? "bg-red-950/60 border-red-500/40 text-red-400"
-                        : "bg-zinc-900 border-zinc-800 text-zinc-400 hover:text-white hover:border-zinc-700"
+                        ? "bg-red-100 dark:bg-red-950/60 border-red-300 dark:border-red-500/40 text-red-700 dark:text-red-400"
+                        : "bg-zinc-100 dark:bg-zinc-900 border-zinc-200 dark:border-zinc-800 text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white hover:border-zinc-300 dark:hover:border-zinc-700"
                     }`}
                   >
                     <ThumbsDown className="w-3.5 h-3.5" />
@@ -206,16 +206,16 @@ export function FaqAccordionItem({
                   type="button"
                   onClick={handleCopyLink}
                   aria-label="Copy link to this answer"
-                  className="flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-zinc-900 border border-zinc-800 hover:border-zinc-700 text-zinc-400 hover:text-white text-xs font-semibold transition-colors cursor-pointer"
+                  className="flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-zinc-100 dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 hover:border-zinc-300 dark:hover:border-zinc-700 text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white text-xs font-semibold transition-colors cursor-pointer"
                 >
                   {copied ? (
                     <>
-                      <Check className="w-3.5 h-3.5 text-emerald-400" />
-                      <span className="text-emerald-400">Copied</span>
+                      <Check className="w-3.5 h-3.5 text-emerald-600 dark:text-emerald-400" />
+                      <span className="text-emerald-600 dark:text-emerald-400">Copied</span>
                     </>
                   ) : (
                     <>
-                      <Copy className="w-3.5 h-3.5 text-zinc-400" />
+                      <Copy className="w-3.5 h-3.5 text-zinc-500 dark:text-zinc-400" />
                       <span>Share</span>
                     </>
                   )}

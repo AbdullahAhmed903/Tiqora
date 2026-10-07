@@ -178,7 +178,7 @@ export function EventsExplorer({
         <button
           type="button"
           onClick={() => setIsMobileFiltersOpen(true)}
-          className="flex items-center gap-2 px-4 py-2 rounded-xl bg-zinc-900 border border-zinc-800 text-xs font-bold text-white shadow-md cursor-pointer hover:border-zinc-700"
+          className="flex items-center gap-2 px-4 py-2 rounded-xl bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 text-xs font-bold text-zinc-900 dark:text-white shadow-sm dark:shadow-md cursor-pointer hover:border-zinc-300 dark:hover:border-zinc-700"
         >
           <SlidersHorizontal className="w-3.5 h-3.5 text-[#3B82F6]" />
           <span>Filters</span>
@@ -209,13 +209,13 @@ export function EventsExplorer({
               className="fixed inset-0 bg-black/70 backdrop-blur-xs"
               onClick={() => setIsMobileFiltersOpen(false)}
             />
-            <div className="relative w-full max-w-sm h-full bg-[#080B12] border-l border-zinc-800 p-5 overflow-y-auto z-10 space-y-4">
-              <div className="flex items-center justify-between pb-3 border-b border-zinc-800">
-                <span className="text-sm font-bold text-white">Event Filters</span>
+            <div className="relative w-full max-w-sm h-full bg-white dark:bg-[#080B12] border-l border-zinc-200 dark:border-zinc-800 p-5 overflow-y-auto z-10 space-y-4">
+              <div className="flex items-center justify-between pb-3 border-b border-zinc-200 dark:border-zinc-800">
+                <span className="text-sm font-bold text-zinc-900 dark:text-white">Event Filters</span>
                 <button
                   type="button"
                   onClick={() => setIsMobileFiltersOpen(false)}
-                  className="p-1 rounded-lg text-zinc-400 hover:text-white cursor-pointer"
+                  className="p-1 rounded-lg text-zinc-500 hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-white cursor-pointer"
                 >
                   <X className="w-5 h-5" />
                 </button>

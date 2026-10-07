@@ -144,13 +144,13 @@ export function CategoryPills({
         className={`flex items-center gap-2 px-4 py-2 sm:py-2.5 rounded-full text-xs font-bold transition-all duration-200 cursor-pointer select-none shrink-0 ${
           isActive
             ? "bg-[#2563EB] text-white shadow-[0_4px_16px_rgba(37,99,235,0.4)] scale-[1.02]"
-            : "bg-zinc-900/80 hover:bg-zinc-800/90 text-zinc-400 hover:text-white border border-zinc-800/80 hover:border-zinc-700"
+            : "bg-zinc-100 hover:bg-zinc-200 text-zinc-700 hover:text-zinc-900 border border-zinc-200 dark:bg-zinc-900/80 dark:hover:bg-zinc-800/90 dark:text-zinc-400 dark:hover:text-white dark:border-zinc-800/80 dark:hover:border-zinc-700"
         }`}
       >
         <CategoryIcon
           name={pill.icon}
           className={`w-3.5 h-3.5 transition-colors ${
-            isActive ? "text-white" : "text-zinc-400"
+            isActive ? "text-white" : "text-zinc-500 dark:text-zinc-400"
           }`}
         />
         <span>{pill.name}</span>
@@ -179,10 +179,10 @@ export function CategoryPills({
           <button
             type="button"
             onClick={() => setIsExpanded(!isExpanded)}
-            className={`flex items-center gap-2 px-3.5 sm:px-4 py-2 sm:py-2.5 rounded-full text-xs font-bold transition-all duration-300 cursor-pointer select-none shrink-0 z-10 shadow-md ${
+            className={`flex items-center gap-2 px-3.5 sm:px-4 py-2 sm:py-2.5 rounded-full text-xs font-bold transition-all duration-300 cursor-pointer select-none shrink-0 z-10 shadow-sm dark:shadow-md ${
               isExpanded
-                ? "bg-zinc-800 text-white border border-zinc-600 shadow-blue-900/20"
-                : "bg-zinc-900/90 hover:bg-zinc-800 text-zinc-300 hover:text-white border border-zinc-800 hover:border-zinc-700"
+                ? "bg-zinc-200 dark:bg-zinc-800 text-zinc-900 dark:text-white border border-zinc-300 dark:border-zinc-600 shadow-blue-900/20"
+                : "bg-zinc-100 hover:bg-zinc-200 text-zinc-700 hover:text-zinc-900 border border-zinc-200 dark:bg-zinc-900/90 dark:hover:bg-zinc-800 dark:text-zinc-300 dark:hover:text-white dark:border-zinc-800 dark:hover:border-zinc-700"
             }`}
             title={isExpanded ? "Collapse categories" : "Expand categories to the right"}
           >
@@ -211,7 +211,7 @@ export function CategoryPills({
                   <button
                     type="button"
                     onClick={() => scroll("left")}
-                    className="flex absolute left-0 z-20 items-center justify-center w-7 h-7 rounded-full bg-zinc-900/95 hover:bg-zinc-800 text-zinc-300 hover:text-white border border-zinc-700/80 shadow-lg cursor-pointer transition-all"
+                    className="flex absolute left-0 z-20 items-center justify-center w-7 h-7 rounded-full bg-white hover:bg-zinc-100 text-zinc-700 hover:text-zinc-900 border border-zinc-200 shadow-md dark:bg-zinc-900/95 dark:hover:bg-zinc-800 dark:text-zinc-300 dark:hover:text-white dark:border-zinc-700/80 cursor-pointer transition-all"
                     aria-label="Scroll left"
                   >
                     <ChevronLeft className="w-3.5 h-3.5" />
@@ -233,7 +233,7 @@ export function CategoryPills({
                   <button
                     type="button"
                     onClick={() => scroll("right")}
-                    className="flex absolute right-0 z-20 items-center justify-center w-7 h-7 rounded-full bg-zinc-900/95 hover:bg-zinc-800 text-zinc-300 hover:text-white border border-zinc-700/80 shadow-lg cursor-pointer transition-all"
+                    className="flex absolute right-0 z-20 items-center justify-center w-7 h-7 rounded-full bg-white hover:bg-zinc-100 text-zinc-700 hover:text-zinc-900 border border-zinc-200 shadow-md dark:bg-zinc-900/95 dark:hover:bg-zinc-800 dark:text-zinc-300 dark:hover:text-white dark:border-zinc-700/80 cursor-pointer transition-all"
                     aria-label="Scroll right"
                   >
                     <ChevronRight className="w-3.5 h-3.5" />
@@ -251,7 +251,7 @@ export function CategoryPills({
             <button
               type="button"
               onClick={() => scroll("left")}
-              className="hidden sm:flex absolute -left-2 z-20 items-center justify-center w-8 h-8 rounded-full bg-zinc-900/95 hover:bg-zinc-800 text-zinc-300 hover:text-white border border-zinc-700/80 shadow-lg cursor-pointer transition-all"
+              className="hidden sm:flex absolute -left-2 z-20 items-center justify-center w-8 h-8 rounded-full bg-white hover:bg-zinc-100 text-zinc-700 hover:text-zinc-900 border border-zinc-200 shadow-md dark:bg-zinc-900/95 dark:hover:bg-zinc-800 dark:text-zinc-300 dark:hover:text-white dark:border-zinc-700/80 cursor-pointer transition-all"
               aria-label="Scroll left"
             >
               <ChevronLeft className="w-4 h-4" />
@@ -271,7 +271,7 @@ export function CategoryPills({
             <button
               type="button"
               onClick={() => scroll("right")}
-              className="hidden sm:flex absolute -right-2 z-20 items-center justify-center w-8 h-8 rounded-full bg-zinc-900/95 hover:bg-zinc-800 text-zinc-300 hover:text-white border border-zinc-700/80 shadow-lg cursor-pointer transition-all"
+              className="hidden sm:flex absolute -right-2 z-20 items-center justify-center w-8 h-8 rounded-full bg-white hover:bg-zinc-100 text-zinc-700 hover:text-zinc-900 border border-zinc-200 shadow-md dark:bg-zinc-900/95 dark:hover:bg-zinc-800 dark:text-zinc-300 dark:hover:text-white dark:border-zinc-700/80 cursor-pointer transition-all"
               aria-label="Scroll right"
             >
               <ChevronRight className="w-4 h-4" />

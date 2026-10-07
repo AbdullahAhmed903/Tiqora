@@ -23,23 +23,23 @@ export default async function CategoryPage({ params }: Props) {
   const pills = await getCategoryPills(category);
 
   return (
-    <main className="min-h-screen pb-16 bg-[#080B12]">
+    <div className="min-h-screen pb-16 bg-background">
       <Suspense
         fallback={
           <div className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 py-8 animate-pulse space-y-8">
-            <div className="w-full h-64 rounded-3xl bg-zinc-900/50" />
+            <div className="w-full h-64 rounded-3xl bg-zinc-200 dark:bg-zinc-900/50" />
             {pills.length > 0 && (
               <div className="flex gap-3">
                 {Array.from({ length: Math.min(pills.length + 1, 7) }).map((_, i) => (
-                  <div key={i} className="w-24 h-9 rounded-full bg-zinc-900/50" />
+                  <div key={i} className="w-24 h-9 rounded-full bg-zinc-200 dark:bg-zinc-900/50" />
                 ))}
               </div>
             )}
             <div className="flex gap-6">
-              <div className="w-52 xl:w-56 h-96 rounded-2xl bg-zinc-900/50 hidden lg:block" />
+              <div className="w-52 xl:w-56 h-96 rounded-2xl bg-zinc-200 dark:bg-zinc-900/50 hidden lg:block" />
               <div className="flex-1 grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-5 lg:gap-6">
                 {Array.from({ length: 9 }).map((_, i) => (
-                  <div key={i} className="h-80 rounded-2xl bg-zinc-900/50" />
+                  <div key={i} className="h-80 rounded-2xl bg-zinc-200 dark:bg-zinc-900/50" />
                 ))}
               </div>
             </div>
@@ -48,6 +48,6 @@ export default async function CategoryPage({ params }: Props) {
       >
         <EventsExplorer initialCategory={category} initialPills={pills} />
       </Suspense>
-    </main>
+    </div>
   );
 }

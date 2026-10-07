@@ -15,7 +15,7 @@ export function RecentlyAddedSection() {
           <span className="text-[11px] font-bold tracking-widest text-[#2563EB] uppercase">
             NEW ARRIVALS
           </span>
-          <h2 className="text-2xl sm:text-3xl font-extrabold text-foreground tracking-tight">
+          <h2 className="text-2xl sm:text-3xl font-extrabold text-zinc-900 dark:text-white tracking-tight">
             Recently Added <span className="text-[#2563EB]">Events</span>
           </h2>
         </div>
@@ -30,7 +30,7 @@ export function RecentlyAddedSection() {
       </div>
 
       {/* Grid of 5 Recently Added Compact Cards */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-3 sm:gap-3.5">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3.5">
         {RECENTLY_ADDED.map((event: RecentlyAddedEvent) => (
           <Link
             key={event.id}
@@ -50,10 +50,10 @@ export function RecentlyAddedSection() {
 
             {/* Event Info */}
             <div className="flex-1 min-w-0">
-              <h3 className="text-xs font-bold text-foreground group-hover:text-[#2563EB] transition-colors truncate">
+              <h3 className="text-xs font-bold text-zinc-900 dark:text-white group-hover:text-[#2563EB] transition-colors truncate">
                 {event.title}
               </h3>
-              <div className="text-[10px] text-secondary-text mt-0.5 font-medium">
+              <div className="text-[10px] text-zinc-500 dark:text-zinc-400 mt-0.5 font-medium">
                 {event.category}
               </div>
               <div className="text-[10px] text-zinc-400 dark:text-zinc-500 truncate mt-0.5">
@@ -62,7 +62,7 @@ export function RecentlyAddedSection() {
             </div>
 
             {/* Subtle Right Arrow */}
-            <div className="w-6 h-6 rounded-full bg-background border border-border flex items-center justify-center text-secondary-text group-hover:text-[#2563EB] group-hover:border-[#2563EB]/40 flex-shrink-0 transition-colors">
+            <div className="w-6 h-6 rounded-full bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 flex items-center justify-center text-zinc-400 dark:text-zinc-500 group-hover:text-[#2563EB] group-hover:border-[#2563EB]/40 flex-shrink-0 transition-colors">
               <ArrowRight className="w-3 h-3" />
             </div>
           </Link>

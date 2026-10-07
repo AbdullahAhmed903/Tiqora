@@ -18,10 +18,10 @@ export function CategoryCard({ category }: CategoryCardProps) {
   return (
     <Link
       href={`/events/${category.slug}`}
-      className="group relative bg-[#0B0F19] hover:bg-[#0E1322] border border-zinc-800/80 hover:border-blue-500/50 rounded-2xl sm:rounded-3xl overflow-hidden transition-all duration-300 hover:shadow-2xl hover:shadow-blue-950/40 flex flex-col cursor-pointer"
+      className="group relative bg-white dark:bg-[#0B0F19] hover:bg-zinc-50 dark:hover:bg-[#0E1322] border border-zinc-200 dark:border-zinc-800/80 hover:border-blue-500/50 rounded-2xl sm:rounded-3xl overflow-hidden transition-all duration-300 shadow-sm dark:shadow-none hover:shadow-2xl hover:shadow-blue-950/20 dark:hover:shadow-blue-950/40 flex flex-col cursor-pointer"
     >
       {/* Top Banner Image with Wave & Floating Badge */}
-      <div className="relative h-44 sm:h-48 w-full overflow-hidden bg-zinc-900">
+      <div className="relative h-44 sm:h-48 w-full overflow-hidden bg-zinc-100 dark:bg-zinc-900">
         <Image
           src={imageSrc}
           alt={category.name}
@@ -30,11 +30,11 @@ export function CategoryCard({ category }: CategoryCardProps) {
           sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
         />
 
-        {/* Subtle Dark Gradient Overlay for Image Depth */}
-        <div className="absolute inset-0 bg-gradient-to-t from-[#0B0F19]/90 via-[#0B0F19]/25 to-transparent pointer-events-none" />
+        {/* Subtle Gradient Overlay for Image Depth */}
+        <div className="absolute inset-0 bg-gradient-to-t from-white/90 dark:from-[#0B0F19]/90 via-transparent to-transparent pointer-events-none" />
 
         {/* Fluid Organic Wave SVG Divider */}
-        <div className="absolute -bottom-1 left-0 right-0 w-full overflow-hidden leading-none z-10 pointer-events-none text-[#0B0F19] group-hover:text-[#0E1322] transition-colors duration-300">
+        <div className="absolute -bottom-1 left-0 right-0 w-full overflow-hidden leading-none z-10 pointer-events-none text-white dark:text-[#0B0F19] group-hover:text-zinc-50 dark:group-hover:text-[#0E1322] transition-colors duration-300">
           <svg
             viewBox="0 0 500 50"
             preserveAspectRatio="none"
@@ -45,7 +45,7 @@ export function CategoryCard({ category }: CategoryCardProps) {
         </div>
 
         {/* Floating Circular Icon Badge Overlapping Wave */}
-        <div className="absolute bottom-2 sm:bottom-2.5 left-5 z-20 w-11 h-11 sm:w-12 sm:h-12 rounded-full flex items-center justify-center border-2 border-[#0B0F19] group-hover:border-[#0E1322] text-white transition-all duration-300 group-hover:scale-110 shadow-lg bg-blue-600 shadow-[0_0_16px_rgba(37,99,235,0.45)]">
+        <div className="absolute bottom-2 sm:bottom-2.5 left-5 z-20 w-11 h-11 sm:w-12 sm:h-12 rounded-full flex items-center justify-center border-2 border-white dark:border-[#0B0F19] group-hover:border-zinc-50 dark:group-hover:border-[#0E1322] text-white transition-all duration-300 group-hover:scale-110 shadow-lg bg-blue-600 shadow-[0_0_16px_rgba(37,99,235,0.45)]">
           <CategoryIcon name={category.icon} className="w-5 h-5 sm:w-6 sm:h-6" />
         </div>
       </div>
@@ -53,11 +53,11 @@ export function CategoryCard({ category }: CategoryCardProps) {
       {/* Card Content */}
       <div className="p-5 pt-3 sm:pt-4 flex-1 flex flex-col justify-between">
         <div>
-          <h3 className="text-lg sm:text-xl font-bold text-white group-hover:text-blue-400 transition-colors">
+          <h3 className="text-lg sm:text-xl font-bold text-zinc-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
             {category.name}
           </h3>
           {category.small_description && (
-            <p className="text-xs sm:text-sm text-zinc-400/90 leading-relaxed mt-2 line-clamp-2">
+            <p className="text-xs sm:text-sm text-zinc-600 dark:text-zinc-400/90 leading-relaxed mt-2 line-clamp-2">
               {category.small_description}
             </p>
           )}
@@ -65,7 +65,7 @@ export function CategoryCard({ category }: CategoryCardProps) {
 
         {/* Bottom Action Button */}
         <div className="pt-4 flex items-center justify-end">
-          <span className="w-8 h-8 rounded-full bg-zinc-800/80 group-hover:bg-blue-600 text-zinc-400 group-hover:text-white flex items-center justify-center transition-all duration-300 group-hover:translate-x-0.5 shadow-md">
+          <span className="w-8 h-8 rounded-full bg-zinc-100 dark:bg-zinc-800/80 group-hover:bg-blue-600 text-zinc-600 dark:text-zinc-400 group-hover:text-white flex items-center justify-center transition-all duration-300 group-hover:translate-x-0.5 shadow-md">
             <ArrowRight className="w-4 h-4" />
           </span>
         </div>

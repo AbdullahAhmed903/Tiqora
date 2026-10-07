@@ -14,7 +14,7 @@ export function FootballMatchesSection() {
           <span className="text-[11px] font-bold tracking-widest text-[#2563EB] uppercase">
             LIVE & UPCOMING
           </span>
-          <h2 className="text-2xl sm:text-3xl font-extrabold text-foreground tracking-tight">
+          <h2 className="text-2xl sm:text-3xl font-extrabold text-zinc-900 dark:text-white tracking-tight">
             Football <span className="text-[#2563EB]">Matches</span>
           </h2>
         </div>
@@ -43,7 +43,7 @@ export function FootballMatchesSection() {
                   LIVE
                 </span>
               ) : (
-                <span className="text-[11px] font-semibold text-secondary-text">
+                <span className="text-[11px] font-semibold text-zinc-500 dark:text-zinc-400">
                   {match.time}
                 </span>
               )}
@@ -52,17 +52,17 @@ export function FootballMatchesSection() {
             {/* Teams VS Section */}
             <div className="flex items-center justify-center gap-3 py-2">
               <div className="flex flex-col items-center">
-                <div className="w-10 h-10 rounded-full bg-background border border-border flex items-center justify-center text-lg shadow-xs group-hover:scale-105 transition-transform">
+                <div className="w-10 h-10 rounded-full bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 flex items-center justify-center text-lg shadow-xs group-hover:scale-105 transition-transform">
                   {match.homeTeam.logo}
                 </div>
               </div>
 
-              <span className="text-xs font-black text-secondary-text uppercase tracking-widest">
+              <span className="text-xs font-black text-zinc-400 dark:text-zinc-500 uppercase tracking-widest">
                 VS
               </span>
 
               <div className="flex flex-col items-center">
-                <div className="w-10 h-10 rounded-full bg-background border border-border flex items-center justify-center text-lg shadow-xs group-hover:scale-105 transition-transform">
+                <div className="w-10 h-10 rounded-full bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 flex items-center justify-center text-lg shadow-xs group-hover:scale-105 transition-transform">
                   {match.awayTeam.logo}
                 </div>
               </div>
@@ -70,14 +70,14 @@ export function FootballMatchesSection() {
 
             {/* Match Information */}
             <div className="text-center space-y-1">
-              <h3 className="text-xs font-bold text-foreground group-hover:text-[#2563EB] transition-colors truncate">
+              <h3 className="text-xs font-bold text-zinc-900 dark:text-white group-hover:text-[#2563EB] transition-colors truncate">
                 {match.title}
               </h3>
-              <div className="flex items-center justify-center gap-1 text-[10px] text-secondary-text">
+              <div className="flex items-center justify-center gap-1 text-[10px] text-zinc-500 dark:text-zinc-400">
                 <Trophy className="w-3 h-3 text-amber-500 flex-shrink-0" />
                 <span className="truncate">{match.league}</span>
               </div>
-              <div className="flex items-center justify-center gap-1 text-[10px] text-secondary-text">
+              <div className="flex items-center justify-center gap-1 text-[10px] text-zinc-500 dark:text-zinc-400">
                 <MapPin className="w-3 h-3 text-zinc-400 flex-shrink-0" />
                 <span className="truncate">{match.venue}</span>
               </div>

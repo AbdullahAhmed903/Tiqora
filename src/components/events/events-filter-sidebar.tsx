@@ -33,10 +33,10 @@ export function EventsFilterSidebar({
     "Select location";
 
   return (
-    <div className="bg-[#0B0F19]/90 border border-zinc-800/80 rounded-2xl p-3.5 sm:p-4 space-y-4.5 shadow-xl backdrop-blur-md">
+    <div className="bg-white dark:bg-[#0B0F19]/90 border border-zinc-200 dark:border-zinc-800/80 rounded-2xl p-3.5 sm:p-4 space-y-4.5 shadow-sm dark:shadow-xl backdrop-blur-md">
       {/* 1. Date Filter */}
       <div className="space-y-3.5">
-        <div className="flex items-center gap-2 text-white font-bold text-sm">
+        <div className="flex items-center gap-2 text-zinc-900 dark:text-white font-bold text-sm">
           <Calendar className="w-4 h-4 text-[#3B82F6]" />
           <span>Date</span>
         </div>
@@ -48,20 +48,20 @@ export function EventsFilterSidebar({
               <label
                 key={option.id}
                 onClick={() => onFilterChange({ date: option.id })}
-                className="flex items-center gap-3 cursor-pointer group select-none text-xs font-medium text-zinc-400 hover:text-white transition-colors"
+                className="flex items-center gap-3 cursor-pointer group select-none text-xs font-medium text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white transition-colors"
               >
                 <div
                   className={`w-4 h-4 rounded-full flex items-center justify-center transition-all ${
                     isChecked
                       ? "border-2 border-[#2563EB] bg-[#2563EB]/10"
-                      : "border border-zinc-700 group-hover:border-zinc-500"
+                      : "border border-zinc-300 dark:border-zinc-700 group-hover:border-zinc-400 dark:group-hover:border-zinc-500"
                   }`}
                 >
                   {isChecked && (
                     <div className="w-1.5 h-1.5 rounded-full bg-[#2563EB] shadow-[0_0_6px_#2563EB]" />
                   )}
                 </div>
-                <span className={isChecked ? "text-white font-semibold" : ""}>
+                <span className={isChecked ? "text-zinc-900 dark:text-white font-semibold" : ""}>
                   {option.label}
                 </span>
               </label>
@@ -70,11 +70,11 @@ export function EventsFilterSidebar({
         </div>
       </div>
 
-      <div className="h-px bg-zinc-800/70" />
+      <div className="h-px bg-zinc-200 dark:bg-zinc-800/70" />
 
       {/* 2. Location Filter */}
       <div className="space-y-3.5">
-        <div className="flex items-center gap-2 text-white font-bold text-sm">
+        <div className="flex items-center gap-2 text-zinc-900 dark:text-white font-bold text-sm">
           <MapPin className="w-4 h-4 text-[#3B82F6]" />
           <span>Location</span>
         </div>
@@ -83,7 +83,7 @@ export function EventsFilterSidebar({
           <button
             type="button"
             onClick={() => setIsLocationOpen(!isLocationOpen)}
-            className="w-full flex items-center justify-between bg-zinc-900/90 border border-zinc-800 hover:border-zinc-700 px-3.5 py-2.5 rounded-xl text-xs text-zinc-200 transition-colors cursor-pointer"
+            className="w-full flex items-center justify-between bg-zinc-50 dark:bg-zinc-900/90 border border-zinc-200 dark:border-zinc-800 hover:border-zinc-300 dark:hover:border-zinc-700 px-3.5 py-2.5 rounded-xl text-xs text-zinc-800 dark:text-zinc-200 transition-colors cursor-pointer"
           >
             <span className="truncate">{selectedLocationLabel}</span>
             <ChevronDown
@@ -94,7 +94,7 @@ export function EventsFilterSidebar({
           </button>
 
           {isLocationOpen && (
-            <div className="absolute top-full left-0 right-0 mt-1.5 bg-zinc-950 border border-zinc-800 rounded-xl p-1 shadow-2xl z-30 max-h-48 overflow-y-auto scrollbar-none">
+            <div className="absolute top-full left-0 right-0 mt-1.5 bg-white dark:bg-zinc-950 border border-zinc-200 dark:border-zinc-800 rounded-xl p-1 shadow-xl dark:shadow-2xl z-30 max-h-48 overflow-y-auto scrollbar-none">
               {LOCATION_OPTIONS.map((loc) => {
                 const isSelected = filters.location === loc.value;
                 return (
@@ -108,7 +108,7 @@ export function EventsFilterSidebar({
                     className={`w-full text-left px-3 py-2 rounded-lg text-xs font-medium transition-colors cursor-pointer ${
                       isSelected
                         ? "bg-[#2563EB] text-white"
-                        : "text-zinc-300 hover:bg-zinc-900 hover:text-white"
+                        : "text-zinc-700 dark:text-zinc-300 hover:bg-zinc-100 dark:hover:bg-zinc-900 hover:text-zinc-900 dark:hover:text-white"
                     }`}
                   >
                     {loc.label}
@@ -120,12 +120,12 @@ export function EventsFilterSidebar({
         </div>
       </div>
 
-      <div className="h-px bg-zinc-800/70" />
+      <div className="h-px bg-zinc-200 dark:bg-zinc-800/70" />
 
       {/* 3. Price Range Filter */}
       <div className="space-y-3.5">
         <div className="flex items-center justify-between">
-          <div className="flex items-center gap-2 text-white font-bold text-sm">
+          <div className="flex items-center gap-2 text-zinc-900 dark:text-white font-bold text-sm">
             <Tag className="w-4 h-4 text-[#3B82F6]" />
             <span>Price Range</span>
           </div>
@@ -146,11 +146,11 @@ export function EventsFilterSidebar({
               onChange={(e) =>
                 onFilterChange({ maxPrice: Number(e.target.value) })
               }
-              className="w-full h-1.5 bg-zinc-800 rounded-lg appearance-none cursor-pointer accent-[#2563EB]"
+              className="w-full h-1.5 bg-zinc-200 dark:bg-zinc-800 rounded-lg appearance-none cursor-pointer accent-[#2563EB]"
             />
           </div>
 
-          <div className="flex items-center justify-between text-[11px] font-semibold text-zinc-500">
+          <div className="flex items-center justify-between text-[11px] font-semibold text-zinc-400 dark:text-zinc-500">
             <span>$0</span>
             <span>$500+</span>
           </div>
@@ -172,7 +172,7 @@ export function EventsFilterSidebar({
           <button
             type="button"
             onClick={onResetFilters}
-            className="w-full py-2 rounded-xl text-zinc-500 hover:text-zinc-300 font-semibold text-xs flex items-center justify-center gap-1.5 transition-colors cursor-pointer"
+            className="w-full py-2 rounded-xl text-zinc-500 hover:text-zinc-800 dark:hover:text-zinc-300 font-semibold text-xs flex items-center justify-center gap-1.5 transition-colors cursor-pointer"
           >
             <RotateCcw className="w-3 h-3" />
             <span>Reset Filters</span>

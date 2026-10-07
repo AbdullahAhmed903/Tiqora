@@ -14,7 +14,7 @@ export function CategoriesHero({
   onSearchChange,
 }: CategoriesHeroProps) {
   return (
-    <div className="relative w-full overflow-hidden rounded-2xl sm:rounded-3xl border border-blue-950/60 shadow-[0_15px_50px_-15px_rgba(37,99,235,0.25)] min-h-[380px] sm:min-h-[440px] lg:min-h-[480px] flex items-center bg-[#060912]">
+    <div className="relative w-full overflow-hidden rounded-2xl sm:rounded-3xl border border-zinc-200 dark:border-blue-950/60 shadow-md dark:shadow-[0_15px_50px_-15px_rgba(37,99,235,0.25)] min-h-[380px] sm:min-h-[440px] lg:min-h-[480px] flex items-center bg-[#060912]">
       {/* Background Hero Banner (Categories-page.webp) */}
       <div className="absolute inset-0 z-0 pointer-events-none">
         <Image

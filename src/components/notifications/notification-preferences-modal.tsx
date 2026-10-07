@@ -69,7 +69,7 @@ export function NotificationPreferencesModal({
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           onClick={onClose}
-          className="fixed inset-0 bg-black/80 backdrop-blur-md"
+          className="fixed inset-0 bg-black/50 dark:bg-black/80 backdrop-blur-md"
         />
 
         {/* Modal Dialog */}
@@ -78,19 +78,19 @@ export function NotificationPreferencesModal({
           animate={{ opacity: 1, scale: 1, y: 0 }}
           exit={{ opacity: 0, scale: 0.95, y: 15 }}
           transition={{ type: "spring", duration: 0.35, bounce: 0.15 }}
-          className="relative w-full max-w-lg bg-[#0B0F19] border border-zinc-800 rounded-3xl p-6 sm:p-7 shadow-2xl z-10 space-y-6 overflow-hidden max-h-[90vh] flex flex-col"
+          className="relative w-full max-w-lg bg-white dark:bg-[#0B0F19] border border-zinc-200 dark:border-zinc-800 rounded-3xl p-6 sm:p-7 shadow-2xl z-10 space-y-6 overflow-hidden max-h-[90vh] flex flex-col"
         >
           {/* Top Header */}
-          <div className="flex items-center justify-between pb-4 border-b border-zinc-800/80">
+          <div className="flex items-center justify-between pb-4 border-b border-zinc-200 dark:border-zinc-800/80">
             <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-xl bg-blue-600/15 border border-blue-500/30 text-[#3B82F6] flex items-center justify-center">
+              <div className="w-10 h-10 rounded-xl bg-blue-50 dark:bg-blue-600/15 border border-blue-200 dark:border-blue-500/30 text-[#2563EB] dark:text-[#3B82F6] flex items-center justify-center">
                 <Sliders className="w-5 h-5" />
               </div>
               <div>
-                <h2 className="text-base sm:text-lg font-bold text-white tracking-tight">
+                <h2 className="text-base sm:text-lg font-bold text-zinc-900 dark:text-white tracking-tight">
                   Notification Preferences
                 </h2>
-                <p className="text-xs text-zinc-400">
+                <p className="text-xs text-zinc-500 dark:text-zinc-400">
                   Control which alerts you receive across Tiqora
                 </p>
               </div>
@@ -100,7 +100,7 @@ export function NotificationPreferencesModal({
               type="button"
               onClick={onClose}
               aria-label="Close notification preferences modal"
-              className="w-8 h-8 rounded-full bg-zinc-900 border border-zinc-800 text-zinc-400 hover:text-white flex items-center justify-center transition-colors cursor-pointer"
+              className="w-8 h-8 rounded-full bg-zinc-100 dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 text-zinc-500 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white flex items-center justify-center transition-colors cursor-pointer"
             >
               <X className="w-4 h-4" />
             </button>
@@ -114,19 +114,19 @@ export function NotificationPreferencesModal({
                 onClick={() => handleToggle(pref.id)}
                 className={`p-3.5 sm:p-4 rounded-2xl border transition-all cursor-pointer select-none flex items-center justify-between gap-4 ${
                   pref.enabled
-                    ? "bg-zinc-900/60 border-zinc-800 hover:border-zinc-700"
-                    : "bg-zinc-950/40 border-zinc-800/40 opacity-70 hover:opacity-100"
+                    ? "bg-zinc-50 dark:bg-zinc-900/60 border-zinc-300 dark:border-zinc-800 hover:border-zinc-400 dark:hover:border-zinc-700"
+                    : "bg-white dark:bg-zinc-950/40 border-zinc-200 dark:border-zinc-800/40 opacity-70 hover:opacity-100"
                 }`}
               >
                 <div className="flex items-start gap-3">
-                  <div className="w-8 h-8 rounded-lg bg-zinc-900 border border-zinc-800/80 flex items-center justify-center flex-shrink-0 mt-0.5">
+                  <div className="w-8 h-8 rounded-lg bg-zinc-100 dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800/80 flex items-center justify-center flex-shrink-0 mt-0.5 text-zinc-700 dark:text-zinc-300">
                     {getCategoryIcon(pref.category)}
                   </div>
                   <div>
-                    <h4 className="text-xs sm:text-sm font-bold text-white">
+                    <h4 className="text-xs sm:text-sm font-bold text-zinc-900 dark:text-white">
                       {pref.title}
                     </h4>
-                    <p className="text-[11px] sm:text-xs text-zinc-400 mt-0.5 leading-snug">
+                    <p className="text-[11px] sm:text-xs text-zinc-500 dark:text-zinc-400 mt-0.5 leading-snug">
                       {pref.description}
                     </p>
                   </div>
@@ -135,7 +135,7 @@ export function NotificationPreferencesModal({
                 {/* Custom Toggle Switch */}
                 <div
                   className={`w-11 h-6 rounded-full p-1 transition-colors flex-shrink-0 flex items-center ${
-                    pref.enabled ? "bg-[#2563EB]" : "bg-zinc-800"
+                    pref.enabled ? "bg-[#2563EB]" : "bg-zinc-200 dark:bg-zinc-800"
                   }`}
                 >
                   <motion.div
@@ -151,12 +151,12 @@ export function NotificationPreferencesModal({
           </div>
 
           {/* Modal Footer */}
-          <div className="pt-4 border-t border-zinc-800/80 flex items-center justify-end gap-3">
+          <div className="pt-4 border-t border-zinc-200 dark:border-zinc-800/80 flex items-center justify-end gap-3">
             <Button
               type="button"
               variant="outline"
               onClick={onClose}
-              className="rounded-full border-zinc-700 bg-zinc-900 hover:bg-zinc-800 text-zinc-300 font-semibold text-xs px-5 py-2 cursor-pointer"
+              className="rounded-full border-zinc-200 dark:border-zinc-700 bg-zinc-100 hover:bg-zinc-200 dark:bg-zinc-900 dark:hover:bg-zinc-800 text-zinc-700 hover:text-zinc-900 dark:text-zinc-300 dark:hover:text-white font-semibold text-xs px-5 py-2 cursor-pointer"
             >
               Cancel
             </Button>
@@ -164,7 +164,7 @@ export function NotificationPreferencesModal({
             <Button
               type="button"
               onClick={handleSave}
-              className="rounded-full bg-[#2563EB] hover:bg-[#1D4ED8] text-white font-bold text-xs px-6 py-2 shadow-lg shadow-blue-600/30 flex items-center gap-1.5 cursor-pointer transition-all hover:scale-[1.02] active:scale-95"
+              className="rounded-full bg-[#2563EB] hover:bg-[#1D4ED8] text-white font-bold text-xs px-6 py-2 shadow-md shadow-blue-600/25 flex items-center gap-1.5 cursor-pointer transition-all hover:scale-[1.02] active:scale-95"
             >
               <Check className="w-3.5 h-3.5" />
               <span>Save Changes</span>

@@ -106,11 +106,11 @@ export function EventCard({
   const year = event.year || (yearMatch ? yearMatch[0] : "2025");
 
   return (
-    <div className="relative bg-[#0B0F19]/95 border border-zinc-800/80 hover:border-blue-500/50 rounded-2xl sm:rounded-3xl p-3 sm:p-3.5 group transition-all duration-300 shadow-xl flex flex-col justify-between hover:shadow-[0_12px_30px_-10px_rgba(37,99,235,0.25)] hover:-translate-y-1">
+    <div className="relative bg-white dark:bg-[#0B0F19]/95 border border-zinc-200 dark:border-zinc-800/80 hover:border-blue-500/50 rounded-2xl sm:rounded-3xl p-3 sm:p-3.5 group transition-all duration-300 shadow-sm dark:shadow-xl flex flex-col justify-between hover:shadow-[0_12px_30px_-10px_rgba(37,99,235,0.25)] hover:-translate-y-1">
       {/* =========================================
           1. LEFT EDGE: Distinct notch at ~38% + teeth
           ========================================= */}
-      <div className="absolute -left-2.5 sm:-left-3 top-[38%] -translate-y-1/2 w-5 h-5 sm:w-6 sm:h-6 rounded-full bg-[#080B12] border-r border-zinc-800/90 z-20 pointer-events-none" />
+      <div className="absolute -left-2.5 sm:-left-3 top-[38%] -translate-y-1/2 w-5 h-5 sm:w-6 sm:h-6 rounded-full bg-white dark:bg-[#080B12] border-r border-zinc-200 dark:border-zinc-800/90 z-20 pointer-events-none" />
       <div className="absolute -left-[5px] top-4 bottom-4 flex flex-col justify-between items-center pointer-events-none z-20">
         {Array.from({ length: 7 }).map((_, i) =>
           i === 2 || i === 3 ? (
@@ -118,7 +118,7 @@ export function EventCard({
           ) : (
             <div
               key={i}
-              className="w-2.5 h-2.5 rounded-full bg-[#080B12] border-r border-zinc-800/90"
+              className="w-2.5 h-2.5 rounded-full bg-white dark:bg-[#080B12] border-r border-zinc-200 dark:border-zinc-800/90"
             />
           )
         )}
@@ -127,7 +127,7 @@ export function EventCard({
       {/* =========================================
           2. RIGHT EDGE: Distinct notch at ~62% + teeth
           ========================================= */}
-      <div className="absolute -right-2.5 sm:-right-3 top-[62%] -translate-y-1/2 w-5 h-5 sm:w-6 sm:h-6 rounded-full bg-[#080B12] border-l border-zinc-800/90 z-20 pointer-events-none" />
+      <div className="absolute -right-2.5 sm:-right-3 top-[62%] -translate-y-1/2 w-5 h-5 sm:w-6 sm:h-6 rounded-full bg-white dark:bg-[#080B12] border-l border-zinc-200 dark:border-zinc-800/90 z-20 pointer-events-none" />
       <div className="absolute -right-[5px] top-4 bottom-4 flex flex-col justify-between items-center pointer-events-none z-20">
         {Array.from({ length: 7 }).map((_, i) =>
           i === 4 || i === 5 ? (
@@ -135,7 +135,7 @@ export function EventCard({
           ) : (
             <div
               key={i}
-              className="w-2.5 h-2.5 rounded-full bg-[#080B12] border-l border-zinc-800/90"
+              className="w-2.5 h-2.5 rounded-full bg-white dark:bg-[#080B12] border-l border-zinc-200 dark:border-zinc-800/90"
             />
           )
         )}
@@ -147,7 +147,7 @@ export function EventCard({
       <div>
         <div className="flex flex-row items-stretch min-w-0">
           {/* Left: Image with Category Badge & Favorite Button */}
-          <div className="relative flex-1 min-w-0 aspect-[16/10] rounded-xl overflow-hidden bg-zinc-950 shadow-inner">
+          <div className="relative flex-1 min-w-0 aspect-[16/10] rounded-xl overflow-hidden bg-zinc-100 dark:bg-zinc-950 shadow-inner">
             <Image
               src={event.image}
               alt={event.title}
@@ -157,7 +157,7 @@ export function EventCard({
             />
 
             {/* Ambient Dark Gradient */}
-            <div className="absolute inset-0 bg-gradient-to-t from-[#0B0F19]/80 via-transparent to-black/20 pointer-events-none" />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/40 dark:from-[#0B0F19]/80 via-transparent to-black/20 pointer-events-none" />
 
             {/* Category Badge (Top-Left) */}
             <div
@@ -187,18 +187,18 @@ export function EventCard({
           {/* Vertical Divider (Only separates upper section!) */}
           <div className="relative flex-shrink-0 flex items-stretch mx-2 sm:mx-2.5">
             {/* Vertical Dashed Line */}
-            <div className="w-px border-l border-dashed border-zinc-700/60 my-1 self-stretch" />
+            <div className="w-px border-l border-dashed border-zinc-300 dark:border-zinc-700/60 my-1 self-stretch" />
           </div>
 
           {/* Right Stub: Date kept at top, NO barcode */}
           <div className="w-14 sm:w-16 flex-shrink-0 flex flex-col items-center justify-center text-center relative z-10 px-0.5">
-            <span className="text-[10px] sm:text-[11px] font-black tracking-widest text-zinc-400 uppercase">
+            <span className="text-[10px] sm:text-[11px] font-black tracking-widest text-zinc-500 dark:text-zinc-400 uppercase">
               {month}
             </span>
-            <span className="text-xl sm:text-2xl font-black text-white leading-none my-1 tracking-tight">
+            <span className="text-xl sm:text-2xl font-black text-zinc-900 dark:text-white leading-none my-1 tracking-tight">
               {day}
             </span>
-            <span className="text-[10px] sm:text-[11px] font-semibold text-zinc-500">
+            <span className="text-[10px] sm:text-[11px] font-semibold text-zinc-400 dark:text-zinc-500">
               {year}
             </span>
           </div>
@@ -209,19 +209,19 @@ export function EventCard({
             Titles can now extend across the entire card!
             ========================================= */}
         <div className="pt-2.5 sm:pt-3 space-y-1">
-          <h3 className="text-sm sm:text-[15px] font-bold text-white group-hover:text-blue-400 transition-colors line-clamp-1">
+          <h3 className="text-sm sm:text-[15px] font-bold text-zinc-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors line-clamp-1">
             {event.title}
           </h3>
 
-          <div className="flex items-center gap-1.5 text-[11px] sm:text-xs text-zinc-400">
-            <MapPin className="w-3 h-3 sm:w-3.5 sm:h-3.5 text-zinc-500 flex-shrink-0" />
+          <div className="flex items-center gap-1.5 text-[11px] sm:text-xs text-zinc-600 dark:text-zinc-400">
+            <MapPin className="w-3 h-3 sm:w-3.5 sm:h-3.5 text-zinc-400 dark:text-zinc-500 flex-shrink-0" />
             <span className="truncate">
               {event.venue}, {event.city}
             </span>
           </div>
 
-          <div className="flex items-center gap-1.5 text-[11px] sm:text-xs text-zinc-400">
-            <Calendar className="w-3 h-3 sm:w-3.5 sm:h-3.5 text-zinc-500 flex-shrink-0" />
+          <div className="flex items-center gap-1.5 text-[11px] sm:text-xs text-zinc-600 dark:text-zinc-400">
+            <Calendar className="w-3 h-3 sm:w-3.5 sm:h-3.5 text-zinc-400 dark:text-zinc-500 flex-shrink-0" />
             <span className="truncate">
               {event.date} • {event.time}
             </span>
@@ -233,8 +233,8 @@ export function EventCard({
           BOTTOM ROW: Price & Get Tickets (Full Width!)
           Get Tickets button moves all the way to the right!
           ========================================= */}
-      <div className="flex items-center justify-between pt-2.5 mt-2 border-t border-zinc-800/40">
-        <div className="text-xs sm:text-sm font-black text-[#3B82F6]">
+      <div className="flex items-center justify-between pt-2.5 mt-2 border-t border-zinc-100 dark:border-zinc-800/40">
+        <div className="text-xs sm:text-sm font-black text-blue-600 dark:text-[#3B82F6]">
           {event.priceFormatted}
         </div>
 

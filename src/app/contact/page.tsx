@@ -18,8 +18,8 @@ export const metadata: Metadata = {
 
 export default function ContactPage() {
   return (
-    <main className="min-h-screen pb-20 bg-[#080B12]">
+    <div className="min-h-screen pb-20 bg-background">
       <ContactView />
-    </main>
+    </div>
   );
 }

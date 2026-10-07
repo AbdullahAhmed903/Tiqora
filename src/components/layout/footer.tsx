@@ -55,9 +55,9 @@ export function Footer({ categories = [] }: FooterProps) {
   };
 
   return (
-    <footer className="relative w-full bg-[#050814] text-slate-300 overflow-hidden border-t border-slate-900/80">
-      {/* Background graphic from public/footer.webp */}
-      <div className="absolute inset-0 select-none pointer-events-none z-0">
+    <footer className="relative w-full bg-zinc-50 dark:bg-[#050814] text-zinc-600 dark:text-slate-300 overflow-hidden border-t border-zinc-200 dark:border-slate-900/80">
+      {/* Background graphic from public/footer.webp (visible only in dark mode) */}
+      <div className="absolute inset-0 select-none pointer-events-none z-0 hidden dark:block">
         <Image
           src="/footer.webp"
           alt="Tiqora Footer Background"
@@ -84,12 +84,12 @@ export function Footer({ categories = [] }: FooterProps) {
                   className="object-contain transition-transform group-hover:scale-105"
                 />
               </div>
-              <span className="font-extrabold text-2xl sm:text-3xl text-white tracking-tight">
+              <span className="font-extrabold text-2xl sm:text-3xl text-zinc-900 dark:text-white tracking-tight">
                 Tiqora
               </span>
             </Link>
 
-            <p className="text-sm text-slate-400 max-w-[270px] leading-relaxed">
+            <p className="text-sm text-zinc-500 dark:text-slate-400 max-w-[270px] leading-relaxed">
               More than events. Real experiences. Book tickets for live football, concerts &amp; theater worldwide.
             </p>
 
@@ -101,7 +101,7 @@ export function Footer({ categories = [] }: FooterProps) {
                 target="_blank"
                 rel="noreferrer"
                 aria-label="X Twitter"
-                className="w-9 h-9 rounded-full bg-white/[0.04] border border-white/10 text-slate-400 hover:text-white hover:border-blue-500/60 hover:bg-blue-600/20 flex items-center justify-center transition-all cursor-pointer shadow-sm"
+                className="w-9 h-9 rounded-full bg-white dark:bg-white/[0.04] border border-zinc-200 dark:border-white/10 text-zinc-600 dark:text-slate-400 hover:text-zinc-900 dark:hover:text-white hover:border-[#2563EB] hover:bg-zinc-100 dark:hover:bg-blue-600/20 flex items-center justify-center transition-all cursor-pointer shadow-sm"
               >
                 <svg className="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24">
                   <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
@@ -114,7 +114,7 @@ export function Footer({ categories = [] }: FooterProps) {
                 target="_blank"
                 rel="noreferrer"
                 aria-label="Instagram"
-                className="w-9 h-9 rounded-full bg-white/[0.04] border border-white/10 text-slate-400 hover:text-white hover:border-blue-500/60 hover:bg-blue-600/20 flex items-center justify-center transition-all cursor-pointer shadow-sm"
+                className="w-9 h-9 rounded-full bg-white dark:bg-white/[0.04] border border-zinc-200 dark:border-white/10 text-zinc-600 dark:text-slate-400 hover:text-zinc-900 dark:hover:text-white hover:border-[#2563EB] hover:bg-zinc-100 dark:hover:bg-blue-600/20 flex items-center justify-center transition-all cursor-pointer shadow-sm"
               >
                 <svg className="w-3.5 h-3.5 fill-none stroke-current stroke-2" viewBox="0 0 24 24">
                   <rect width="20" height="20" x="2" y="2" rx="5" ry="5" />
@@ -129,7 +129,7 @@ export function Footer({ categories = [] }: FooterProps) {
                 target="_blank"
                 rel="noreferrer"
                 aria-label="YouTube"
-                className="w-9 h-9 rounded-full bg-white/[0.04] border border-white/10 text-slate-400 hover:text-white hover:border-blue-500/60 hover:bg-blue-600/20 flex items-center justify-center transition-all cursor-pointer shadow-sm"
+                className="w-9 h-9 rounded-full bg-white dark:bg-white/[0.04] border border-zinc-200 dark:border-white/10 text-zinc-600 dark:text-slate-400 hover:text-zinc-900 dark:hover:text-white hover:border-[#2563EB] hover:bg-zinc-100 dark:hover:bg-blue-600/20 flex items-center justify-center transition-all cursor-pointer shadow-sm"
               >
                 <svg className="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24">
                   <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z" />
@@ -142,7 +142,7 @@ export function Footer({ categories = [] }: FooterProps) {
                 target="_blank"
                 rel="noreferrer"
                 aria-label="LinkedIn"
-                className="w-9 h-9 rounded-full bg-white/[0.04] border border-white/10 text-slate-400 hover:text-white hover:border-blue-500/60 hover:bg-blue-600/20 flex items-center justify-center transition-all cursor-pointer shadow-sm"
+                className="w-9 h-9 rounded-full bg-white dark:bg-white/[0.04] border border-zinc-200 dark:border-white/10 text-zinc-600 dark:text-slate-400 hover:text-zinc-900 dark:hover:text-white hover:border-[#2563EB] hover:bg-zinc-100 dark:hover:bg-blue-600/20 flex items-center justify-center transition-all cursor-pointer shadow-sm"
               >
                 <svg className="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24">
                   <path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.88 8.56a1.68 1.68 0 0 0 1.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 0 0-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37h2.77z" />
@@ -155,17 +155,17 @@ export function Footer({ categories = [] }: FooterProps) {
           <div className="grid grid-cols-2 sm:grid-cols-3 gap-6 sm:gap-8 lg:col-span-4">
             {/* Explore */}
             <div className="space-y-4">
-              <h4 className="text-xs font-semibold text-white/90 uppercase tracking-[0.2em]">
+              <h4 className="text-xs font-semibold text-zinc-900 dark:text-white/90 uppercase tracking-[0.2em]">
                 Explore
               </h4>
-              <ul className="space-y-2.5 text-sm text-slate-400">
+              <ul className="space-y-2.5 text-sm text-zinc-600 dark:text-slate-400">
                 <li>
-                  <Link href="/" className="hover:text-white transition-colors">
+                  <Link href="/" className="hover:text-zinc-900 dark:hover:text-white transition-colors">
                     Home
                   </Link>
                 </li>
                 <li>
-                  <Link href="/events" className="hover:text-white transition-colors">
+                  <Link href="/events" className="hover:text-zinc-900 dark:hover:text-white transition-colors">
                     Events
                   </Link>
                 </li>
@@ -174,7 +174,7 @@ export function Footer({ categories = [] }: FooterProps) {
                     <li key={cat.slug}>
                       <Link
                         href={`/events/${cat.slug}`}
-                        className="hover:text-white transition-colors"
+                        className="hover:text-zinc-900 dark:hover:text-white transition-colors"
                       >
                         {cat.name}
                       </Link>
@@ -183,17 +183,17 @@ export function Footer({ categories = [] }: FooterProps) {
                 ) : (
                   <>
                     <li>
-                      <Link href="/events/sports" className="hover:text-white transition-colors">
+                      <Link href="/events/sports" className="hover:text-zinc-900 dark:hover:text-white transition-colors">
                         Sports
                       </Link>
                     </li>
                     <li>
-                      <Link href="/events/concerts" className="hover:text-white transition-colors">
+                      <Link href="/events/concerts" className="hover:text-zinc-900 dark:hover:text-white transition-colors">
                         Concerts
                       </Link>
                     </li>
                     <li>
-                      <Link href="/events/theater" className="hover:text-white transition-colors">
+                      <Link href="/events/theater" className="hover:text-zinc-900 dark:hover:text-white transition-colors">
                         Theater
                       </Link>
                     </li>
@@ -209,22 +209,22 @@ export function Footer({ categories = [] }: FooterProps) {
 
             {/* Company */}
             <div className="space-y-4">
-              <h4 className="text-xs font-semibold text-white/90 uppercase tracking-[0.2em]">
+              <h4 className="text-xs font-semibold text-zinc-900 dark:text-white/90 uppercase tracking-[0.2em]">
                 Company
               </h4>
-              <ul className="space-y-2.5 text-sm text-slate-400">
+              <ul className="space-y-2.5 text-sm text-zinc-600 dark:text-slate-400">
                 <li>
-                  <Link href="/about" className="hover:text-white transition-colors">
+                  <Link href="/about" className="hover:text-zinc-900 dark:hover:text-white transition-colors">
                     About
                   </Link>
                 </li>
                 <li>
-                  <Link href="/blog" className="hover:text-white transition-colors">
+                  <Link href="/blog" className="hover:text-zinc-900 dark:hover:text-white transition-colors">
                     Blog
                   </Link>
                 </li>
                 <li>
-                  <Link href="/contact" className="hover:text-white transition-colors">
+                  <Link href="/contact" className="hover:text-zinc-900 dark:hover:text-white transition-colors">
                     Contact
                   </Link>
                 </li>
@@ -233,43 +233,33 @@ export function Footer({ categories = [] }: FooterProps) {
 
             {/* Support */}
             <div className="space-y-4">
-              <h4 className="text-xs font-semibold text-white/90 uppercase tracking-[0.2em]">
+              <h4 className="text-xs font-semibold text-zinc-900 dark:text-white/90 uppercase tracking-[0.2em]">
                 Support
               </h4>
-              <ul className="space-y-2.5 text-sm text-slate-400">
+              <ul className="space-y-2.5 text-sm text-zinc-600 dark:text-slate-400">
                 <li>
-                  <Link href="/ticket-policy" className="hover:text-white transition-colors">
-                    Ticket Policy
-                  </Link>
-                </li>
-                <li>
-                  <Link href="/terms" className="hover:text-white transition-colors">
-                    Terms of Service
-                  </Link>
-                </li>
-                <li>
-                  <Link href="/privacy" className="hover:text-white transition-colors">
-                    Privacy Policy
-                  </Link>
-                </li>
-                <li>
-                  <Link href="/faqs" className="hover:text-white transition-colors">
+                  <Link href="/faqs" className="hover:text-zinc-900 dark:hover:text-white transition-colors">
                     FAQs
+                  </Link>
+                </li>
+                <li>
+                  <Link href="/contact" className="hover:text-zinc-900 dark:hover:text-white transition-colors">
+                    Contact Support
                   </Link>
                 </li>
               </ul>
             </div>
           </div>
 
-          {/* Column 3: Newsletter Section (lg:col-span-3 xl:pl-6 xl:border-l xl:border-white/10) */}
+          {/* Column 3: Newsletter Section (lg:col-span-3 xl:pl-6 xl:border-l border-zinc-200 dark:border-white/10) */}
           <div className="space-y-3 lg:col-span-3">
-            <span className="text-[11px] font-semibold text-slate-400 uppercase tracking-[0.2em] block">
+            <span className="text-[11px] font-semibold text-zinc-500 dark:text-slate-400 uppercase tracking-[0.2em] block">
               Stay In The Loop
             </span>
-            <h3 className="text-2xl sm:text-3xl font-bold text-white tracking-tight">
+            <h3 className="text-2xl sm:text-3xl font-bold text-zinc-900 dark:text-white tracking-tight">
               Join our newsletter
             </h3>
-            <p className="text-sm text-slate-400 max-w-sm leading-relaxed pb-2">
+            <p className="text-sm text-zinc-500 dark:text-slate-400 max-w-sm leading-relaxed pb-2">
               Get the latest updates about events and exclusive offers.
             </p>
 
@@ -294,7 +284,7 @@ export function Footer({ categories = [] }: FooterProps) {
                   onChange={(e) => setNewsletterEmail(e.target.value)}
                   placeholder="Enter your email"
                   disabled={isSubmitting}
-                  className="w-full bg-[#070D1B]/90 backdrop-blur-md border border-white/15 rounded-full px-5 py-3 text-sm text-white placeholder:text-slate-500 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-all shadow-inner disabled:opacity-60"
+                  className="w-full bg-white dark:bg-[#070D1B]/90 backdrop-blur-md border border-zinc-300 dark:border-white/15 rounded-full px-5 py-3 text-sm text-zinc-900 dark:text-white placeholder:text-zinc-400 dark:placeholder:text-slate-500 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-all shadow-inner disabled:opacity-60"
                 />
               </div>
               <button
@@ -315,7 +305,7 @@ export function Footer({ categories = [] }: FooterProps) {
           {/* Column 4: Right Graphic Text Overlay (lg:col-span-2) */}
           <div className="hidden lg:flex flex-col justify-between items-end lg:col-span-2 min-h-[220px] text-right pr-2">
             {/* Top tracked text: EVENTS BRING PEOPLE TOGETHER */}
-            <div className="text-[10px] font-semibold uppercase tracking-[0.25em] text-slate-300/80 leading-relaxed text-right">
+            <div className="text-[10px] font-semibold uppercase tracking-[0.25em] text-zinc-500 dark:text-slate-300/80 leading-relaxed text-right">
               Events<br />
               Bring<br />
               People<br />
@@ -324,7 +314,7 @@ export function Footer({ categories = [] }: FooterProps) {
 
             {/* Middle: Cursive "Live The Moment" with brush underline */}
             <div className="my-auto select-none pointer-events-none -rotate-6 transform translate-x-2">
-              <div className="font-[family-name:var(--font-caveat)] text-3xl xl:text-4xl font-bold text-white leading-tight tracking-wide drop-shadow-[0_2px_12px_rgba(0,0,0,0.8)]">
+              <div className="font-[family-name:var(--font-caveat)] text-3xl xl:text-4xl font-bold text-zinc-900 dark:text-white leading-tight tracking-wide drop-shadow-none dark:drop-shadow-[0_2px_12px_rgba(0,0,0,0.8)]">
                 Live<br />
                 The<br />
                 Moment
@@ -352,24 +342,26 @@ export function Footer({ categories = [] }: FooterProps) {
         </div>
 
         {/* Bottom Bar Separator and Content */}
-        <div className="border-t border-white/10 pt-6 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-400">
-          {/* Left: Copyright */}
-          <div>
-            <p>© {new Date().getFullYear()} Tiqora. All rights reserved.</p>
-          </div>
-
-          {/* Center: Built with love for event lovers */}
-          <div className="text-center">
-            <span>Built with <span className="text-red-500">❤️</span> for event lovers.</span>
-          </div>
-
-          {/* Right: EVENTS A BRIGHTER TOMORROW */}
-          <div className="flex items-center gap-2.5">
-            <span className="w-4 h-[2px] bg-[#2563EB] block shrink-0" />
-            <div className="text-[10px] font-semibold uppercase tracking-[0.2em] text-slate-400 leading-tight">
-              Events<br className="hidden sm:inline" /> A Brighter Tomorrow
-            </div>
-          </div>
+        <div className="border-t border-zinc-200 dark:border-white/10 pt-6 pb-2 flex flex-wrap items-center justify-center sm:justify-start gap-x-8 sm:gap-x-12 gap-y-3 text-xs text-zinc-500 dark:text-zinc-400">
+          <span>© {new Date().getFullYear()} Tiqora. All rights reserved.</span>
+          <Link
+            href="/terms"
+            className="hover:text-zinc-900 dark:hover:text-white transition-colors"
+          >
+            Terms of Service
+          </Link>
+          <Link
+            href="/privacy"
+            className="hover:text-zinc-900 dark:hover:text-white transition-colors"
+          >
+            Privacy Policy
+          </Link>
+          <Link
+            href="/ticket-policy"
+            className="hover:text-zinc-900 dark:hover:text-white transition-colors"
+          >
+            Ticket Policy
+          </Link>
         </div>
       </div>
     </footer>

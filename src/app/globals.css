@@ -3,14 +3,14 @@
 @custom-variant dark (&:where(.dark, .dark *));
 
 :root {
-  /* Light theme */
+  /* Light theme - Minimalist B&W DailyObjects palette */
   --background: #FFFFFF;
-  --foreground: #09090B;
-  --surface: #F4F4F5;
-  --secondary-text: #71717A;
+  --foreground: #000000;
+  --surface: #F4F4F6;
+  --secondary-text: #6E6E73;
   --primary: #2563EB;
   --primary-hover: #1D4ED8;
-  --border: #E4E4E7;
+  --border: #E5E5E7;
   --link: #2563EB;
 }
 

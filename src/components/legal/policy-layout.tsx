@@ -91,7 +91,7 @@ export function PolicyLayout({
         initial={{ opacity: 0, y: 16 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.35 }}
-        className="relative bg-gradient-to-br from-[#0B0F19] via-[#0E1528] to-[#080B12] border border-zinc-800/80 rounded-2xl sm:rounded-3xl p-5 sm:p-10 md:p-12 shadow-2xl overflow-hidden text-center"
+        className="relative bg-white dark:bg-gradient-to-br dark:from-[#0B0F19] dark:via-[#0E1528] dark:to-[#080B12] border border-zinc-200 dark:border-zinc-800/80 rounded-2xl sm:rounded-3xl p-5 sm:p-10 md:p-12 shadow-xs dark:shadow-2xl overflow-hidden text-center"
       >
         {/* Ambient Glows */}
         <div className="absolute top-0 right-1/4 w-96 h-96 bg-blue-600/10 rounded-full blur-3xl pointer-events-none" />
@@ -99,24 +99,24 @@ export function PolicyLayout({
 
         <div className="relative z-10 max-w-3xl mx-auto space-y-4">
           {/* Header Pill */}
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-blue-600/15 border border-blue-500/30 text-blue-400 text-xs font-bold uppercase tracking-wider shadow-[0_0_12px_rgba(37,99,235,0.25)]">
-            {badgeIcon || <Sparkles className="w-3.5 h-3.5 text-blue-400" />}
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-blue-50 dark:bg-blue-600/15 border border-blue-200 dark:border-blue-500/30 text-blue-600 dark:text-blue-400 text-xs font-bold uppercase tracking-wider shadow-xs dark:shadow-[0_0_12px_rgba(37,99,235,0.25)]">
+            {badgeIcon || <Sparkles className="w-3.5 h-3.5 text-blue-600 dark:text-blue-400" />}
             <span>{badge}</span>
           </div>
 
           {/* Title */}
-          <h1 className="text-2xl sm:text-4xl md:text-5xl font-black text-white tracking-tight leading-tight">
+          <h1 className="text-2xl sm:text-4xl md:text-5xl font-black text-zinc-900 dark:text-white tracking-tight leading-tight">
             {title}
           </h1>
 
           {/* Subtitle */}
-          <p className="text-xs sm:text-sm md:text-base text-zinc-400 max-w-2xl mx-auto leading-relaxed">
+          <p className="text-xs sm:text-sm md:text-base text-zinc-600 dark:text-zinc-400 max-w-2xl mx-auto leading-relaxed">
             {subtitle}
           </p>
 
           {/* Last Updated Pill */}
           <div className="pt-2 flex items-center justify-center gap-2 text-xs text-zinc-500 font-medium">
-            <Calendar className="w-3.5 h-3.5 text-blue-400" />
+            <Calendar className="w-3.5 h-3.5 text-blue-600 dark:text-blue-400" />
             <span>Last Updated: {lastUpdated}</span>
           </div>
         </div>
@@ -133,16 +133,16 @@ export function PolicyLayout({
                 initial={{ opacity: 0, y: 12 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.3, delay: idx * 0.05 }}
-                className="p-5 rounded-2xl bg-[#0B0F19]/90 border border-zinc-800/80 shadow-md flex items-start gap-3.5 group hover:border-blue-500/40 transition-colors"
+                className="p-5 rounded-2xl bg-white dark:bg-[#0B0F19]/90 border border-zinc-200 dark:border-zinc-800/80 shadow-xs flex items-start gap-3.5 group hover:border-blue-400/50 dark:hover:border-blue-500/40 transition-colors"
               >
-                <div className="w-10 h-10 rounded-xl bg-blue-600/15 border border-blue-500/25 flex items-center justify-center text-blue-400 shrink-0 group-hover:scale-105 transition-transform">
+                <div className="w-10 h-10 rounded-xl bg-blue-50 dark:bg-blue-600/15 border border-blue-200 dark:border-blue-500/25 flex items-center justify-center text-blue-600 dark:text-blue-400 shrink-0 group-hover:scale-105 transition-transform">
                   <Icon className="w-5 h-5" />
                 </div>
                 <div className="space-y-1">
-                  <h3 className="text-sm font-bold text-white tracking-tight">
+                  <h3 className="text-sm font-bold text-zinc-900 dark:text-white tracking-tight">
                     {item.title}
                   </h3>
-                  <p className="text-xs text-zinc-400 leading-relaxed">
+                  <p className="text-xs text-zinc-600 dark:text-zinc-400 leading-relaxed">
                     {item.desc}
                   </p>
                 </div>
@@ -156,21 +156,21 @@ export function PolicyLayout({
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
         {/* Left Sticky Sidebar (Table of Contents) */}
         <aside className="lg:col-span-4 xl:col-span-3 lg:sticky lg:top-24 space-y-6 w-full">
-          <div className="p-4 sm:p-5 rounded-2xl bg-[#0B0F19]/90 border border-zinc-800/80 shadow-xl space-y-3 sm:space-y-4">
+          <div className="p-4 sm:p-5 rounded-2xl bg-white dark:bg-[#0B0F19]/90 border border-zinc-200 dark:border-zinc-800/80 shadow-xs dark:shadow-xl space-y-3 sm:space-y-4">
             <button
               type="button"
               onClick={() => setIsMobileTocOpen(!isMobileTocOpen)}
-              className="w-full flex items-center justify-between pb-2 border-b border-zinc-800 lg:cursor-default cursor-pointer text-left"
+              className="w-full flex items-center justify-between pb-2 border-b border-zinc-200 dark:border-zinc-800 lg:cursor-default cursor-pointer text-left"
             >
               <div className="flex items-center gap-2">
-                <span className="text-xs font-bold uppercase tracking-wider text-white">
+                <span className="text-xs font-bold uppercase tracking-wider text-zinc-900 dark:text-white">
                   Table of Contents
                 </span>
                 <span className="text-[11px] font-mono text-zinc-500">
                   ({sections.length})
                 </span>
               </div>
-              <div className="flex items-center gap-1.5 lg:hidden text-blue-400 text-xs font-semibold">
+              <div className="flex items-center gap-1.5 lg:hidden text-blue-600 dark:text-blue-400 text-xs font-semibold">
                 <span className="text-[11px]">{isMobileTocOpen ? "Close" : "Jump"}</span>
                 <ChevronDown
                   className={`w-3.5 h-3.5 transition-transform duration-200 ${
@@ -195,13 +195,13 @@ export function PolicyLayout({
                     onClick={() => scrollToSection(sec.id)}
                     className={`w-full text-left px-3 py-2 rounded-xl text-xs font-semibold flex items-center gap-2.5 transition-all cursor-pointer ${
                       isActive
-                        ? "bg-blue-600/20 text-blue-400 border border-blue-500/30 shadow-xs"
-                        : "text-zinc-400 hover:text-white hover:bg-zinc-800/50"
+                        ? "bg-blue-50 dark:bg-blue-600/20 text-blue-600 dark:text-blue-400 border border-blue-200 dark:border-blue-500/30 shadow-xs"
+                        : "text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white hover:bg-zinc-100 dark:hover:bg-zinc-800/50"
                     }`}
                   >
                     <span
                       className={`text-[11px] font-mono shrink-0 ${
-                        isActive ? "text-blue-400" : "text-zinc-500"
+                        isActive ? "text-blue-600 dark:text-blue-400" : "text-zinc-400 dark:text-zinc-500"
                       }`}
                     >
                       {sec.number}
@@ -215,27 +215,27 @@ export function PolicyLayout({
           </div>
 
           {/* Quick Help Card (Desktop only to prevent mobile clutter) */}
-          <div className="hidden lg:block p-5 rounded-2xl bg-gradient-to-br from-[#0B0F19] to-[#0E1528] border border-zinc-800/80 space-y-3">
-            <div className="flex items-center gap-2 text-blue-400">
+          <div className="hidden lg:block p-5 rounded-2xl bg-zinc-50 dark:bg-gradient-to-br dark:from-[#0B0F19] dark:to-[#0E1528] border border-zinc-200 dark:border-zinc-800/80 space-y-3">
+            <div className="flex items-center gap-2 text-blue-600 dark:text-blue-400">
               <ShieldCheck className="w-4 h-4" />
               <span className="text-xs font-bold uppercase tracking-wider">
                 Support Desk
               </span>
             </div>
-            <p className="text-xs text-zinc-400 leading-relaxed">
+            <p className="text-xs text-zinc-600 dark:text-zinc-400 leading-relaxed">
               Have questions or need assistance with your ticket or data rights? Our customer care team is available 24/7.
             </p>
             <div className="pt-1 flex flex-col gap-2">
               <Link
                 href="/contact"
-                className="w-full inline-flex items-center justify-center gap-2 px-3 py-2 rounded-xl bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold transition-all shadow-sm"
+                className="w-full inline-flex items-center justify-center gap-2 px-3 py-2 rounded-xl bg-[#2563EB] hover:bg-[#1D4ED8] text-white text-xs font-bold transition-all shadow-xs"
               >
                 <Mail className="w-3.5 h-3.5" />
                 <span>Contact Support</span>
               </Link>
               <Link
                 href="/faqs"
-                className="w-full inline-flex items-center justify-center gap-2 px-3 py-2 rounded-xl bg-zinc-800 hover:bg-zinc-700 text-zinc-200 text-xs font-semibold transition-all"
+                className="w-full inline-flex items-center justify-center gap-2 px-3 py-2 rounded-xl bg-white hover:bg-zinc-100 dark:bg-zinc-800 dark:hover:bg-zinc-700 text-zinc-800 dark:text-zinc-200 border border-zinc-200 dark:border-transparent text-xs font-semibold transition-all"
               >
                 <HelpCircle className="w-3.5 h-3.5" />
                 <span>Browse FAQs</span>
@@ -252,25 +252,25 @@ export function PolicyLayout({
               <section
                 key={sec.id}
                 id={sec.id}
-                className="p-4 sm:p-6 md:p-8 rounded-2xl sm:rounded-3xl bg-[#0B0F19]/90 border border-zinc-800/80 shadow-xl space-y-4 sm:space-y-5 scroll-mt-28 transition-colors hover:border-zinc-700/80"
+                className="p-4 sm:p-6 md:p-8 rounded-2xl sm:rounded-3xl bg-white dark:bg-[#0B0F19]/90 border border-zinc-200 dark:border-zinc-800/80 shadow-xs dark:shadow-xl space-y-4 sm:space-y-5 scroll-mt-28 transition-colors hover:border-zinc-300 dark:hover:border-zinc-700/80"
               >
                 {/* Section Header */}
-                <div className="flex items-center gap-3 sm:gap-3.5 pb-3 sm:pb-4 border-b border-zinc-800/80">
-                  <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-blue-600/15 border border-blue-500/25 flex items-center justify-center text-blue-400 shrink-0">
+                <div className="flex items-center gap-3 sm:gap-3.5 pb-3 sm:pb-4 border-b border-zinc-200 dark:border-zinc-800/80">
+                  <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-blue-50 dark:bg-blue-600/15 border border-blue-200 dark:border-blue-500/25 flex items-center justify-center text-blue-600 dark:text-blue-400 shrink-0">
                     <Icon className="w-4 h-4 sm:w-5 sm:h-5" />
                   </div>
                   <div>
-                    <div className="text-[10px] sm:text-[11px] font-mono font-bold text-blue-400 uppercase tracking-widest">
+                    <div className="text-[10px] sm:text-[11px] font-mono font-bold text-blue-600 dark:text-blue-400 uppercase tracking-widest">
                       Section {sec.number}
                     </div>
-                    <h2 className="text-lg sm:text-2xl font-black text-white tracking-tight">
+                    <h2 className="text-lg sm:text-2xl font-black text-zinc-900 dark:text-white tracking-tight">
                       {sec.title}
                     </h2>
                   </div>
                 </div>
 
                 {/* Section Body */}
-                <div className="text-xs sm:text-sm text-zinc-300 leading-relaxed space-y-3 sm:space-y-4">
+                <div className="text-xs sm:text-sm text-zinc-700 dark:text-zinc-300 leading-relaxed space-y-3 sm:space-y-4">
                   {sec.content}
                 </div>
               </section>
@@ -279,8 +279,8 @@ export function PolicyLayout({
 
           {/* 4. Related Policies Cross-Link Cards */}
           {relatedLinks.length > 0 && (
-            <div className="p-4 sm:p-6 md:p-8 rounded-2xl sm:rounded-3xl bg-[#0B0F19] border border-zinc-800/80 space-y-4">
-              <h3 className="text-sm font-bold text-white uppercase tracking-wider">
+            <div className="p-4 sm:p-6 md:p-8 rounded-2xl sm:rounded-3xl bg-white dark:bg-[#0B0F19] border border-zinc-200 dark:border-zinc-800/80 space-y-4 shadow-xs">
+              <h3 className="text-sm font-bold text-zinc-900 dark:text-white uppercase tracking-wider">
                 Related Legal &amp; Policy Documents
               </h3>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -288,17 +288,17 @@ export function PolicyLayout({
                   <Link
                     key={link.href}
                     href={link.href}
-                    className="p-4 rounded-2xl bg-zinc-900/60 border border-zinc-800 hover:border-blue-500/50 hover:bg-zinc-900/90 transition-all group flex items-center justify-between"
+                    className="p-4 rounded-2xl bg-zinc-50 dark:bg-zinc-900/60 border border-zinc-200 dark:border-zinc-800 hover:border-blue-400/50 dark:hover:border-blue-500/50 hover:bg-zinc-100 dark:hover:bg-zinc-900/90 transition-all group flex items-center justify-between"
                   >
                     <div className="space-y-1">
-                      <div className="font-bold text-sm text-white group-hover:text-blue-400 transition-colors">
+                      <div className="font-bold text-sm text-zinc-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
                         {link.title}
                       </div>
-                      <div className="text-xs text-zinc-400">
+                      <div className="text-xs text-zinc-600 dark:text-zinc-400">
                         {link.desc}
                       </div>
                     </div>
-                    <ArrowRight className="w-4 h-4 text-zinc-500 group-hover:text-blue-400 group-hover:translate-x-1 transition-all shrink-0 ml-3" />
+                    <ArrowRight className="w-4 h-4 text-zinc-400 dark:text-zinc-500 group-hover:text-blue-600 dark:group-hover:text-blue-400 group-hover:translate-x-1 transition-all shrink-0 ml-3" />
                   </Link>
                 ))}
               </div>
